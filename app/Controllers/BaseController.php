@@ -14,6 +14,7 @@ use App\Models\Jemaat;
 use App\Models\Inventory;
 use App\Models\Kategori;
 use App\Models\Peminjaman;
+use App\Models\Gallery;
 use App\Models\Divisi;
 use App\Models\Keuangan;
 use App\Models\AuthGroups;
@@ -37,7 +38,7 @@ use Myth\Auth\Password;
  */
 abstract class BaseController extends Controller
 {
-    protected $userModel, $peminjaman, $inventory, $divisi, $keuangan, $db, $builder, $model, $jemaat, $validation, $kategori, $berita;
+    protected $userModel, $gallery, $peminjaman, $inventory, $divisi, $keuangan, $db, $builder, $model, $jemaat, $validation, $kategori, $berita;
 
 
 
@@ -79,12 +80,12 @@ abstract class BaseController extends Controller
         $this->inventory = new Inventory;
         $this->jemaat = new Jemaat;
         $this->kategori = new Kategori;
+        $this->gallery = new Gallery;
         $this->validation = \Config\Services::validation();
         helper('url', 'text');
         // E.g.: 
         $this->session = \Config\Services::session();
         $this->session->start();
-        $this->validation = \Config\Services::validation();
         $this->db = \Config\Database::connect();
     }
 }

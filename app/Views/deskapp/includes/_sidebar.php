@@ -68,11 +68,22 @@
                         <li><a href="<?php echo base_url('/admin/kas'); ?>">Administrasi</a></li>
                     </ul>
                 </li>
-                <li>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon dw dw-book1"></span><span class="mtext">Informasi</span>
+                    </a>
+                    <ul class="submenu">
+                        <li> <a href="<?php echo base_url('admin/berita'); ?>" class="dropdown-toggle no-arrow">
+                                Berita
+                            </a></li>
+                        <li><a href="<?php echo base_url('admin/gallery'); ?>">Galerry</a></li>
+                    </ul>
+                </li>
+                <!-- <li>
                     <a href="<?php echo base_url('admin/berita'); ?>" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-book1"></span><span class="mtext">Berita</span>
                     </a>
-                </li>
+                </li> -->
 
                 <li>
                     <a href="<?php echo base_url('Kas'); ?>" class="dropdown-toggle no-arrow">

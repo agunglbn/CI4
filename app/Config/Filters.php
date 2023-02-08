@@ -43,12 +43,13 @@ class Filters extends BaseConfig
             'honeypot',
             // 'csrf',
             // 'invalidchars',
-            'login'
+            // 'login'
         ],
         'after' => [
             'toolbar',
             // 'honeypot',
             // 'secureheaders',
+
         ],
     ];
 
@@ -76,5 +77,8 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $filters = [];
+    public $filters = [
+        'login' => ['before' => ['Admin/*', 'Users/*', 'AuthController/*']]
+
+    ];
 }

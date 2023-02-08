@@ -38,7 +38,8 @@ class Admin extends BaseController
     }
 
 
-
+    ////buat salt
+    // $salt = uniqid('', true);
 
     public function index()
     {
@@ -363,6 +364,7 @@ class Admin extends BaseController
             'title' => 'Data Berita',
             'berita' => $this->berita->getBerita(),
 
+
         ]);
         return view('admin/berita', $data);
     }
@@ -417,8 +419,9 @@ class Admin extends BaseController
         }
         $img = $this->request->getFile('img');
         $filename = $img->getRandomName();
-        $slug_username = url_title($this->request->getVar('judul_berita'), '-', true);
-
+        $slug_username = url_title($this->request->getVar('judul_berita') . '-' . uniqid('', true), '-', true);
+        ////buat salt
+        // $salt = uniqid('', true);
         // Kiri Field Database Kanan Field Name Form 
         $success =  $this->berita->insert([
             'username' => $this->request->getVar('username'),
@@ -462,9 +465,29 @@ class Admin extends BaseController
 
     public function deleteBerita($id = null)
     {
-        $this->berita->delete($id);
-        session()->setFlashdata('success', 'News Data Success Deleted!!');
-        return redirect()->to('/admin/berita');
+        if (!$this->request->getVar('confirm_delete')) {
+            // Tampilkan form konfirmasi
+            return redirect()->back()->withInput();
+        } else {
+            $data = $this->berita->find($id);
+            $imgfile = $data['img'];
+            if (file_exists('assets/vendors/img_berita/' . $imgfile)) {
+
+                // Proses delete data
+
+                unlink('assets/vendors/img_berita/' . $imgfile);
+            }
+            $success =  $this->berita->where('id', $id)->delete();
+            if ($success) {
+                session()->setFlashdata('success', 'Data Success Be Deleted !');
+            } else {
+                session()->setFlashdata('error', 'Data Can Not Deleted !');
+            }
+            return redirect()->to('/admin/berita');
+        }
+        // $this->berita->delete($id);
+        // session()->setFlashdata('success', 'News Data Success Deleted!!');
+        // return redirect()->to('/admin/berita');
     }
     public function updateStatusBerita($id)
     {
@@ -572,6 +595,64 @@ class Admin extends BaseController
         if ($success) {
             session()->setFlashdata('success', 'News Data Changed Success!!');
             return redirect()->to(base_url('/admin/berita'));
+        }
+    }
+
+    // Galeryy
+    function gallery()
+    {
+        $data = ([
+            'title' => 'Galerry HKBP Beringin Indah',
+            'validation' => \Config\Services::validation(),
+            'gallery' => $this->gallery->findAll(),
+
+        ]);
+        return view('Admin/galery', $data);
+    }
+    function TambahGallery()
+    {
+        // Validasi 
+        if (!$this->validate([
+            'img' => [
+                'rules' => 'uploaded[img]|max_size[img,1564]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
+                'errors' => [
+                    'uploaded' => 'Silahkan Masukkan Gambar !!',
+                    'max_size' => 'Maximal Size Gambar 1,5 Mb !!',
+                    'is_image' => 'Format harus jpg/jpeg/png !!',
+                    'mime_in' => 'Format dalam bentuk gambar !!',
+
+                ]
+            ],
+            'deskripsi' => [
+                'rules' => 'required|alpha_numeric_space|max_length[128]',
+                'erros' => [
+                    'required' => 'Silahkan Masukkan Keterangan !!',
+                    'max_length' => 'Panjang Maksimal 128 Kata !!',
+                ]
+            ]
+        ])) {
+            session()->setFlashdata('error', 'Data cannot be added !!!');
+            return redirect()->back()->withInput();
+        }
+
+        $img = $this->request->getFile('img');
+        $filename = $img->getRandomName();
+
+        $success =  $this->gallery->insert([
+            'img' => $filename,
+            'username' => $this->request->getVar('username'),
+            'fullname' => $this->request->getVar('fullname'),
+            'groups' => $this->request->getVar('groups'),
+            'description' => $this->request->getVar('deskripsi'),
+        ]);
+        $img->move('assets/vendors/gallery', $filename);
+
+        if ($success) {
+            session()->setFlashdata('success', 'Gallery be added Success !!');
+            return redirect()->to('admin/gallery');
+        } else {
+            session()->setFlashdata('error', 'Gallery can not be added Success !!');
+            return redirect()->back()->withInput();
         }
     }
 
