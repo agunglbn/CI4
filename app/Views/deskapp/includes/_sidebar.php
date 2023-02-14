@@ -77,6 +77,7 @@
                                 Berita
                             </a></li>
                         <li><a href="<?php echo base_url('admin/gallery'); ?>">Galerry</a></li>
+                        <li><a href="<?php echo base_url('admin/stensilan'); ?>">Stensilan</a></li>
                     </ul>
                 </li>
                 <!-- <li>

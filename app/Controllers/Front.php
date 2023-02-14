@@ -9,15 +9,17 @@ class Front extends BaseController
         $data = ([
             'berita' =>  $this->berita->where('status', '1')->orderBy('created', 'desc')->limit(5) //ASC dan DESC   
                 ->find(),
+            'gallery' =>  $this->gallery->where('status', '1')->orderBy('created', 'desc')->limit(12) //ASC dan DESC   
+                ->findAll(),
         ]);
         return view('front/content', $data);
     }
 
-    function frontBerita()
+    function GetGallery()
     {
-        // $data = ([
-        //     'berita' =>  $this->berita->where('status', '1')->orderBy('created', 'asc') //ASC dan DESC   
-        //         ->findAll(),
-        // ]);
+        $data = ([
+            'gallery' =>  $this->gallery->where('status', '1')->orderBy('created', 'desc')->limit(12) //ASC dan DESC   
+                ->findAll(),
+        ]);
     }
 }

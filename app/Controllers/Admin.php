@@ -431,6 +431,7 @@ class Admin extends BaseController
             'isi_berita' => $this->request->getVar('isi_berita'),
             'kategori_berita' => $this->request->getVar('kategori_berita'),
             'status' => $this->request->getVar('status'),
+            'jenis_berita' => 2,
             'img' => $filename,
         ]);
         $img->move('assets/vendors/img_berita/', $filename);
@@ -588,6 +589,7 @@ class Admin extends BaseController
             'isi_berita' => $this->request->getVar('isi_berita'),
             'kategori_berita' => $this->request->getVar('kategori_berita'),
             'status' => $this->request->getVar('status'),
+            'jenis_berita' => 1,
             'img' => $filename,
 
         ]);
@@ -614,7 +616,7 @@ class Admin extends BaseController
         // Validasi 
         if (!$this->validate([
             'img' => [
-                'rules' => 'uploaded[img]|max_size[img,1564]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
+                'rules' => 'uploaded[img.0]|max_size[img,1564]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
                 'errors' => [
                     'uploaded' => 'Silahkan Masukkan Gambar !!',
                     'max_size' => 'Maximal Size Gambar 1,5 Mb !!',
@@ -624,9 +626,8 @@ class Admin extends BaseController
                 ]
             ],
             'deskripsi' => [
-                'rules' => 'required|alpha_numeric_space|max_length[128]',
+                'rules' => 'max_length[128]',
                 'erros' => [
-                    'required' => 'Silahkan Masukkan Keterangan !!',
                     'max_length' => 'Panjang Maksimal 128 Kata !!',
                 ]
             ]
@@ -635,17 +636,22 @@ class Admin extends BaseController
             return redirect()->back()->withInput();
         }
 
-        $img = $this->request->getFile('img');
-        $filename = $img->getRandomName();
+        $file = $this->request->getFileMultiple('img');
+        foreach ($file as $img) {
 
-        $success =  $this->gallery->insert([
-            'img' => $filename,
-            'username' => $this->request->getVar('username'),
-            'fullname' => $this->request->getVar('fullname'),
-            'groups' => $this->request->getVar('groups'),
-            'description' => $this->request->getVar('deskripsi'),
-        ]);
-        $img->move('assets/vendors/gallery', $filename);
+            if ($img->isValid() &&  !$img->hasMoved()) {
+                $filename = $img->getRandomName();
+                $img->move('assets/vendors/gallery', $filename);
+            }
+            $success =  $this->gallery->insert([
+                'img' => $filename,
+                'username' => $this->request->getVar('username'),
+                'fullname' => $this->request->getVar('fullname'),
+                'groups' => $this->request->getVar('groups'),
+                'description' => $this->request->getVar('deskripsi'),
+            ]);
+        }
+
 
         if ($success) {
             session()->setFlashdata('success', 'Gallery be added Success !!');
@@ -653,6 +659,227 @@ class Admin extends BaseController
         } else {
             session()->setFlashdata('error', 'Gallery can not be added Success !!');
             return redirect()->back()->withInput();
+        }
+    }
+
+    public function deleteGallery($id = 0)
+    {
+        if (!$this->request->getVar('confirm_delete')) {
+            // Tampilkan form konfirmasi
+            return redirect()->back()->withInput();
+        } else {
+            $data = $this->gallery->find($id);
+            $imgfile = $data['img'];
+            if (file_exists('assets/vendors/gallery/' . $imgfile)) {
+
+                // Proses delete data
+                unlink('assets/vendors/gallery/' . $imgfile);
+            }
+            $success =  $this->gallery->where('id', $id)->delete();
+            if ($success) {
+                session()->setFlashdata('success', 'Data Success Be Deleted !');
+            } else {
+                session()->setFlashdata('error', 'Data Can Not Deleted !');
+            }
+            return redirect()->to('/admin/gallery');
+        }
+    }
+
+    public function Updategallery($id)
+    {
+        // Validasi 
+        if (!$this->validate([
+            'img' => [
+                'rules' => 'max_size[img,1564]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
+                'errors' => [
+                    'max_size' => 'Maximal Size Gambar 1,5 Mb !!',
+                    'is_image' => 'Format harus jpg/jpeg/png !!',
+                    'mime_in' => 'Format dalam bentuk gambar !!',
+
+                ]
+            ],
+            'deskripsi' => [
+                'rules' => 'max_length[128]',
+                'erros' => [
+                    'max_length' => 'Panjang Maksimal 128 Kata !!',
+                ]
+            ]
+        ])) {
+            session()->setFlashdata('error', 'Data cannot be Update !!!');
+            return redirect()->back()->withInput();
+        }
+
+        $img = $this->request->getFile('img');
+        $rule_img = $this->gallery->find($id);
+
+        // Validasi Gambar diubah atau tidak
+        if ($img->getError() == 4) {
+            $filename = $this->request->getVar('gambar_lama');
+        } else if ($rule_img['img'] == null) {
+
+            $filename = $img->getRandomName();
+            // Arahkan Gambar Ke Direktori
+            $img->move('assets/vendors/gallery', $filename);
+        } else {
+            $filename = $img->getRandomName();
+
+            // Arahkan Gambar Ke Direktori
+            $img->move('assets/vendors/gallery', $filename);
+
+            // Hapus Gambar Lama
+            unlink('assets/vendors/gallery/' . $this->request->getPost('gambar_lama'));
+        }
+        $success = $this->gallery->Update($id, [
+            'img' => $filename,
+            'username' => $this->request->getVar('username'),
+            'fullname' => $this->request->getVar('fullname'),
+            'groups' => $this->request->getVar('groups'),
+            'description' => $this->request->getVar('deskripsi'),
+        ]);
+        if ($success) {
+            session()->setFlashdata('success', 'Gallery be added Success !!');
+            return redirect()->to('admin/gallery');
+        } else
+            session()->setFlashdata('success', 'Gallery be added Success !!');
+        return redirect()->back()->withInput();
+    }
+    public function statusGallery($id)
+    {
+        $rules = [
+            'status' => 'required',
+        ];
+        if (!$this->validate($rules)) {
+            session()->setFlashdata('error', 'News Data Cannot Be Changed !!!');
+            return redirect()->back()->withInput();
+        }
+        $success = $this->gallery->update($id, [
+            'status' => $this->request->getVar('status'),
+        ]);
+
+        if ($success) {
+            session()->setFlashdata('success', 'News Data Changed Success !!!');
+            return redirect()->to(base_url('/admin/gallery'));
+        }
+    }
+    // END Gallery //
+
+    // Stensilan //
+
+    public function Stensilan()
+    {
+
+        $data = ([
+            'title' => 'Stensilan HKBP Beringin Indah ',
+            'validation' => \Config\Services::validation(),
+            'stensilan' => $this->berita->where('jenis_berita', 2)->orderby('created', 'desc')->findAll(),
+        ]);
+        return view('admin/stensilan', $data);
+    }
+
+    public function addStensilan()
+    {
+        // Validasi
+
+        if (!$this->validate([
+            'stensilan' => [
+                'rules' => 'uploaded[stensilan]|max_size[stensilan,1524]|ext_in[stensilan,pdf,docx,doc]',
+                'errors' => [
+                    'uploaded' => 'File tidak boleh kosong !!',
+                    'max_size' => 'File tidak boleh melebihi 1,5 MB !!',
+                    'ext_in' => 'File tidak sesuai, type file harus pdf,doc,docs !!'
+                ]
+            ],
+            'judul_berita' => [
+                'rules' => 'required|max_length[128]',
+                'erros' => [
+                    'max_length' => 'Panjang Maksimal 128 Kata !!',
+                ]
+            ]
+        ])) {
+            session()->setFlashdata('error', 'Data cannot be Added !!!');
+            return redirect()->back()->withInput();
+        }
+
+        $file = $this->request->getFile('stensilan');
+        $filename =  $file->getRandomName();
+
+        $succes = $this->berita->insert([
+            'judul_berita' => $this->request->getvar('judul_berita'),
+            'username' => $this->request->getVar('username'),
+            'fullname' => $this->request->getVar('fullname'),
+            'role' => $this->request->getVar('user'),
+            'jenis_berita' => 2, // Untuk Jenis Berita 2 adalah jenis berita bentuk file doc,docx,pdf
+            'img' => $filename, // img = field database 
+        ]);
+        $file->move('assets/vendors/img_berita/stensilan/', $filename);
+        if ($succes) {
+            session()->setFlashdata('success', 'Data success be added');
+            return redirect()->to(base_url('/admin/stensilan'));
+        } else {
+            session()->setFlashdata('error', 'Data cannot be Added !!!');
+            return redirect()->back()->withInput();
+        }
+    }
+    public function downloadfile($id)
+    {
+        $data = $this->berita->find($id);
+        return $this->response->download('assets/vendors/img_berita/stensilan/' . $data['img'], null);
+    }
+    public function updateStensilan($id)
+    {
+        // validasi 
+        if (!$this->validate([
+            'stensilan' => [
+                'rules' => 'max_size[stensilan,1524]|ext_in[stensilan,pdf,docx,doc]',
+                'errors' => [
+                    'max_size' => 'File tidak boleh melebihi 1,5 MB !!',
+                    'ext_in' => 'File tidak sesuai, type file harus pdf,doc,docs !!'
+                ]
+            ],
+            'judul_berita' => [
+                'rules' => 'required|max_length[128]',
+                'erros' => [
+                    'max_length' => 'Panjang Maksimal 128 Kata !!',
+                ]
+            ]
+        ])) {
+            session()->setFlashdata('error', 'Data cannot be Added !!!');
+            return redirect()->back()->withInput();
+        }
+        $file = $this->request->getFile('stensilan');
+        $rule_file = $this->berita->find($id);
+
+        // Validasi Gambar diubah atau tidak
+        if ($file->getError() == 4) {
+            $filename = $this->request->getVar('file_lama');
+        } else if ($rule_file['img'] == null) {
+
+            $filename = $file->getRandomName();
+            // Arahkan Gambar Ke Direktori
+            $file->move('assets/vendors/img_berita/stensilan/', $filename);
+        } else {
+            $filename = $file->getRandomName();
+
+            // Arahkan Gambar Ke Direktori
+            $file->move('assets/vendors/img_berita/stensilan/', $filename);
+
+            // Hapus Gambar Lama
+            unlink('assets/vendors/img_berita/stensilan/' . $this->request->getPost('file_lama'));
+        }
+
+
+        $success =  $this->berita->update($id, [
+            'usename' => $this->request->getVar('username'),
+            'fullname' => $this->request->getVar('fullname'),
+            'role' => $this->request->getVar('groups'),
+            'judul_berita' => $this->request->getVar('judul_berita'),
+            'img' => $filename,
+
+        ]);
+
+        if ($success) {
+            session()->setFlashdata('success', 'News Data Changed Success!!');
+            return redirect()->to(base_url('/admin/stensilan'));
         }
     }
 

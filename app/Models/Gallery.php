@@ -14,7 +14,10 @@ class Gallery extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['username', 'description', 'groups', 'fullname', 'img', 'created', 'modified'];
+    protected $allowedFields    = [
+        'username', 'description', 'groups', 'fullname', 'status',
+        'img', 'created', 'modified'
+    ];
 
     // Dates
     protected $useTimestamps = true;

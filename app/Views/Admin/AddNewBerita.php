@@ -51,70 +51,62 @@
                 </div>
                 <!-- Notifikasi Alert Berhasil -->
                 <?php if (session('success')) : ?>
-                <div class="alert alert-success" role="alert">
-                    <?= session('success'); ?>
-                </div>
+                    <div class="alert alert-success" role="alert">
+                        <?= session('success'); ?>
+                    </div>
                 <?php endif; ?>
                 <!-- Notifikasi Alert Gagal -->
                 <?php if (session('error')) : ?>
-                <div class="alert alert-danger" role="alert">
-                    <?= session('error'); ?>
-                </div>
+                    <div class="alert alert-danger" role="alert">
+                        <?= session('error'); ?>
+                    </div>
                 <?php endif; ?>
-                <form action="<?= base_url('/admin/TambahBerita'); ?>" enctype="multipart/form-data" method="post"
-                    class="user">
+                <form action="<?= base_url('/admin/TambahBerita'); ?>" enctype="multipart/form-data" method="post" class="user">
                     <?= csrf_field() ?>
-                    <input name="username" value="<?= user()->username; ?>" class="form-control" type="text"
-                        placeholder="" hidden />
+                    <input name="username" value="<?= user()->username; ?>" class="form-control" type="text" placeholder="" hidden />
 
-                    <input name="user" value="Admin" class="form-control" type="text" placeholder="" hidden />
+                    <input name="user" value="<?= user()->groups; ?>" class="form-control" type="text" placeholder="" hidden />
 
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Judul Berita</label>
                         <div class="col-sm-12 col-md-10">
-                            <input name="judul_berita" value="<?= set_value('judul_berita'); ?>"
-                                class="form-control <?= $validation->hasError('judul_berita') ? 'is-invalid' : null ?>"
-                                type="text" placeholder="Masukkan Judul Berita" />
+                            <input name="judul_berita" value="<?= set_value('judul_berita'); ?>" class="form-control <?= $validation->hasError('judul_berita') ? 'is-invalid' : null ?>" type="text" placeholder="Masukkan Judul Berita" />
                             <input class="form-control" type="text" placeholder="Parataon" name="id" hidden />
                             <?php if ($validation->hasError('judul_berita')) : ?>
-                            <div class="invalid-feedback">
-                                <?= $validation->getError('judul_berita'); ?>
-                            </div>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('judul_berita'); ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Isi Berita</label>
                         <div class="html-editor pd-20 col-sm-12 col-md-10">
-                            <textarea
-                                class="form-control border-radius-0 <?= $validation->hasError('kategori_berita') ? 'is-invalid' : null ?>"
-                                name="isi_berita" id="editor1" value="<?= set_value('isi_berita'); ?>"
-                                placeholder="Enter text ..."></textarea>
+                            <textarea class="form-control border-radius-0 <?= $validation->hasError('kategori_berita') ? 'is-invalid' : null ?>" name="isi_berita" id="editor1" value="<?= set_value('isi_berita'); ?>" placeholder="Enter text ..."></textarea>
                             <?php if ($validation->hasError('isi_berita')) : ?>
-                            <div class="invalid-feedback">
-                                <?= $validation->getError('isi_berita'); ?>
-                            </div>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('isi_berita'); ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Kategori Berita</label>
                         <div class="col-sm-12 col-md-10">
-                            <select name="kategori_berita"
-                                class="custom-select col-12 <?= $validation->hasError('kategori_berita') ? 'is-invalid' : null ?>">
+                            <select name="kategori_berita" class="custom-select col-12 <?= $validation->hasError('kategori_berita') ? 'is-invalid' : null ?>">
                                 <?php foreach ($kategori as $kat) :  ?>
-                                <option value="" disabled selected hidden>--Choice--</option>
-                                <option value="<?php echo $kat['nama_kategori']; ?>">
-                                    <?php echo $kat['nama_kategori']; ?>
-                                </option>
+                                    <option value="" disabled selected hidden>--Choice--</option>
+                                    <option value="<?php echo $kat['nama_kategori']; ?>">
+                                        <?php echo $kat['nama_kategori']; ?>
+                                    </option>
 
                                 <?php endforeach; ?>
 
                             </select>
                             <?php if ($validation->hasError('kategori_berita')) : ?>
-                            <div class="invalid-feedback">
-                                <?= $validation->getError('kategori_berita'); ?>
-                            </div>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('kategori_berita'); ?>
+                                </div>
                             <?php endif; ?>
                         </div>
 
@@ -123,16 +115,15 @@
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Status</label>
                         <div class="col-sm-12 col-md-10">
-                            <select name="status"
-                                class="custom-select col-12 <?= $validation->hasError('status') ? 'is-invalid' : null ?>">
+                            <select name="status" class="custom-select col-12 <?= $validation->hasError('status') ? 'is-invalid' : null ?>">
                                 <option value="" disabled selected hidden>--Choice--</option>
                                 <option value="1">Aktive</option>
                                 <option value="0">Non-Active</option>
                             </select>
                             <?php if ($validation->hasError('status')) : ?>
-                            <div class="invalid-feedback">
-                                <?= $validation->getError('status'); ?>
-                            </div>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('status'); ?>
+                                </div>
                             <?php endif; ?>
                         </div>
 
@@ -140,13 +131,11 @@
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Gambar Berita</label>
                         <div class="col-sm-12 col-md-10">
-                            <input class="form-control <?= $validation->hasError('img') ? 'is-invalid' : null ?>"
-                                name="img" placeholder="Jalan Purodadi No 25" type="file"
-                                value="<?= set_value('img'); ?>" accept="image/*" />
+                            <input class="form-control <?= $validation->hasError('img') ? 'is-invalid' : null ?>" name="img" placeholder="Jalan Purodadi No 25" type="file" value="<?= set_value('img'); ?>" accept="image/*" />
                             <?php if ($validation->hasError('img')) : ?>
-                            <div class="invalid-feedback">
-                                <?= $validation->getError('img'); ?>
-                            </div>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('img'); ?>
+                                </div>
                             <?php endif; ?>
                         </div>
                     </div>

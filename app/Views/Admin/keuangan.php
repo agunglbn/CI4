@@ -80,15 +80,15 @@
                                 <td class="table-plus"><?= $i++; ?></td>
                                 <td><?php echo word_limiter($khas['username'], 5, '....'); ?></td>
                                 <td><?php
-                                            $nama = $khas['jenis_khas'];
+                                        $nama = $khas['jenis_khas'];
 
-                                            if ($nama == 1) {
+                                        if ($nama == 1) {
 
-                                                ?>
+                                        ?>
                                     Pemasukan
 
                                     <?php
-                                                } else { ?>Pengeluaran
+                                        } else { ?>Pengeluaran
                                     <?php } ?></td>
                                 <td><?php echo $khas['deskripsi']; ?></td>
                                 <td>Rp. <?php echo number_format($khas['nominal'], 0, '.', '.');  ?></td>
@@ -124,7 +124,8 @@
                         <tr>
                             <td class="text-center" colspan="4">Total Pemasukan</td>
 
-                            <td class="text-center">Rp. <?php echo number_format($total_pemasukan, 0, '.', '.'); ?></td>
+                            <td class="text-center"><b>Rp.
+                                    <?php echo number_format($total_pemasukan, 0, '.', '.'); ?></b></td>
                             <td></td>
 
 
@@ -179,26 +180,27 @@
                                     <td class="table-plus"><?= $i++; ?></td>
                                     <td><?php echo word_limiter($khas['username'], 5, '....'); ?></td>
                                     <td><?php
-                                                $nama = $khas['jenis_khas'];
+                                            $nama = $khas['jenis_khas'];
 
-                                                if ($nama == 1) {
+                                            if ($nama == 1) {
 
-                                                    ?>
+                                            ?>
                                         Pemasukan
 
                                         <?php
-                                                    } else { ?>Pengeluaran
+                                            } else { ?>Pengeluaran
                                         <?php } ?></td>
                                     <td><?php echo $khas['deskripsi']; ?></td>
                                     <td>Rp. <?php echo number_format($khas['nominal'], 0, '.', '.');  ?></td>
                                     <td> <?php if (in_groups('admin')) : ?>
                                         <?php
-                                                        $status = $khas['status'];
-                                                        if ($status == 0) {
-                                                            ?>
+                                                    $status = $khas['status'];
+                                                    if ($status == 0) {
+                                                ?>
 
                                         <span class="btn btn-outline-warning" data-toggle="modal"
                                             data-target="#exampleModal<?= $khas['id']; ?>">Pendding</span>
+
 
                                         <div class="modal fade" id="exampleModal<?= $khas['id']; ?>" tabindex="-1"
                                             aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -257,7 +259,7 @@
                                             </div>
 
                                             <?php
-                                                            } elseif ($status == 1) { ?>
+                                                    } elseif ($status == 1) { ?>
                                             <span class="btn btn-outline-danger" data-toggle="modal"
                                                 data-target="#exampleModalactive<?= $khas['id']; ?>">No-Approve</span>
 
@@ -319,7 +321,7 @@
                                                 </div>
 
                                                 <?php
-                                                                } else { ?>
+                                                    } else { ?>
                                                 <span class="btn btn-outline-success" data-toggle="modal"
                                                     data-target="#exampleModalactive<?= $khas['id']; ?>">Approve</span>
 
@@ -382,22 +384,22 @@
                                                         </div>
                                                     </div>
                                                     <?php
-                                                                    }
-                                                                    ?>
+                                                        }
+                                                            ?>
                                                     <?php elseif ('user') : ?>
                                                     <?php
-                                                                    $nama = $khas['status'];
+                                                            $nama = $khas['status'];
 
-                                                                    if ($nama == 0) {
+                                                            if ($nama == 0) {
 
-                                                                        ?>
+                                                            ?>
                                                     Pendding
 
                                                     <?php
-                                                                        } elseif ($nama == 1) { ?>Non-Approve
+                                                            } elseif ($nama == 1) { ?>Non-Approve
 
                                                     <?php
-                                                                        } else { ?>Approve
+                                                            } else { ?>Approve
                                                     <?php } ?>
 
                                     </td>
@@ -439,8 +441,8 @@
                             <tr>
                                 <td class="text-center" colspan="4">Total Pengeluaran</td>
 
-                                <td class="text-center">Rp.
-                                    <?php echo number_format($total_pengeluaran, 0, '.', '.'); ?></td>
+                                <td class="text-center"><b>Rp.
+                                        <?php echo number_format($total_pengeluaran, 0, '.', '.'); ?></b></td>
                                 <td></td>
                                 <td></td>
 
@@ -602,15 +604,15 @@ foreach ($keuangan as $khas) :  ?>
                         <li>
                             <span>Jenis Khas:</span>
                             <?php
-                                    $nama = $khas['jenis_khas'];
+                                $nama = $khas['jenis_khas'];
 
-                                    if ($nama == 1) {
+                                if ($nama == 1) {
 
-                                        ?>
+                                ?>
                             Pemasukan
 
                             <?php
-                                        } else { ?>Pengeluaran
+                                } else { ?>Pengeluaran
                             <?php } ?>
                         </li>
                         <li>
@@ -633,13 +635,13 @@ foreach ($keuangan as $khas) :  ?>
                             <span>Status :</span>
                             <?php $nama = $khas['status'];
 
-                                    if ($nama == 0) {
+                                if ($nama == 0) {
 
-                                        ?>
+                                ?>
                             Pendding
 
                             <?php
-                                        } else { ?>Approve
+                                } else { ?>Approve
                             <?php } ?>
                         </li>
                     </ul>
@@ -847,15 +849,15 @@ foreach ($pengeluaran as $khas) :  ?>
                         <li>
                             <span>Jenis Khas:</span>
                             <?php
-                                    $nama = $khas['jenis_khas'];
+                                $nama = $khas['jenis_khas'];
 
-                                    if ($nama == 1) {
+                                if ($nama == 1) {
 
-                                        ?>
+                                ?>
                             Pemasukan
 
                             <?php
-                                        } else { ?>Pengeluaran
+                                } else { ?>Pengeluaran
                             <?php } ?>
                         </li>
                         <li>
@@ -878,13 +880,13 @@ foreach ($pengeluaran as $khas) :  ?>
                             <span>Status :</span>
                             <?php $nama = $khas['status'];
 
-                                    if ($nama == 0) {
+                                if ($nama == 0) {
 
-                                        ?>
+                                ?>
                             Pendding
 
                             <?php
-                                        } else { ?>Approve
+                                } else { ?>Approve
                             <?php } ?>
                         </li>
                     </ul>

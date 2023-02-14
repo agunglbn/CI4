@@ -68,6 +68,15 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
     // Gallery
     $routes->get('/admin/gallery', 'Admin::gallery', ['filter' => 'role:admin']);
     $routes->post('/admin/TambahGallery', 'Admin::TambahGallery', ['filter' => 'role:admin']);
+    $routes->delete('/admin/deleteGallery/(:segment)/(:segment)', 'Admin::deleteGallery/$1/$2', ['filter' => 'role:admin']);
+    $routes->PUT('/admin/updateGallery(:segment)/(:segment)', 'Admin::updateGallery/$1/$2', ['filter' => 'role:admin']);
+    $routes->post('/admin/statusGallery(:num)', 'Admin::statusGallery/$1', ['filter' => 'role:admin']);
+
+    // Stensilan
+    $routes->post('/admin/addStensilan', 'Admin::addStensilan', ['filter' => 'role:admin']);
+    $routes->get('/admin/downloadfile', 'Admin::downloadfile', ['filter' => 'role:admin']);
+
+
     // Keuangan Admin,Diakon,Parataon
     $routes->get('/admin/Kas', 'Admin::kas', ['filter' => 'role:admin']);
     $routes->get('/Kas', 'Admin::kas', ['filter' => 'role:admin']);

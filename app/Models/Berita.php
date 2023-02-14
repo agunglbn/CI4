@@ -16,7 +16,7 @@ class Berita extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'username', 'role', 'judul_berita', 'isi_berita', 'slug',
-        'kategori_berita', 'status', 'created', 'modified', 'img'
+        'kategori_berita', 'status', 'created', 'modified', 'img', 'jenis_berita'
     ];
 
     // Dates
@@ -35,7 +35,7 @@ class Berita extends Model
     public function getBerita($id = false)
     {
 
-        $builder = $this->db->table('berita');
+        $builder = $this->db->table('berita')->where('jenis_berita', 1);
         $query = $builder->get();
         return $query->getResult();
     }
