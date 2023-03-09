@@ -39,6 +39,17 @@ class Validation extends BaseConfig
         'list'   => 'CodeIgniter\Validation\Views\list',
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
+    // public $loginRules = [
+    //     'attempt_login' => [
+    //         'field' => 'email',
+    //         'label' => 'Email',
+    //         'rules' => 'required|valid_email',
+    //         'errors' => [
+    //             'attempt_login' => 'Anda telah melebihi batas percobaan login. Silakan coba lagi dalam beberapa menit.',
+    //         ],
+    //     ],
+    // ];
+
 
     // --------------------------------------------------------------------
     // Rules

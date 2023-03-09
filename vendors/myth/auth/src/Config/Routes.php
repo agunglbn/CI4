@@ -8,12 +8,12 @@ use Myth\Auth\Config\Auth as AuthConfig;
 /** @var RouteCollection $routes */
 
 // Myth:Auth routes file.
-$routes->group('', ['namespace' => 'Myth\Auth\Controllers'], static function ($routes) {
+$routes->group('', ['namespace' => 'Myth\Auth\Controllers'], ['filter' => 'throttle'], static function ($routes) {
     // Load the reserved routes from Auth.php
     $config         = config(AuthConfig::class);
     $reservedRoutes = $config->reservedRoutes;
-
     // Login/out
+
     $routes->get($reservedRoutes['login'], 'AuthController::login', ['as' => $reservedRoutes['login']]);
     $routes->post($reservedRoutes['login'], 'AuthController::attemptLogin');
     $routes->get($reservedRoutes['logout'], 'AuthController::logout');

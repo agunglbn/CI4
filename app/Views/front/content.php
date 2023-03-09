@@ -267,22 +267,12 @@
                         </div>
                         <?php } ?>
                     </div>
-
                 </div>
 
             </div>
-
-
-
-
-
-
-
-
-
         </div>
     </section>
-    <!-- End Specials Section --
+    <!-- End Specials Section -->
 
     <!-- ======= Events Section ======= -->
     <section id="events" class="events">

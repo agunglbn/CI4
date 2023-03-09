@@ -111,7 +111,23 @@
                         </div>
 
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Posisi Berita</label>
+                        <div class="col-sm-12 col-md-10">
+                            <select name="jenis_berita" class="custom-select col-12 <?= $validation->hasError('jenis_berita') ? 'is-invalid' : null ?>">
+                                <option value="" disabled selected hidden>--Choice--</option>
+                                <option value="1">Top Side </option>
+                                <option value="2">Right Side</option>
+                                <option value="3">Musing (Renungan)</option>
+                            </select>
+                            <?php if ($validation->hasError('jenis_berita')) : ?>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('jenis_berita'); ?>
+                                </div>
+                            <?php endif; ?>
+                        </div>
 
+                    </div>
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Status</label>
                         <div class="col-sm-12 col-md-10">
@@ -128,6 +144,8 @@
                         </div>
 
                     </div>
+
+
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Gambar Berita</label>
                         <div class="col-sm-12 col-md-10">

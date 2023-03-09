@@ -7,6 +7,7 @@ use CodeIgniter\Session\Session;
 use Myth\Auth\Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Models\UserModel;
+use App\Controllers\Users;
 
 class AuthController extends Controller
 {
@@ -46,14 +47,14 @@ class AuthController extends Controller
         // No need to show a login form if the user
         // is already logged in.
         if ($this->auth->check()) {
-            $redirectURL = session('redirect_url') ?? site_url('/');
+            $redirectURL = session('redirect_url') ?? site_url('Users');
             unset($_SESSION['redirect_url']);
 
-            return redirect()->to($redirectURL);
+            return redirect()->to('Users');
         }
 
         // Set a return URL if none is specified
-        $_SESSION['redirect_url'] = session('redirect_url') ?? previous_url() ?? site_url('/');
+        $_SESSION['redirect_url'] = session('redirect_url') ?? previous_url() ?? site_url('Users');
 
         return $this->_render($this->config->views['login'], ['config' => $this->config]);
     }
@@ -102,10 +103,10 @@ class AuthController extends Controller
             return redirect()->to(route_to('reset-password') . '?token=' . $this->auth->user()->reset_hash)->withCookies();
         }
 
-        $redirectURL = session('redirect_url') ?? site_url('/');
+        $redirectURL = session('redirect_url') ?? site_url('Users');
         unset($_SESSION['redirect_url']);
 
-        return redirect()->to($redirectURL)->withCookies()->with('message', lang('Auth.loginSuccess'));
+        return redirect()->to('Users')->withCookies()->with('message', lang('Auth.loginSuccess'));
     }
 
     /**
@@ -117,7 +118,7 @@ class AuthController extends Controller
             $this->auth->logout();
         }
 
-        return redirect()->to(site_url('/'));
+        return redirect()->to(site_url('login'));
     }
 
     //--------------------------------------------------------------------

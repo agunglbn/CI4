@@ -30,7 +30,10 @@ class Filters extends BaseConfig
         'login'      => \Myth\Auth\Filters\LoginFilter::class,
         'role'       => \Myth\Auth\Filters\RoleFilter::class,
         'permission' => \Myth\Auth\Filters\PermissionFilter::class,
+        'throttle' => \App\Filters\Throttle::class,
+        'throttle' => RateLimiter::class,
     ];
+
 
     /**
      * List of filter aliases that are always
@@ -66,7 +69,9 @@ class Filters extends BaseConfig
      *
      * @var array
      */
-    public $methods = [];
+    public $methods = [
+        'add' => ['throttle'],
+    ];
 
     /**
      * List of filter aliases that should run on any
@@ -78,7 +83,24 @@ class Filters extends BaseConfig
      * @var array
      */
     public $filters = [
-        'login' => ['before' => ['Admin/*', 'Users/*', 'AuthController/*']]
+        'login' => ['before' => ['Admin/*', 'Users/ *', 'AuthController/*']],
+        'throttle' => [
+            'filter' => 'throttle',
+            'config' => [
+                'group' => 'login',
+            ]
 
+            // 'throttle' => ['login']
+            // 'limiter:login'
+            // 'throttle' => [
+            //     'class' => \CodeIgniter\Filters\Throttle::class,
+            //     'groups' => ['login'], // groups ini bisa disesuaikan dengan nama endpoint yang ingin dibatasi jumlah request per menitnya
+            //     'limit' => 1, // batas maksimum jumlah request dalam periode waktu
+            //     'time' => 60, // periode waktu dalam detik
+            //     'method' => 'ip', // batasi berdasarkan IP pengguna
+            //     'key' => null // key bisa disesuaikan dengan kebutuhan
+            // ]
+
+        ]
     ];
 }

@@ -363,6 +363,7 @@ class Admin extends BaseController
         $data = ([
             'title' => 'Data Berita',
             'berita' => $this->berita->getBerita(),
+            'renungan' => $this->berita->where('jenis_berita', 3)->orderBy('created', 'desc')->findAll(),
 
 
         ]);
@@ -432,6 +433,7 @@ class Admin extends BaseController
             'kategori_berita' => $this->request->getVar('kategori_berita'),
             'status' => $this->request->getVar('status'),
             'jenis_berita' => 2,
+            'created' => date("d F Y"),
             'img' => $filename,
         ]);
         $img->move('assets/vendors/img_berita/', $filename);
@@ -590,6 +592,7 @@ class Admin extends BaseController
             'kategori_berita' => $this->request->getVar('kategori_berita'),
             'status' => $this->request->getVar('status'),
             'jenis_berita' => 1,
+            'modified' => date("d F Y"),
             'img' => $filename,
 
         ]);
@@ -649,6 +652,7 @@ class Admin extends BaseController
                 'fullname' => $this->request->getVar('fullname'),
                 'groups' => $this->request->getVar('groups'),
                 'description' => $this->request->getVar('deskripsi'),
+                'created' => date("d F Y"),
             ]);
         }
 
@@ -735,6 +739,7 @@ class Admin extends BaseController
             'fullname' => $this->request->getVar('fullname'),
             'groups' => $this->request->getVar('groups'),
             'description' => $this->request->getVar('deskripsi'),
+            'modified' => date("d F Y"),
         ]);
         if ($success) {
             session()->setFlashdata('success', 'Gallery be added Success !!');
@@ -771,7 +776,7 @@ class Admin extends BaseController
         $data = ([
             'title' => 'Stensilan HKBP Beringin Indah ',
             'validation' => \Config\Services::validation(),
-            'stensilan' => $this->berita->where('jenis_berita', 2)->orderby('created', 'desc')->findAll(),
+            'stensilan' => $this->berita->where('jenis_berita', 0)->orderby('created', 'desc')->findAll(),
         ]);
         return view('admin/stensilan', $data);
     }
@@ -810,6 +815,7 @@ class Admin extends BaseController
             'role' => $this->request->getVar('user'),
             'jenis_berita' => 2, // Untuk Jenis Berita 2 adalah jenis berita bentuk file doc,docx,pdf
             'img' => $filename, // img = field database 
+            'created' => date("d F Y"),
         ]);
         $file->move('assets/vendors/img_berita/stensilan/', $filename);
         if ($succes) {
@@ -874,7 +880,7 @@ class Admin extends BaseController
             'role' => $this->request->getVar('groups'),
             'judul_berita' => $this->request->getVar('judul_berita'),
             'img' => $filename,
-
+            'modified' => date("d F Y"),
         ]);
 
         if ($success) {
@@ -907,6 +913,7 @@ class Admin extends BaseController
             'total_kas' => $pemasukan['total'] - $pengeluaran['total'],
             'kategori' => $this->kategori->findAll(),
             'validation' => $this->validation,
+            'created' => date("d F Y"),
 
         ]);
         return view('Admin/keuangan', $data);
@@ -1025,6 +1032,7 @@ class Admin extends BaseController
             'nominal' =>  str_replace(".", "", $this->request->getVar('nominal')), //Mengubah Tanda Titik Menjadi Integer
             'tanggal' => $this->request->getVar('tanggal'),
             'groups' => $this->request->getVar('groups'),
+            'modified' => date("d F Y"),
         ]);
 
         if ($success) {

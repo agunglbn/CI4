@@ -51,4 +51,24 @@ class Berita extends Model
         $data = $query->getResultArray();
         return $data;
     }
+
+    public function getBeritaKategori($kategori)
+    {
+        // return $this->select('berita.id as judul_berita,nama_kategori,username,role,isi_berita,kategori_berita,
+        // created,modified,img')
+        //     ->join('kategori', 'kategori.nama_kategori = berita.kategori_berita')
+        //     ->where('kategori.nama_kategori')
+        //     ->findAll();
+        return $this->select('berita.id, berita.judul_berita,berita.isi_berita,berita.created,
+             berita.kategori_berita,berita.username,berita.slug,berita.role,berita.img,berita.modified,kategori.nama_kategori')
+            ->join('kategori', 'kategori.nama_kategori = berita.kategori_berita')
+            ->where('kategori.nama_kategori', $kategori)->paginate(1, 'berita');
+    }
+    // public function getBeritaKategori($kategori)
+    // {
+    //     return $this->select('berita.id as judul_berita,nama_kategori,username,role,isi_berita,kategori_berita,created,modified,img')
+    //         ->join('kategori', 'kategori.nama_kategori = berita.kategori_berita')
+    //         ->where('kategori.nama_kategori', $kategori)
+    //         ->findAll();
+    // }
 }

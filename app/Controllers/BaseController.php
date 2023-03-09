@@ -71,7 +71,6 @@ abstract class BaseController extends Controller
 
         // Preload any models, libraries, etc, here.
         $this->db = \Config\Database::connect();
-        $this->builder = $this->db->table('users');
         $this->model = new M_user;
         $this->keuangan = new Keuangan;
         $this->peminjaman = new Peminjaman;

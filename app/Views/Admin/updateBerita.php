@@ -122,7 +122,33 @@
                         </div>
 
                     </div>
+                    <div class="form-group row">
+                        <label class="col-sm-12 col-md-2 col-form-label">Posisi Berita</label>
+                        <div class="col-sm-12 col-md-10">
+                            <select name="jenis_berita"
+                                class="custom-select col-12 <?= $validation->hasError('jenis_berita') ? 'is-invalid' : null ?>">
+                                <option value="" disabled selected hidden>--Choice--</option>
+                                <option value="1"
+                                    <?php if ($berita[0]['jenis_berita'] == 1) echo "selected='selected'" ?>>
+                                    Top Side
+                                </option>
+                                <option value="2"
+                                    <?php if ($berita[0]['jenis_berita'] == 0) echo "selected='selected'" ?>>
+                                    Right Side
+                                </option>
+                                <option value="2"
+                                    <?php if ($berita[0]['jenis_berita'] == 0) echo "selected='selected'" ?>>
+                                    Musing (Renungan)
+                                </option>
+                            </select>
+                            <?php if ($validation->hasError('jenis_berita')) : ?>
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('jenis_berita'); ?>
+                            </div>
+                            <?php endif; ?>
+                        </div>
 
+                    </div>
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Status</label>
                         <div class="col-sm-12 col-md-10">
@@ -178,9 +204,3 @@
 <!-- Default Basic Forms End -->
 
 <?php $this->endSection(); ?>
-<!-- <div class="html-editor pd-20 card-box mb-30">
-                    <h4 class="h4 text-blue">bootstrap wysihtml5</h4>
-                    <p>Simple, beautiful wysiwyg editors</p>
-                    <textarea class="textarea_editor form-control border-radius-0"
-                        placeholder="Enter text ..."></textarea>
-                </div> -->

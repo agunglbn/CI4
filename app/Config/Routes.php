@@ -39,6 +39,8 @@ $routes->setAutoRoute(true);
 
 // Tambah User Admin
 $routes->get('/', 'Front::index');
+$routes->get('/blogs', 'Front::blogs');
+$routes->get('/kategori/(:segment)', 'Front::detailKategori/$1');
 $routes->group('', ['filter' => 'login'], function ($routes) {
     $routes->get('/', 'Users::index');
     $routes->get('/Users', 'Users::index');
