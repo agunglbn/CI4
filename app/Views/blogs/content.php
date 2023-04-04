@@ -6,7 +6,7 @@
 <!-- Blog Top  -->
 <div class="site-section py-0">
     <div class="owl-carousel hero-slide owl-style">
-        <?php foreach ($slider as $top) { ?>
+        <?php foreach ($slider as $top) : ?>
         <div class="site-section">
             <div class="container">
                 <div class="half-post-entry d-block d-lg-flex bg-light">
@@ -31,7 +31,7 @@
                 </div>
             </div>
         </div>
-        <?php } ?>
+        <?php endforeach ?>
 
 
 
@@ -47,109 +47,61 @@
                 <div class="section-title">
                     <h2>Recent News</h2>
                 </div>
+                <?php foreach ($berita  as $blogs) : ?>
                 <div class="post-entry-2 d-flex">
                     <div class="thumbnail" alt="s"
-                        style="background-image: url('<?php echo base_url(); ?>/assets/vendors/blogs/images/img_v_1.jpg')">
+                        style="background-image: url('<?php echo base_url('assets/vendors/img_berita/' . $blogs['img']); ?>')">
                     </div>
                     <div class="contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi temporibus
-                            praesentium neque, voluptatum quam quibusdam.</p>
+                        <h2><a
+                                href="blog-single.html"><?php echo word_limiter($blogs['judul_berita'], 10, ' ...'); ?></a>
+                        </h2>
+                        <p class="mb-3"><?php echo word_limiter($blogs['isi_berita'], 20, ' ...'); ?></p>
                         <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
+                            <span class="d-block"><a href="#">Post</a> By <a href="#"><?php echo $blogs['role']; ?></a>
+                                (<?php echo $blogs['username']; ?>)</span>
+                            <span class="d-block"><a href="#"><?php echo $blogs['created'] ?></a> <span
+                                    class="mx-1">&bullet;</span>
+                                <a href="#"><?php echo $blogs['kategori_berita'] ?></a>
+                                <span class="icon-star2"></span></span>
+                            <!-- <span class="date-read"><?php echo $blogs['created'] ?>
+                                <span class="mx-1">&bullet;</span>
+                                <?php echo $blogs['kategori_berita'] ?>
+                                <span class="icon-star2"></span></span> -->
                         </div>
                     </div>
                 </div>
-                <div class="post-entry-2 d-flex">
-                    <div class="thumbnail"
-                        style="background-image: url('<?php echo base_url(); ?>/assets/vendors/blogs/images/img_v_2.jpg')">
-                    </div>
-                    <div class="contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi temporibus
-                            praesentium neque, voluptatum quam quibusdam.</p>
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="post-entry-2 d-flex">
-                    <div class="thumbnail"
-                        style="background-image: url('<?php echo base_url(); ?>/assets/vendors/blogs/images/img_v_3.jpg')">
-                    </div>
-                    <div class="contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi temporibus
-                            praesentium neque, voluptatum quam quibusdam.</p>
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
-                        </div>
-                    </div>
-                </div>
+                <?php endforeach  ?>
             </div>
 
             <div class="col-lg-6">
                 <div class="section-title">
                     <h2>Stensilan Ibadah</h2>
                 </div>
-
+                <?php $i = 1; ?>
+                <?php foreach ($stensilan as $stensil) : ?>
                 <div class="trend-entry d-flex">
-                    <div class="number align-self-start">01</div>
+                    <div class="number align-self-start"><?= $i++; ?></div>
                     <div class="trend-contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
+                        <h2><a
+                                href="<?= base_url(); ?>/admin/downloadfile/<?= $stensil['id']; ?>"><?php echo $stensil['judul_berita']; ?></a>
+                        </h2>
                         <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
+                            <span class="d-block"><a href="#">Post</a> By <a
+                                    href="#"><?php echo $stensil['role']; ?></a>
+                                (<?php echo $stensil['username']; ?>)</span>
+                            <span class="date-read"><?php echo $stensil['created'] ?> <span class="mx-1">&bullet;</span>
+                                <span class="icon-star2"></span></span>
                         </div>
                     </div>
                 </div>
+                <?php endforeach ?>
 
-                <div class="trend-entry d-flex">
-                    <div class="number align-self-start">02</div>
-                    <div class="trend-contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="trend-entry d-flex">
-                    <div class="number align-self-start">03</div>
-                    <div class="trend-contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="trend-entry d-flex pl-0">
-                    <div class="number align-self-start">04</div>
-                    <div class="trend-contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <p>
+                <!-- <p>
                     <a href="#" class="more">See All Popular <span class="icon-keyboard_arrow_right"></span></a>
-                </p>
+                </p> -->
             </div>
         </div>
         <p>
@@ -157,20 +109,11 @@
         </p>
         <div class="row">
             <div class="col-lg-6">
-                <ul class="custom-pagination list-unstyled">
-                    <li><a href="#">1</a></li>
-                    <li class="active">2</li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                </ul>
+                <?= $pager->links('recent', 'berita_Pagination') ?>
             </div>
         </div>
 
     </div>
-
-
-
-
 
 
 

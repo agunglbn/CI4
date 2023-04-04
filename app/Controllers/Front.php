@@ -15,10 +15,14 @@ class Front extends BaseController
     public function index()
     {
         $data = ([
-            'berita' =>  $this->berita->where('status', '1')->orderBy('created', 'desc')->limit(5) //ASC dan DESC   
+            'berita' =>  $this->berita->where('status', '1')->where('kategori_berita !=', 'Renungan')->where('jenis_berita !=', 0)->where('jenis_berita !=', 3)
+                ->orderBy('created', 'desc')->limit(5) //ASC dan DESC   
                 ->find(),
             'gallery' =>  $this->gallery->where('status', '1')->orderBy('created', 'desc')->limit(12) //ASC dan DESC   
                 ->findAll(),
+            'kategori' =>  $this->kategori->findAll(),
+            'events' => $this->berita->where('jenis_berita', '3')->where('status', '1')->orderBy('created', 'desc')->limit(5)->find(),
+
         ]);
         return view('front/content', $data);
     }
@@ -31,8 +35,13 @@ class Front extends BaseController
         // $this->builder->join('berita', 'berita.kategori_berita = kategori.nama_kategori');
         // $query =  $this->builder->get();
         $data = ([
-            'slider' => $this->berita->where('jenis_berita', '1')->orderBy('created', 'desc')->limit(3)->find(),
+            'slider' => $this->berita->where('jenis_berita', '1')->where('status', 1)->orderBy('created', 'desc')->limit(3)->find(),
             'kategori' =>  $this->kategori->findAll(),
+            'stensilan' => $this->berita->where('jenis_berita', '0')->where('status', 1)->orderBy('created', 'desc')->limit(5)->find(),
+            'berita' => $this->berita->where('jenis_berita !=', '0')->where('status', 1)->orderBy('created', 'desc')->paginate(5, 'recent'),
+            'pager' => $this->berita->pager,
+
+
         ]);
         return view('blogs/content', $data);
     }
@@ -54,4 +63,28 @@ class Front extends BaseController
         ]);
         return view('blogs/detail_kategori', $data);
     }
+
+    // public function tescoding()
+    // {
+    // $tes = "Total Pembelian Bulan ini Rp. 625.000";
+
+    // $x = explode(" ", $tes);
+    // //print_r($x);
+    // echo $x[5];
+
+    // Menghitung Nilai 7
+    // $output = 0;
+    // for ($i = 0; $i <= 1000; $i++) {
+    //     $nilai = str_split($i);
+    //     for ($a = 0; $a < count($nilai); $a++) {
+    //         if ($nilai[$a] == 7) {
+    //             $output++;
+    //             echo $i . "<br/>";
+    //         }
+    //     }
+    // }
+    // echo $output;
+
+
+    // }
 }

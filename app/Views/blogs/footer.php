@@ -45,10 +45,10 @@
 <script src="<?php echo base_url(); ?>/assets/vendors/blogs/js/jquery.fancybox.min.js"></script>
 <script src="<?php echo base_url(); ?>/assets/vendors/blogs/js/jquery.sticky.js"></script>
 <script src="<?php echo base_url(); ?>/assets/vendors/blogs/js/jquery.mb.YTPlayer.min.js"></script>
-<script src="<?php echo base_url(); ?>/assets/vendors/button/js/jquery.min.js"></script>
+<!-- <script src="<?php echo base_url(); ?>/assets/vendors/button/js/jquery.min.js"></script>
 <script src="<?php echo base_url(); ?>/assets/vendors/button/js/popper.js"></script>
 <script src="<?php echo base_url(); ?>/assets/vendors/button/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url(); ?>/assets/vendors/button/js/main.js"></script>
+<script src="<?php echo base_url(); ?>/assets/vendors/button/js/main.js"></script> -->
 
 
 

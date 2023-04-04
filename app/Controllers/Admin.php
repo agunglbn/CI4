@@ -9,6 +9,7 @@ use App\Models\Keuangan;
 use App\Models\AuthGroups;
 use App\Models\Berita;
 use App\Models\Divisi;
+use App\Models\Program;
 use Myth\Auth\Models\UserModel;
 use CodeIgniter\Controller;
 use CodeIgniter\Session\Session;
@@ -20,7 +21,7 @@ class Admin extends BaseController
 {
     protected $session;
 
-    protected $userModel, $divisi, $keuangan, $db, $builder, $model, $jemaat, $validation, $kategori, $berita;
+    protected $userModel, $divisi, $program, $keuangan, $db, $builder, $model, $jemaat, $validation, $kategori, $berita;
     public function __construct()
     {
 
@@ -31,6 +32,7 @@ class Admin extends BaseController
         $this->divisi = new Divisi;
         $this->userModel = new UserModel;
         $this->berita = new Berita;
+        $this->program = new Program;
         $this->jemaat = new Jemaat;
         $this->kategori = new Kategori;
         $this->validation = \Config\Services::validation();
@@ -61,7 +63,6 @@ class Admin extends BaseController
         $data['title'] = 'Data User';
         // $users['users'] = new \Myth\Auth\Models\UserModel();
         // $data['users'] = $users->findAll();
-
         $this->builder->select('users.id as userid,email, username,user_img,mobile,fullname,name');
         $this->builder->join('auth_groups_users', 'auth_groups_users.user_id=users.id');
         $this->builder->join('auth_groups', 'auth_groups.id=auth_groups_users.group_id');
@@ -245,7 +246,7 @@ class Admin extends BaseController
             throw new \CodeIgniter\Exceptions\PageNotFoundException('Data' . $id . 'Tidak Ditemukan');
         }
         // dd($data);
-
+        // 
         return view('Diakonia/detail_jemaat', $data);
     }
 
@@ -363,7 +364,7 @@ class Admin extends BaseController
         $data = ([
             'title' => 'Data Berita',
             'berita' => $this->berita->getBerita(),
-            'renungan' => $this->berita->where('jenis_berita', 3)->orderBy('created', 'desc')->findAll(),
+            'renungan' => $this->berita->where('kategori_berita', 'Renungan')->where('jenis_berita !=', 0)->orderBy('created', 'desc')->findAll(),
 
 
         ]);
@@ -384,10 +385,10 @@ class Admin extends BaseController
     {
         // Validasi Form Data
         $rules = [
-            'judul_berita' => 'required|alpha_numeric_space',
+            'judul_berita' => 'required',
             'isi_berita' => 'required',
             'kategori_berita' => 'required',
-            'img' => 'uploaded[img]|max_size[img,2064]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
+            'img' => 'max_size[img,2064]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
             'status' => 'required',
 
 
@@ -421,31 +422,59 @@ class Admin extends BaseController
         $img = $this->request->getFile('img');
         $filename = $img->getRandomName();
         $slug_username = url_title($this->request->getVar('judul_berita') . '-' . uniqid('', true), '-', true);
-        ////buat salt
-        // $salt = uniqid('', true);
-        // Kiri Field Database Kanan Field Name Form 
-        $success =  $this->berita->insert([
-            'username' => $this->request->getVar('username'),
-            'slug' => $slug_username,
-            'role' => $this->request->getVar('user'),
-            'judul_berita' => $this->request->getVar('judul_berita'),
-            'isi_berita' => $this->request->getVar('isi_berita'),
-            'kategori_berita' => $this->request->getVar('kategori_berita'),
-            'status' => $this->request->getVar('status'),
-            'jenis_berita' => 2,
-            'created' => date("d F Y"),
-            'img' => $filename,
-        ]);
-        $img->move('assets/vendors/img_berita/', $filename);
-        // $img->move('assets/vendors/img_berita/', $filename);
-        // $builder = $this->db->table("berita");
-        // $success = $builder->insert($data);
-        // $success = $this->berita->insert_berita($data);
-        if ($success) {
-            session()->setFlashdata('success', 'Data Berita Berhasil Ditambahkan!!');
-            return redirect()->to(base_url('/admin/berita'));
+
+        // Validasi Gambar diubah atau tidak
+
+        if (!empty($img)) {
+            $success =  $this->berita->insert([
+                'username' => $this->request->getVar('username'),
+                'slug' => $slug_username,
+                'role' => $this->request->getVar('user'),
+                'judul_berita' => $this->request->getVar('judul_berita'),
+                'isi_berita' => $this->request->getVar('isi_berita'),
+                'kategori_berita' => $this->request->getVar('kategori_berita'),
+                'status' => $this->request->getVar('status'),
+                'jenis_berita' => $this->request->getVar('jenis_berita'),
+                'created' => date("d F Y"),
+                'img' => 'default.jpg',
+            ]);
+
+            if ($success) {
+                session()->setFlashdata('success', 'Data Berita Berhasil Ditambahkan!!');
+                return redirect()->to(base_url('/admin/berita'));
+            }
+        } else {
+            $img = $this->request->getFile('img');
+            $filename = $img->getRandomName();
+            $slug_username = url_title($this->request->getVar('judul_berita') . '-' . uniqid('', true), '-', true);
+            ////buat salt
+            // $salt = uniqid('', true);
+            // Kiri Field Database Kanan Field Name Form 
+            $success =  $this->berita->insert([
+                'username' => $this->request->getVar('username'),
+                'slug' => $slug_username,
+                'role' => $this->request->getVar('user'),
+                'judul_berita' => $this->request->getVar('judul_berita'),
+                'isi_berita' => $this->request->getVar('isi_berita'),
+                'kategori_berita' => $this->request->getVar('kategori_berita'),
+                'status' => $this->request->getVar('status'),
+                'jenis_berita' => $this->request->getVar('jenis_berita'),
+                'created' => date("d F Y"),
+                'img' => $filename,
+            ]);
+
+            $img->move('assets/vendors/img_berita/', $filename);
+            // $img->move('assets/vendors/img_berita/', $filename);
+            // $builder = $this->db->table("berita");
+            // $success = $builder->insert($data);
+            // $success = $this->berita->insert_berita($data);
+            if ($success) {
+                session()->setFlashdata('success', 'Data Berita Berhasil Ditambahkan!!');
+                return redirect()->to(base_url('/admin/berita'));
+            }
         }
     }
+
 
     // Detail Berita 
     public function detailBerita($id)
@@ -474,19 +503,27 @@ class Admin extends BaseController
         } else {
             $data = $this->berita->find($id);
             $imgfile = $data['img'];
-            if (file_exists('assets/vendors/img_berita/' . $imgfile)) {
+
+            if ($data['img'] == 'default.jpg') {
+                $success =  $this->berita->where('id', $id)->delete();
+                if ($success) {
+                    session()->setFlashdata('success', 'Data Success Be Deleted !');
+                } else {
+                    session()->setFlashdata('error', 'Data Can Not Deleted !');
+                }
+                return redirect()->to('/admin/berita');
+            } else if (file_exists('assets/vendors/img_berita/' . $imgfile)) {
 
                 // Proses delete data
-
                 unlink('assets/vendors/img_berita/' . $imgfile);
+                $success =  $this->berita->where('id', $id)->delete();
+                if ($success) {
+                    session()->setFlashdata('success', 'Data Success Be Deleted !');
+                } else {
+                    session()->setFlashdata('error', 'Data Can Not Deleted !');
+                }
+                return redirect()->to('/admin/berita');
             }
-            $success =  $this->berita->where('id', $id)->delete();
-            if ($success) {
-                session()->setFlashdata('success', 'Data Success Be Deleted !');
-            } else {
-                session()->setFlashdata('error', 'Data Can Not Deleted !');
-            }
-            return redirect()->to('/admin/berita');
         }
         // $this->berita->delete($id);
         // session()->setFlashdata('success', 'News Data Success Deleted!!');
@@ -569,17 +606,29 @@ class Admin extends BaseController
         // Validasi Gambar diubah atau tidak
         if ($img->getError() == 4) {
             $filename = $this->request->getVar('gambar_lama');
-        } else if ($rule_img['img'] == null) {
+        }
+        // Validasi Apakah Gambar ada atau tidak 
+        // else if ($rule_img['img'] == null) {
+        //     $filename = $img->getRandomName();
+        //     // Arahkan Gambar Ke Direktori
+        //     $img->move('assets/vendors/img_berita', $filename);
+        // } 
 
+        // Validasi Apakah Gambar deafault masih digunakan atau tidak
+        else if ($rule_img['img'] == 'deafault.jpg') {
+            $filename = $this->request->getVar('gambar_lama');
+        }
+        // Validasi Jika Gambar default makan lakukan perubahan tampa menghilangkan gambar default
+        else if ($rule_img['img'] == 'default.jpg') {
             $filename = $img->getRandomName();
             // Arahkan Gambar Ke Direktori
             $img->move('assets/vendors/img_berita', $filename);
-        } else {
+        }
+        // Jika gambar tidak default maka lakukan perubahan gambar dan hapus di direktori
+        else {
             $filename = $img->getRandomName();
-
             // Arahkan Gambar Ke Direktori
             $img->move('assets/vendors/img_berita', $filename);
-
             // Hapus Gambar Lama
             unlink('assets/vendors/img_berita/' . $this->request->getPost('gambar_lama'));
         }
@@ -591,7 +640,7 @@ class Admin extends BaseController
             'isi_berita' => $this->request->getVar('isi_berita'),
             'kategori_berita' => $this->request->getVar('kategori_berita'),
             'status' => $this->request->getVar('status'),
-            'jenis_berita' => 1,
+            'jenis_berita' => $this->request->getVar('jenis_berita'),
             'modified' => date("d F Y"),
             'img' => $filename,
 
@@ -913,12 +962,100 @@ class Admin extends BaseController
             'total_kas' => $pemasukan['total'] - $pengeluaran['total'],
             'kategori' => $this->kategori->findAll(),
             'validation' => $this->validation,
-            'created' => date("d F Y"),
 
         ]);
         return view('Admin/keuangan', $data);
     }
 
+    // Filter Kas 
+
+    public function filter()
+    {
+        //validasi
+
+        if (!$this->validate(
+            [
+                'tanggalawal' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Date cannot be empty !!'
+                    ]
+                ],
+                'tanggalakhir' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Date cannot be empty !!'
+                    ]
+                ],
+                'jenis_khas' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Date cannot be empty !!'
+                    ]
+                ]
+            ]
+        )) {
+            session()->setFlashdata('error', 'Data cannot be search !!!');
+            return redirect()->back()->withInput();
+        }
+        if ($this->request->getVar('search_pemasukan') == true) {
+            $start_date = $this->request->getVar('tanggalawal');  // contoh tanggal awal rentang waktu
+            $end_date = $this->request->getVar('tanggalakhir');  // contoh tanggal akhir rentang waktu
+            $jenis_khas = $this->request->getVar('jenis_khas');  // contoh tanggal akhir rentang waktu
+            $pengeluaran = $this->keuangan->where('jenis_khas', 2,)->where('status', 2)
+                ->select('sum(nominal) as total')->first();
+            $pengeluaran2 = $this->keuangan->where('jenis_khas', 2)->where('tanggal >=', $start_date)
+                ->where('tanggal <=', $end_date)->select('sum(nominal) as total')->first();
+            $pemasukan = $this->keuangan->where('jenis_khas', 1)->select('sum(nominal) as total')->first();
+            $pemasukan2 =  $this->keuangan->where('jenis_khas', 1)->where('tanggal >=', $start_date)
+                ->where('tanggal <=', $end_date)->select('sum(nominal) as total')->first();
+            $pemasukan = $this->keuangan->where('jenis_khas', 1)->select('sum(nominal) as total')->first();
+
+            $query = $this->keuangan->where('jenis_khas', $jenis_khas)->where('tanggal >=', $start_date)
+                ->where('tanggal <=', $end_date)
+                ->orderBy('created', 'desc')->findAll();
+            // Search
+            if ($jenis_khas == 1) {
+                $data = ([
+                    'title' => 'Data Kas Beringin Indah',
+                    'keuangan'  => $query,
+                    // 'keuangan'  => $this->keuangan->where(['username' => user()->username])->orderBy('username', 'asc') //ASC dan DESC   
+                    //     ->findAll(),
+                    'pengeluaran' => $this->keuangan->where('jenis_khas', 2)->orderBy('created', 'desc') //ASC dan DESC   
+                        ->findAll(),
+
+                    'total_pengeluaran' => $pengeluaran['total'],
+                    'total_pemasukan' => $pemasukan2['total'],
+                    'total_kas' => $pemasukan['total'] - $pengeluaran['total'],
+                    'kategori' => $this->kategori->findAll(),
+                    'validation' => $this->validation,
+
+                ]);
+
+                return view('Admin/keuangan', $data);
+            } else {
+                $data = ([
+                    'title' => 'Data Kas Beringin Indah',
+                    'keuangan'  => $this->keuangan->where('jenis_khas', 1)->orderBy('created', 'desc') //ASC dan DESC   
+                        ->findAll(),
+                    // 'keuangan'  => $this->keuangan->where(['username' => user()->username])->orderBy('username', 'asc') //ASC dan DESC   
+                    //     ->findAll(),
+                    'pengeluaran' => $query,
+                    'total_pengeluaran' => $pengeluaran2['total'],
+                    'total_pemasukan' => $pemasukan2['total'],
+                    'total_kas' => $pemasukan['total'] - $pengeluaran['total'],
+                    'kategori' => $this->kategori->findAll(),
+                    'validation' => $this->validation,
+
+                ]);
+
+                return view('Admin/keuangan', $data);
+            }
+        }
+        //validasi
+
+
+    }
     public function TambahKhas()
     {
 
@@ -928,7 +1065,7 @@ class Admin extends BaseController
                 'jenis_khas' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => 'Silahkan Piliha Salah Satu !',
+                        'required' => 'Silahkan Pilih Salah Satu !',
                     ]
                 ],
                 'deskripsi' => [
@@ -972,6 +1109,7 @@ class Admin extends BaseController
             'nominal' =>  str_replace(".", "", $this->request->getVar('nominal')), //Mengubah Tanda Titik Menjadi Integer
             'tanggal' => $this->request->getVar('tanggal'),
             'groups' => $this->request->getVar('groups'),
+            'created' => date("d F Y"),
 
         ]);
 
@@ -989,7 +1127,7 @@ class Admin extends BaseController
                 'jenis_khas' => [
                     'rules' => 'required',
                     'errors' => [
-                        'required' => 'Silahkan Piliha Salah Satu !',
+                        'required' => 'Silahkan Pilih Salah Satu !',
                     ]
                 ],
                 'deskripsi' => [
@@ -1077,6 +1215,99 @@ class Admin extends BaseController
         }
     }
 
+    function program()
+    {
+        // $db      = \Config\Database::connect();
+        // $sql = $db->table('program');
+        // $sql->distinct();
+        // $sql->groupBy('divisi');
+        $data = ([
+            'title' => 'Program Kerja HKBP Beringin Indah',
+            // 'program' => $this->program->getProgram()->getResult(),
+            'program' => $this->program->distinct('divisi')->findall(),
+            // 'program' =>   $sql->get()->getResult(),
+            'validation' => $this->validation,
+            'group_role' => $this->model->groupRole(),
+
+
+        ]);
+        return view('admin/program', $data);
+    }
+    function addNewProgram()
+    {
+        // Validation
+        if (!$this->validate(
+            [
+                'divisi' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Silahkan Pilih Salah Satu !',
+                    ]
+                ],
+                'nama_program' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Data Tidak Boleh Kosong !'
+                    ],
+                ],
+
+            ]
+        )) {
+            session()->setFlashdata('error', 'Data cannot be added !!');
+            return redirect()->back()->withInput();
+        }
+
+        $success = $this->program->insert([
+
+            'divisi' => $this->request->getVar('divisi'),
+            'nama_program' => $this->request->getVar('nama_program'),
+            'create_user' => $this->request->getVar('create_user'),
+            'created' => date('d F Y'),
+        ]);
+        if ($success) {
+            session()->setFlashdata('success', 'Data Success Be Added');
+            return redirect()->to(base_url('/program'));
+        }
+    }
+
+    public function statusProgram($id)
+    {
+        $rules = [
+            'status' => 'required',
+        ];
+        if (!$this->validate($rules)) {
+            session()->setFlashdata('error', 'Data Cannot Be Changed !!!');
+            return redirect()->back()->withInput();
+        }
+        $success = $this->program->update($id, [
+            'status' => $this->request->getVar('status'),
+            'modified' => date('d F Y')
+        ]);
+
+        if ($success) {
+            session()->setFlashdata('success', 'Data Changed Success !!!');
+            return redirect()->to(base_url('/program'));
+        }
+    }
+
+    public function deleteProgram($id)
+    {
+        if (!$this->request->getVar('confirm_delete')) {
+            // Tampilkan form konfirmasi
+            return redirect()->back()->withInput();
+        } else {
+            // Proses delete data
+            $success =  $this->program->where('id', $id)->delete();
+            if ($success) {
+                session()->setFlashdata('success', 'Data Success Be Added !');
+            } else {
+                session()->setFlashdata('error', 'Data Can Not Deleted !');
+            }
+            return redirect()->back()->withInput();
+        }
+    }
+}
+
     // Belajar Looping
     // function looping()
     // {
@@ -1092,4 +1323,3 @@ class Admin extends BaseController
     //         }
     //     }
     // }
-}

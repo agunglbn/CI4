@@ -59,8 +59,8 @@
 
             <div class="languages d-none d-md-flex align-items-center">
                 <ul>
-                    <li>En</li>
-                    <li><a href="#">De</a></li>
+                    <li>Indonesia</li>
+                    <li><a href="#">ID</a></li>
                 </ul>
             </div>
         </div>
@@ -81,7 +81,7 @@
                     <li><a class="nav-link scrollto" href="#news">News</a></li>
                     <li><a class="nav-link scrollto" href="<?php echo base_url('/blogs') ?>">Blogs</a></li>
                     <li><a class="nav-link scrollto" href="#events">Events</a></li>
-                    <li><a class="nav-link scrollto" href="#chefs">Servent</a></li>
+                    <li><a class="nav-link scrollto" href="#servent">Servent</a></li>
                     <li><a class="nav-link scrollto" href="#gallery">Gallery</a></li>
                     <!-- <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>

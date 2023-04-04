@@ -35,7 +35,8 @@ class Berita extends Model
     public function getBerita($id = false)
     {
 
-        $builder = $this->db->table('berita')->where('jenis_berita', 1);
+        $builder = $this->db->table('berita')->where('kategori_berita !=', 'Renungan')
+            ->where('jenis_berita !=', 0)->orderBy('kategori_berita', 'asc');
         $query = $builder->get();
         return $query->getResult();
     }
@@ -62,7 +63,7 @@ class Berita extends Model
         return $this->select('berita.id, berita.judul_berita,berita.isi_berita,berita.created,
              berita.kategori_berita,berita.username,berita.slug,berita.role,berita.img,berita.modified,kategori.nama_kategori')
             ->join('kategori', 'kategori.nama_kategori = berita.kategori_berita')
-            ->where('kategori.nama_kategori', $kategori)->paginate(1, 'berita');
+            ->where('kategori.nama_kategori', $kategori)->paginate(2, 'berita');
     }
     // public function getBeritaKategori($kategori)
     // {

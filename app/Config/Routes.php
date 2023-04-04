@@ -50,6 +50,12 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
     $routes->get('/admin/newUser', 'Admin::newUser', ['filter' => 'role:admin']);
     $routes->post('/admin/tambah', 'Admin::tambah', ['filter' => 'role:admin']);
     $routes->post('/admin/DeleteUser/(:num)', 'Admin::DeleteUser/$1', ['filter' => 'role:admin']);
+    $routes->get('/program', 'Admin::program', ['filter' => 'role:admin']);
+    $routes->POST('/admin/newProgram', 'Admin::addNewProgram', ['filter' => 'role:admin']);
+    $routes->post('/admin/statusProgram(:num)', 'Admin::statusProgram/$1', ['filter' => 'role:admin']);
+    $routes->delete('/admin/deleteProgram/(:num)', 'Admin::deleteProgram/$1', ['filter' => 'role:admin ,diakonia,parataon ']);
+
+
     // Jemaat Diakonia
     $routes->get('/admin/jemaat', 'Admin::jemaat', ['filter' => 'role:admin,diakonia']);
     $routes->get('/admin/newJemaat', 'Admin::newJemaat', ['filter' => 'role:admin,diakonia']);
@@ -76,12 +82,13 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
 
     // Stensilan
     $routes->post('/admin/addStensilan', 'Admin::addStensilan', ['filter' => 'role:admin']);
-    $routes->get('/admin/downloadfile', 'Admin::downloadfile', ['filter' => 'role:admin']);
+    $routes->get('/admin/downloadfile/(:segment)', 'Admin::downloadfile/$1');
 
 
     // Keuangan Admin,Diakon,Parataon
     $routes->get('/admin/Kas', 'Admin::kas', ['filter' => 'role:admin']);
     $routes->get('/Kas', 'Admin::kas', ['filter' => 'role:admin']);
+    $routes->get('/filter', 'Admin::filter', ['filter' => 'role:admin']);
     $routes->post('/admin/TambahKhas', 'Admin::TambahKhas', ['filter' => 'role:admin ,diakonia,parataon']);
     $routes->get('/detailKas/(:num)', 'Admin::detailKas/$1', ['filter' => 'role:admin ,diakonia,parataon']);
     $routes->post('/admin/UpdateKas(:segment)', 'Admin::UpdateKas/$1', ['filter' => 'role:admin ,diakonia,parataon']);

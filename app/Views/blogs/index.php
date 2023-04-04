@@ -26,7 +26,8 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/blogs/fonts/flaticon/font/flaticon.css">
 
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/blogs/css/aos.css">
-    <link href="<?php echo base_url(); ?>/assets/vendors/blogs/css/jquery.mb.YTPlayer.min.css" media="all" rel="stylesheet" type="text/css">
+    <link href="<?php echo base_url(); ?>/assets/vendors/blogs/css/jquery.mb.YTPlayer.min.css" media="all"
+        rel="stylesheet" type="text/css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/button/css/ionicons.min.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/button/css/style.css">
     <link rel="stylesheet" href="<?php echo base_url(); ?>/assets/vendors/blogs/css/style.css">
@@ -57,7 +58,9 @@
                             HKBP Beringin Indah
                         </a>
 
-                        <a href="#" class="ml-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span class="icon-menu h3"></span></a>
+                        <a href="#"
+                            class="ml-auto d-inline-block d-lg-none site-menu-toggle js-menu-toggle text-black"><span
+                                class="icon-menu h3"></span></a>
 
                     </div>
                     <div class="col-12 col-lg-6 ml-auto d-flex">
@@ -70,7 +73,8 @@
 
                             <div class="d-flex">
                                 <input type="email" class="form-control" placeholder="Search...">
-                                <button type="submit" class="btn btn-secondary"><span class="icon-search"></span></button>
+                                <button type="submit" class="btn btn-secondary"><span
+                                        class="icon-search"></span></button>
                             </div>
                         </form>
 
@@ -101,14 +105,13 @@
                                             News</a>
                                     </li>
                                     <?php foreach ($kategori as $kat) { ?>
-                                        <li>
-                                            <a href="<?php echo base_url('kategori/' . $kat['nama_kategori']) ?>" class="nav-link text-left">
-                                                <?php echo $kat['nama_kategori'] ?></a>
-                                        </li>
-                                    <?php } ?>
                                     <li>
-                                        <a href="categories.html" class="nav-link text-left">Renungan</a>
+                                        <a href="<?php echo base_url('kategori/' . $kat['nama_kategori']) ?>"
+                                            class="nav-link text-left">
+                                            <?php echo $kat['nama_kategori'] ?></a>
                                     </li>
+                                    <?php } ?>
+
                                 </ul>
                             </nav>
 

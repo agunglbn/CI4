@@ -17,6 +17,7 @@ use App\Models\Peminjaman;
 use App\Models\Gallery;
 use App\Models\Divisi;
 use App\Models\Keuangan;
+use App\Models\Program;
 use App\Models\AuthGroups;
 use App\Models\Berita;
 use Myth\Auth\Models\UserModel;
@@ -38,7 +39,7 @@ use Myth\Auth\Password;
  */
 abstract class BaseController extends Controller
 {
-    protected $userModel, $gallery, $peminjaman, $inventory, $divisi, $keuangan, $db, $builder, $model, $jemaat, $validation, $kategori, $berita;
+    protected $userModel, $program, $gallery, $peminjaman, $inventory, $divisi, $keuangan, $db, $builder, $model, $jemaat, $validation, $kategori, $berita;
 
 
 
@@ -78,6 +79,7 @@ abstract class BaseController extends Controller
         $this->berita = new Berita;
         $this->inventory = new Inventory;
         $this->jemaat = new Jemaat;
+        $this->program = new Program;
         $this->kategori = new Kategori;
         $this->gallery = new Gallery;
         $this->validation = \Config\Services::validation();

@@ -85,11 +85,15 @@
                         <span class="micon dw dw-book1"></span><span class="mtext">Berita</span>
                     </a>
                 </li> -->
-
+                <li>
+                    <a href="<?php echo base_url('program'); ?>" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-notepad"></span><span class="mtext">Program Kerja</span></a>
+                </li>
                 <li>
                     <a href="<?php echo base_url('Kas'); ?>" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-money-1"></span><span class="mtext">Keuangan</span> </a>
                 </li>
+
 
                 <li>
                     <a href="<?php echo base_url('admin'); ?>" class="dropdown-toggle no-arrow">
