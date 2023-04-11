@@ -58,6 +58,13 @@ class Admin extends BaseController
         $data['users'] = $query->getResult();
         return view('Admin/data_user', $data);
     }
+
+    public function HomeAdmin()
+    {
+    }
+
+
+
     public function detailUser($id)
     {
         $data['title'] = 'Data User';
@@ -1224,7 +1231,7 @@ class Admin extends BaseController
         $data = ([
             'title' => 'Program Kerja HKBP Beringin Indah',
             // 'program' => $this->program->getProgram()->getResult(),
-            'program' => $this->program->distinct('divisi')->findall(),
+            'program' => $this->program->findall(),
             // 'program' =>   $sql->get()->getResult(),
             'validation' => $this->validation,
             'group_role' => $this->model->groupRole(),
@@ -1289,6 +1296,7 @@ class Admin extends BaseController
             return redirect()->to(base_url('/program'));
         }
     }
+
 
     public function deleteProgram($id)
     {

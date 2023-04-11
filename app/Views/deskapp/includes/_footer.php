@@ -38,7 +38,10 @@
 <script src="<?php echo base_url(); ?>/assets/vendors/myscript.js"></script>
 <!-- fancybox Popup Js -->
 <script src="<?php echo base_url(); ?>/assets/src/plugins/fancybox/dist/jquery.fancybox.js"></script>
+<script src="<?php echo base_url(); ?>/assets/src/plugins/jQuery-Knob-master/jquery.knob.min.js"></script>
+<script src="<?php echo base_url(); ?>/assets/vendors/scripts/knob-chart-setting.js"></script>
 <script src="<?php echo base_url(); ?>/assets/vendors/scripts/dashboard.js"></script>
+
 <script>
 $(function() {
     <?php if (session()->has("success")) { ?>

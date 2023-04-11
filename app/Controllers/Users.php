@@ -20,7 +20,20 @@ class Users extends BaseController
             $data['title'] = 'Dashboard User';
             return view('User/dashboard', $data);
         } elseif (in_groups('admin')) {
-            $data['title'] = 'Dashboard Admin';
+            $db  = \Config\Database::connect();
+            $sql = $db->table('program');
+
+            $query = $sql->select(
+                'program.id,program.nama_program,program.divisi,program.progres'
+            )
+                ->distinct('divisi')->groupBy('divisi')->select('SUM(progres) / COUNT(divisi) as nilai')->where('status', 1)->get()->getResult();
+
+
+            $data = ([
+
+                'title' => 'Dashboard Admin',
+                'progres' => $query,
+            ]);
             return view('Admin/dashboard', $data);
         } elseif (in_groups('parataon')) {
             $data['title'] = 'Dashboard Parataon';
@@ -33,6 +46,8 @@ class Users extends BaseController
             return view('User/dashboard', $data);
         }
     }
+
+
     public function profile()
     {
         $data['title'] = 'Profile ';
@@ -169,6 +184,101 @@ class Users extends BaseController
                 session()->setFlashdata('error', 'Data Can Not Deleted !');
             }
             return redirect()->back()->withInput();
+        }
+    }
+    function programUser()
+    {
+        $data = ([
+            'title' => 'Program Kerja HKBP Beringin Indah',
+            // 'program' => $this->program->getProgram()->getResult(),
+            'program' => $this->program->where(['divisi' => user()->groups])->orderBy('created', 'desc') //ASC dan DESC   
+                ->findAll(),
+            // 'program' =>   $sql->get()->getResult(),
+            'validation' => $this->validation,
+            'group_role' => $this->model->groupRole(),
+
+        ]);
+        return view('diakonia/program', $data);
+    }
+
+    public function addProgramUser()
+    {
+        if (!$this->validate(
+            [
+                'nama_program' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Data Tidak Boleh Kosong !'
+                    ],
+                ],
+
+            ]
+        )) {
+            session()->setFlashdata('error', 'Data cannot be added !!');
+            return redirect()->back()->withInput();
+        }
+        $success = $this->program->insert([
+
+            'divisi' => $this->request->getVar('divisi'),
+            'nama_program' => $this->request->getVar('nama_program'),
+            'create_user' => $this->request->getVar('create_user'),
+            'created' => date('d F Y'),
+        ]);
+        if ($success) {
+            session()->setFlashdata('success', 'Data Success Be Added');
+            return redirect()->to(base_url('/user/program'));
+        }
+    }
+
+    public function UpdateProgramUser($id)
+    {
+        if (!$this->validate(
+            [
+                'nama_program' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Data Tidak Boleh Kosong !'
+                    ],
+                ],
+                'progres' => [
+                    'rules' => 'required',
+                    'errors' => [
+                        'required' => 'Data Tidak Boleh Kosong !'
+                    ],
+                ],
+
+            ]
+        )) {
+            session()->setFlashdata('error', 'Data cannot be added !!');
+            return redirect()->back()->withInput();
+        }
+        $success = $this->program->update($id, [
+
+            'divisi' => $this->request->getVar('divisi'),
+            'nama_program' => $this->request->getVar('nama_program'),
+            'progres' => $this->request->getVar('progres'),
+            'create_user' => $this->request->getVar('create_user'),
+            'created' => date('d F Y'),
+        ]);
+        if ($success) {
+            session()->setFlashdata('success', 'Data Success Be Added');
+            return redirect()->to(base_url('/user/program'));
+        }
+    }
+    public function deleteProgramUser($id)
+    {
+        if (!$this->request->getVar('confirm_delete')) {
+            // Tampilkan form konfirmasi
+            return redirect()->back()->withInput();
+        } else {
+            // Proses delete data
+            $success =  $this->program->where('id', $id)->delete();
+            if ($success) {
+                session()->setFlashdata('success', 'Data Success Be Added !');
+            } else {
+                session()->setFlashdata('error', 'Data Can Not Deleted !');
+            }
+            return redirect()->to(base_url('/user/program'));
         }
     }
 

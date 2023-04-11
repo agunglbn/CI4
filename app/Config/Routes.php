@@ -102,6 +102,12 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
     $routes->post('/users/deleteInventory/(:num)', 'users::deleteInventory/$1', ['filter' => 'role:admin,parataon ']);
     $routes->post('/users/updateStatusPeminjaman(:num)', 'Users::updateStatusPeminjaman/$1', ['filter' => 'role:admin,parataon']);
     $routes->get('/users/financeParataon', 'Users::financeParataon', ['filter' => 'role:parataon,admin']);
+
+    // Program Kerja ALL USER
+    $routes->get('/user/program', 'Users::programUser', ['filter' => 'role:diakonia,parahataon']);
+    $routes->POST('/user/newProgram', 'Users::addProgramUser', ['filter' => 'role:diakonia,parahataon']);
+    $routes->PUT('/UpdateProgram(:num)', 'Users::UpdateProgramUser/$1', ['filter' => 'role:diakonia,parahataon']);
+    $routes->delete('/deleteProgramUser(:num)', 'Users::deleteProgramUser/$1', ['filter' => 'role:diakonia,parahataon']);
 });
 
 

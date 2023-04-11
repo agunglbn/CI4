@@ -25,6 +25,8 @@
                     <ul class="submenu">
                         <li><a href="<?php echo base_url('/inventory'); ?>">Data Parataon</a></li>
                         <li><a href="<?php echo base_url('/users/financeParataon'); ?>">Finance</a></li>
+                        <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
+
                     </ul>
                 </li>
                 <?php endif; ?>
@@ -36,6 +38,7 @@
                     <ul class="submenu">
                         <li><a href="<?php echo base_url('/admin/jemaat'); ?>">Data Jemaat</a></li>
                         <li><a href="<?php echo base_url('/financeDiakon'); ?>">Administrasi</a></li>
+                        <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
                     </ul>
                 </li>
                 <?php endif; ?>

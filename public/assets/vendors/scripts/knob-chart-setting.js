@@ -1,5 +1,7 @@
+
 $(".dial1").knob();
-$({animatedVal: 0}).animate({animatedVal: 66}, {
+var inputText = document.querySelector('.knob');
+$({animatedVal: 0}).animate({animatedVal:inputText.value['']}, {
 	duration: 3000,
 	easing: "swing",
 	step: function() {
