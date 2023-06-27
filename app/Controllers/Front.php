@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use CodeIgniter\I18n\Time;
+
 class Front extends BaseController
 {
     protected $db;
@@ -15,13 +17,18 @@ class Front extends BaseController
     public function index()
     {
         $data = ([
-            'berita' =>  $this->berita->where('status', '1')->where('kategori_berita !=', 'Renungan')->where('jenis_berita !=', 0)->where('jenis_berita !=', 3)
+            'berita' =>  $this->berita->where('status', '1')
+                ->where('kategori_berita !=', 'Renungan')->where('jenis_berita !=', 0)
+                ->where('jenis_berita !=', 3)
                 ->orderBy('created', 'desc')->limit(5) //ASC dan DESC   
                 ->find(),
             'gallery' =>  $this->gallery->where('status', '1')->orderBy('created', 'desc')->limit(12) //ASC dan DESC   
                 ->findAll(),
             'kategori' =>  $this->kategori->findAll(),
-            'events' => $this->berita->where('jenis_berita', '3')->where('status', '1')->orderBy('created', 'desc')->limit(5)->find(),
+            'events' => $this->berita->where('jenis_berita', '3')->where('status', '1')
+                ->orderBy('created', 'desc')->limit(5)->find(),
+            'validation' => \Config\Services::validation(),
+
 
         ]);
         return view('front/content', $data);
@@ -59,11 +66,76 @@ class Front extends BaseController
             'getkategori' =>  $this->berita->getBeritaKategori($kategori),
             'pager' => $this->berita->pager,
             'kategori' =>  $this->kategori->findAll(),
+            'stensilan' => $this->berita->where('jenis_berita', '0')->where('status', 1)->orderBy('created', 'desc')->limit(5)->find(),
+
             // 'getkategori' =>  $query->getRow(),
         ]);
         return view('blogs/detail_kategori', $data);
     }
 
+    public function detailBerita($id = null)
+    {
+        $data = ([
+            'kategori' =>  $this->kategori->findAll(),
+            'stensilan' => $this->berita->where('jenis_berita', '0')->where('status', 1)->orderBy('created', 'desc')->limit(5)->find(),
+            'berita' => $this->berita->detailBerita($id),
+            'lastnews' => $this->berita->where('jenis_berita !=0')->where('kategori_berita !=', 'Renungan')
+                ->orderBy('created_at', 'desc')->limit(5)->find(),
+
+        ]);
+        return view('blogs/detail_berita', $data);
+    }
+
+    public function message()
+    {
+
+        // Validasi Form Kritik
+        if (!$this->validate(
+            [
+                'name' => [
+                    'rules' => 'required|alpha_numeric_space|max_length[60]|min_length[3]',
+                    'errors' => [
+                        'required' => 'Nama tidak boleh kosong !',
+                        'alpha_numeric_space' => 'Gunakan karakter tampa tanda spesial !',
+                        'max_length' => 'Penggunaan karakter nama terlalu panjang Max 60 !',
+                        'min_length' => 'Penggunaan karakter nama terlalu pendek Min 3!'
+                    ]
+                ],
+                'email' => [
+                    'rules' => 'required|valid_email|',
+                    'errors' => [
+                        'required' => 'Email tidak boleh kosong !',
+                        'valid_email' => 'Email yang dimasukkan tidak valid !'
+
+                    ]
+                ]
+            ]
+        )) {
+            session()->setFlashdata('error', 'Silahkan isi dengan benar !');
+            return redirect()->back()->withInput();
+        }
+        $salt = uniqid('', true);
+        $succes = $this->responses->insert([
+            'salt' => $salt,
+            'nama' => $this->request->getVar('name'),
+            'email' => $this->request->getVar('email'),
+            'subject' => $this->request->getVar('subject'),
+            'message' => $this->request->getVar('message'),
+        ]);
+
+        if ($succes) {
+            session()->setFlashdata('success', 'Saran anda telah dikirim Terimakasih !');
+            return redirect()->to(base_url('/front'));
+        }
+    }
+
+    public function tes()
+    {
+        $dateString = '2023-05-20 15:30:00';
+        $time = new Time($dateString);
+        $day = $time->format('F');
+        echo $day;  // Contoh: Kamis
+    }
     // public function tescoding()
     // {
     // $tes = "Total Pembelian Bulan ini Rp. 625.000";

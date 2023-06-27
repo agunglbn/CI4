@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\M_user;
+use \Myth\Auth\Password;
 
 
 
@@ -50,10 +52,127 @@ class Users extends BaseController
 
     public function profile()
     {
-        $data['title'] = 'Profile ';
+        $data = ([
+            'title' => 'Profile Account',
+            'validation' => \Config\Services::validation(),
+
+        ]);
         return view('profile', $data);
     }
 
+    public function updateProfile()
+    {
+
+        if ($this->request->getVar('profile')) {
+            // Validasi
+            //Cek Email 
+            $user_id = $this->request->getVar('userid');
+            $email = $this->model->find(user()->id, $this->request->getVar('email'));
+            if ($email['email'] == $this->request->getVar('email')) {
+                $rule_email = 'required|valid_email';
+            } else {
+                $rule_email = 'required|valid_email|is_unique[users.email]';
+            }
+            if (!$this->validate(
+                [
+                    'fullname' =>
+                    [
+                        'rules' => 'required|alpha_numeric_space',
+                        'errors' => [
+                            'required' => 'Data cannot be empty !',
+                            'alpha_numeric_space' => 'Do not use symbols !'
+                        ]
+                    ],
+                    'email' =>
+                    [
+
+                        'rules' => $rule_email,
+                        'errors' => [
+                            'required' => 'Data cannot be empty !',
+                            'valid_email' => 'Email is Not Valid'
+
+                        ]
+                    ],
+                ]
+            )) {
+                session()->setFlashdata('error', 'Profile Cannot Be Changed !');
+                return redirect()->back()->withInput();
+            }
+
+            $success =  $this->model->update($user_id, [
+                'fullname' => $this->request->getVar('fullname'),
+                'email' => $this->request->getVar('email'),
+                'mobile' => $this->request->getVar('mobile'),
+
+            ]);
+            if ($success) {
+                session()->setFlashdata('success', 'Profile changed successfully !');
+                return redirect()->to(base_url('users/profile'));
+            }
+        }
+
+        // Update Password
+        else {
+            // Validasi 
+            if (!$this->validate(
+                [
+                    'oldpassword' => [
+                        'rules' => 'required|',
+                        'errors' => [
+                            'required' => 'Data cannot be empty !',
+                        ]
+                    ],
+                    'newpassword' =>
+                    [
+
+                        'rules' => 'required|strong_password',
+                        'errors' => [
+                            'required' => 'Data cannot be empty !',
+
+                        ]
+                    ],
+                    'confpassword' =>
+                    [
+
+                        'rules' => 'required|matches[newpassword]',
+                        'errors' => [
+                            'required' => 'Data cannot be empty !',
+                            'matches' => 'The password field does not match !'
+
+                        ]
+                    ],
+                ]
+            )) {
+                session()->setFlashdata('error', 'Password Cannot Be Changed !');
+                return redirect()->back()->withInput();
+            }
+            $user_id = $this->request->getVar('userid');
+            // $user = $this->model->find(user()->id, $this->request->getVar('password_hash'));
+            $user = $this->model->find(user()->id);
+            $oldpassword = $this->request->getVar('oldpassword');
+            $newpassword = $this->request->getVar('newpassword');
+
+            // if (!password_verify($user['password_hash'], $oldpassword)) {
+            //     session()->setFlashdata('error', 'Passwords do not match !');
+            //     return redirect()->back()->withInput();
+
+            if ($oldpassword == $newpassword) {
+                session()->setFlashdata('error', 'Use a new password !');
+                return redirect()->back()->withInput();
+            } else {
+                $success =  $this->model->update($user_id, [
+                    'password_hash' => Password::hash($this->request->getVar('newpassword')),
+                    'reset_hash' => null,
+                    'reset_at' => null,
+                    'reset_expires' => null,
+                ]);
+                if ($success) {
+                    session()->setFlashdata('success', 'Profile changed successfully !');
+                    return redirect()->to(base_url('users/profile'));
+                }
+            }
+        }
+    }
 
     function financeDiakon()
     {

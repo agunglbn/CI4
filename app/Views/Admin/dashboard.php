@@ -27,15 +27,18 @@
         <div class="card-box mb-30">
             <div class="row clearfix progress-box">
                 <?php foreach ($progres as $program) : ?>
-                    <div class="col-lg-3 col-md-6 col-sm-12 mb-30">
-                        <div class="card-box pd-30 height-100-p">
-                            <div class="progress-box text-center">
-                                <input type="text" class="knob dial1" value="<?php echo $program->nilai ?>" data-width="120" data-height="120" data-linecap="round" data-thickness="0.12" data-bgColor="#fff" data-fgColor="#1b00ff" data-angleOffset="180" readonly />
-                                <h5 class="text-blue padding-top-10 h5"><?php echo $program->divisi  ?></h5>
-                                <span class="d-block">80% Average <i class="fa fa-line-chart text-blue"></i></span>
-                            </div>
+                <div class="col-lg-3 col-md-6 col-sm-12 mb-30">
+                    <div class="card-box pd-30 height-100-p">
+                        <div class="progress-box text-center">
+                            <input type="text" class="knob dial1" value="<?php echo $program->nilai ?>" data-width="120"
+                                data-height="120" data-linecap="round" data-thickness="0.12" data-bgColor="#fff"
+                                data-fgColor="#1b00ff" data-angleOffset="180" readonly />
+                            <h5 class="text-blue padding-top-10 h5"><?php echo $program->divisi  ?></h5>
+                            <span class="d-block"><?php echo number_format($program->nilai, 1, '.', '') ?>% Average
+                                <i class="fa fa-line-chart text-blue"></i></span>
                         </div>
                     </div>
+                </div>
                 <?php endforeach ?>
 
 

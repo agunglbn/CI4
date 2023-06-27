@@ -42,6 +42,16 @@
                     </ul>
                 </li>
                 <?php endif; ?>
+                <?php if (in_groups('naposo')) : ?>
+                <li class="dropdown">
+                    <a href="javascript:;" class="dropdown-toggle">
+                        <span class="micon icon-copy ti-server"></span><span class="mtext">Naposo</span>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
+                    </ul>
+                </li>
+                <?php endif; ?>
                 <!-- <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
                         <span class="micon icon-copy fa fa-group"></span><span class="mtext">Naposo</span>

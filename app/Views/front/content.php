@@ -14,27 +14,21 @@
                     </div>
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-                    <h3>Voluptatem dignissimos provident quasi corporis voluptates sit assumenda.</h3>
+                    <h3>HKBP Beringin Indah.</h3>
                     <p class="fst-italic">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-                        labore et dolore
-                        magna aliqua.
+
                     </p>
                     <ul>
-                        <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                        <!-- <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         </li>
                         <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate
                             velit.</li>
                         <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
                             Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                            fugiat nulla pariatur.</li>
+                            fugiat nulla pariatur.</li> -->
                     </ul>
                     <p>
-                        Ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit
-                        in voluptate
-                        velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-                        proident, sunt in
-                        culpa qui officia deserunt mollit anim id est laborum
+
                     </p>
                 </div>
             </div>
@@ -58,9 +52,9 @@
                         <span>01</span>
                         <h4>Morning Worship </h4>
                         <small>
-                            <h6>Monday, 07.00 - 09.00 PM </h6>
+                            <h6>Monday, 07.00 AM - 09.00 AM </h6>
                         </small>
-                        <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat
+                        <!-- <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat -->
                         </p>
                     </div>
                 </div>
@@ -70,10 +64,10 @@
                         <span>02</span>
                         <h4>Morning Worship </h4>
                         <small>
-                            <h6>Sunday, 08.30 - 10.00 PM </h6>
+                            <h6>Sunday, 09.00 - 10.30 AM </h6>
                         </small>
-                        <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire
-                            leno para dest</p>
+                        <!-- <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire
+                            leno para dest</p> -->
                     </div>
                 </div>
 
@@ -82,10 +76,10 @@
                         <span>03</span>
                         <h4> Afternoon Worship </h4>
                         <small>
-                            <h6>Sunday, 11.00 - 12.00 PM </h6>
+                            <h6>Sunday, 11.00 AM - 01.00 PM </h6>
                         </small>
-                        <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis
-                        </p>
+                        <!-- <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis
+                        </p> -->
                     </div>
                 </div><br>
                 <hr>
@@ -94,10 +88,10 @@
                         <span>03</span>
                         <h4> Evening Worship </h4>
                         <small>
-                            <h6>Sunday, 05.00 - 06.00 PM </h6>
+                            <h6>Sunday, 05.00 PM - 06.00 PM </h6>
                         </small>
-                        <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis
-                        </p>
+                        <!-- <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis
+                        </p> -->
                     </div>
                 </div>
 
@@ -224,7 +218,7 @@
 </section><!-- End Menu Section -->
 
     <!-- ======= Berita Section ======= -->
-    <section id="news" class="specials">
+    <!-- <section id="news" class="specials">
         <div class="container" data-aos="fade-up">
 
             <div class="section-title">
@@ -236,10 +230,7 @@
                 <div class="col-3">
                     <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                         <?php foreach ($berita as $news) { ?>
-                        <button class="nav-link" id="v-pills-berita-tab" data-toggle="pill"
-                            data-target="#<?php echo $news['slug'] ?>" type="button" role="tab"
-                            aria-controls="v-pills-profile"
-                            aria-selected="false"><?php echo word_limiter($news['judul_berita'], 3, ' ...'); ?></button>
+                            <button class="nav-link" id="v-pills-berita-tab" data-toggle="pill" data-target="#<?php echo $news['slug'] ?>" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false"><?php echo word_limiter($news['judul_berita'], 3, ' ...'); ?></button>
                         <?php } ?>
                     </div>
                 </div>
@@ -248,32 +239,73 @@
                 <div class="col-lg-9 mt-4 mt-lg-0">
                     <div class="tab-content">
                         <?php foreach ($berita as $news) { ?>
-                        <div class="tab-pane" id="<?php echo $news['slug'] ?>" role="tabpanel"
-                            aria-labelledby="v-pills-berita-tab">
-                            <div class="row">
+                            <div class="tab-pane" id="<?php echo $news['slug'] ?>" role="tabpanel" aria-labelledby="v-pills-berita-tab">
+                                <div class="row">
 
-                                <div class="col-lg-8 details order-2 order-lg-1">
-                                    <h3><?php echo word_limiter($news['judul_berita'], 15, ' ...'); ?></h3>
+                                    <div class="col-lg-8 details order-2 order-lg-1">
+                                        <h3><?php echo word_limiter($news['judul_berita'], 15, ' ...'); ?></h3>
 
-                                    <p><?php echo word_limiter($news['isi_berita'], 50, ' ...') ?></p>
+                                        <p><?php echo word_limiter($news['isi_berita'], 50, ' ...') ?></p>
+                                    </div>
+
+                                    <div class="col-lg-4 text-center order-1 order-lg-2">
+                                        <img src="<?php echo base_url('assets/vendors/img_berita/' . $news['img']); ?>" alt="" class="img-fluid">
+                                    </div>
+
                                 </div>
-
-                                <div class="col-lg-4 text-center order-1 order-lg-2">
-                                    <img src="<?php echo base_url('assets/vendors/img_berita/' . $news['img']); ?>"
-                                        alt="" class="img-fluid">
-                                </div>
-
                             </div>
-                        </div>
                         <?php } ?>
                     </div>
                 </div>
 
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- End Specials Section -->
 
+    <!-- ======= Berita Section ======= -->
+    <section id="news" class="events">
+        <div class="container" data-aos="fade-up">
+
+            <div class="section-title">
+                <h2>News</h2>
+                <p>Latest News</p>
+            </div>
+
+            <div class="events-slider swiper" data-aos="fade-up" data-aos-delay="100">
+
+                <div class="swiper-wrapper">
+                    <?php foreach ($berita as $news) { ?>
+                    <div class="swiper-slide">
+
+                        <div class="row event-item">
+                            <div class="col-lg-6">
+                                <img src="<?php echo base_url('/assets/vendors/img_berita/' . $news['img']); ?>"
+                                    class="img-fluid" alt="">
+                            </div>
+                            <div class="col-lg-6 pt-4 pt-lg-0 content">
+                                <h3><?php echo $news['judul_berita'] ?></h3>
+                                <div class="price">
+                                    <p><span><?php echo $news['kategori_berita'] ?></span></p>
+                                </div>
+
+
+                                <p>
+                                    <?php echo word_limiter($news['isi_berita'], 25, ' ...') ?>
+                                </p>
+                            </div>
+                        </div>
+
+                    </div><!-- End testimonial item -->
+                    <?php } ?>
+
+                </div>
+                <div class="swiper-pagination"></div>
+                <!--</div> -->
+            </div>
+        </div>
+
+    </section><!-- End Events Section -->
     <!-- ======= Events Section ======= -->
     <section id="events" class="events">
         <div class="container" data-aos="fade-up">
@@ -284,9 +316,11 @@
             </div>
 
             <div class="events-slider swiper" data-aos="fade-up" data-aos-delay="100">
+
                 <div class="swiper-wrapper">
-                    <?php foreach ($events as $event) : ?>
+                    <?php foreach ($events as $event) { ?>
                     <div class="swiper-slide">
+
                         <div class="row event-item">
                             <div class="col-lg-6">
                                 <img src="<?php echo base_url('/assets/vendors/img_berita/' . $event['img']); ?>"
@@ -297,28 +331,23 @@
                                 <div class="price">
                                     <p><span><?php echo $event['kategori_berita'] ?></span></p>
                                 </div>
-                                <!-- <p class="fst-italic">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                                    incididunt ut labore et dolore
-                                    magna aliqua.
-                                </p> -->
-
                                 <p>
-                                    <?php echo word_limiter($news['isi_berita'], 25, ' ...') ?>
+                                    <?php echo word_limiter($event['isi_berita'], 25, ' ...') ?>
                                 </p>
                             </div>
                         </div>
                     </div><!-- End testimonial item -->
-                    <?php endforeach ?>
-
+                    <?php } ?>
                 </div>
-                <div class="swiper-pagination"></div>
-            </div>
 
+                <div class="swiper-pagination"></div>
+                <!--</div> -->
+
+            </div>
         </div>
     </section><!-- End Events Section -->
 
-    <!-- ======= Testimonials Section ======= -->
+    <!-- ======= Testimonials Section ======= --
     <section id="testimonials" class="testimonials section-bg">
         <div class="container" data-aos="fade-up">
 
@@ -344,77 +373,77 @@
                             <h3>Saul Goodman</h3>
                             <h4>Ceo &amp; Founder</h4>
                         </div>
-                    </div><!-- End testimonial item -->
+                    </div><!-- End testimonial item --
 
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid
-                                cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet
-                                legam anim culpa.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <img src="<?php echo base_url(); ?>/assets/vendors/front/assets/img/testimonials/testimonials-2.jpg"
-                                class="testimonial-img" alt="">
-                            <h3>Sara Wilsson</h3>
-                            <h4>Designer</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam
-                                duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <img src="<?php echo base_url(); ?>/assets/vendors/front/assets/img/testimonials/testimonials-3.jpg"
-                                class="testimonial-img" alt="">
-                            <h3>Jena Karlis</h3>
-                            <h4>Store Owner</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat
-                                minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore
-                                labore illum veniam.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <img src="<?php echo base_url(); ?>/assets/vendors/front/assets/img/testimonials/testimonials-4.jpg"
-                                class="testimonial-img" alt="">
-                            <h3>Matt Brandon</h3>
-                            <h4>Freelancer</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                    <div class="swiper-slide">
-                        <div class="testimonial-item">
-                            <p>
-                                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
-                                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster
-                                veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam
-                                culpa fore nisi cillum quid.
-                                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
-                            </p>
-                            <img src="<?php echo base_url(); ?>/assets/vendors/front/assets/img/testimonials/testimonials-5.jpg"
-                                class="testimonial-img" alt="">
-                            <h3>John Larson</h3>
-                            <h4>Entrepreneur</h4>
-                        </div>
-                    </div><!-- End testimonial item -->
-
-                </div>
-                <div class="swiper-pagination"></div>
-            </div>
-
+    <div class="swiper-slide">
+        <div class="testimonial-item">
+            <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid
+                cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet
+                legam anim culpa.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+            </p>
+            <img src="<?php echo base_url(); ?>/assets/vendors/front/assets/img/testimonials/testimonials-2.jpg"
+                class="testimonial-img" alt="">
+            <h3>Sara Wilsson</h3>
+            <h4>Designer</h4>
         </div>
-    </section><!-- End Testimonials Section -->
+    </div><!-- End testimonial item --
+
+    <div class="swiper-slide">
+        <div class="testimonial-item">
+            <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam
+                duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+            </p>
+            <img src="<?php echo base_url(); ?>/assets/vendors/front/assets/img/testimonials/testimonials-3.jpg"
+                class="testimonial-img" alt="">
+            <h3>Jena Karlis</h3>
+            <h4>Store Owner</h4>
+        </div>
+    </div><!-- End testimonial item --
+
+    <div class="swiper-slide">
+        <div class="testimonial-item">
+            <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat
+                minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore
+                labore illum veniam.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+            </p>
+            <img src="<?php echo base_url(); ?>/assets/vendors/front/assets/img/testimonials/testimonials-4.jpg"
+                class="testimonial-img" alt="">
+            <h3>Matt Brandon</h3>
+            <h4>Freelancer</h4>
+        </div>
+    </div><!-- End testimonial item --
+
+    <div class="swiper-slide">
+        <div class="testimonial-item">
+            <p>
+                <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster
+                veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam
+                culpa fore nisi cillum quid.
+                <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+            </p>
+            <img src="<?php echo base_url(); ?>/assets/vendors/front/assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt="">
+            <h3>John Larson</h3>
+            <h4>Entrepreneur</h4>
+        </div>
+    </div>
+    <!-- End testimonial item --
+
+    </div>
+    <div class="swiper-pagination"></div>
+    </div>
+
+    </div>
+ </section><!-- End Testimonials Section -->
 
     <!-- ======= Gallery Section ======= -->
     <section id="gallery" class="gallery">
@@ -449,7 +478,7 @@
         </div>
     </section><!-- End Gallery Section -->
 
-    <!-- ======= Chefs Section ======= -->
+    <!-- ======= Chefs Section ======= --
     <section id="servent" class="chefs">
         <div class="container" data-aos="fade-up">
 
@@ -546,7 +575,7 @@
                         <div class="address">
                             <i class="bi bi-geo-alt"></i>
                             <h4>Location:</h4>
-                            <p>Jl. Palaraya No.329, Sidomulyo Tim., Kec. Marpoyan Damai, Kota Pekanbaru, Riau 28289</p>
+                            <p>Jl. Palaraya No.5, Sidomulyo Tim., Kec. Marpoyan Damai, Kota Pekanbaru, Riau 28289</p>
                         </div>
 
                         <div class="open-hours">
@@ -554,14 +583,14 @@
                             <h4>Open Hours:</h4>
                             <p>
                                 Monday-Sunday:<br>
-                                11:00 AM - 23:00 PM
+                                11:00 PM - 10:00 AM
                             </p>
                         </div>
 
                         <div class="email">
                             <i class="bi bi-envelope"></i>
                             <h4>Email:</h4>
-                            <p>info@example.com</p>
+                            <p>nhkbpberinginindah@gmail.com</p>
                         </div>
 
                         <div class="phone">
@@ -576,24 +605,50 @@
 
                 <div class="col-lg-8 mt-5 mt-lg-0">
 
-                    <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                    <form action="<?= base_url('/addMessage'); ?>" enctype="multipart/form-data" method="post"
+                        class="php-email-form">
+                        <?= csrf_field() ?>
+
                         <div class="row">
                             <div class="col-md-6 form-group">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name"
-                                    required>
+                                <input type="text" name="name"
+                                    class="form-control <?= $validation->hasError('name') ? 'is-invalid' : null ?>"
+                                    id="name" placeholder="Your Name">
+                                <?php if ($validation->hasError('name')) : ?>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('name'); ?>
+                                </div>
+                                <?php endif; ?>
                             </div>
                             <div class="col-md-6 form-group mt-3 mt-md-0">
-                                <input type="email" class="form-control" name="email" id="email"
-                                    placeholder="Your Email" required>
+                                <input type="email"
+                                    class="form-control <?= $validation->hasError('email') ? 'is-invalid' : null ?>"
+                                    name="email" id="email" placeholder="Your Email">
+                                <?php if ($validation->hasError('email')) : ?>
+                                <div class="invalid-feedback">
+                                    <?= $validation->getError('email'); ?>
+                                </div>
+                                <?php endif; ?>
                             </div>
                         </div>
                         <div class="form-group mt-3">
-                            <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject"
-                                required>
+                            <input type="text"
+                                class="form-control <?= $validation->hasError('subject') ? 'is-invalid' : null ?>"
+                                name="subject" id="subject" placeholder="Subject" required>
+                            <?php if ($validation->hasError('subject')) : ?>
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('subject'); ?>
+                            </div>
+                            <?php endif; ?>
                         </div>
                         <div class="form-group mt-3">
-                            <textarea class="form-control" name="message" rows="8" placeholder="Message"
-                                required></textarea>
+                            <textarea class="form-control <?= $validation->hasError('message') ? 'is-invalid' : null ?>"
+                                name="message" rows="8" placeholder="Message" required></textarea>
+                            <?php if ($validation->hasError('message')) : ?>
+                            <div class="invalid-feedback">
+                                <?= $validation->getError('message'); ?>
+                            </div>
+                            <?php endif; ?>
                         </div>
                         <div class="my-3">
                             <div class="loading">Loading</div>

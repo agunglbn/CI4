@@ -39,8 +39,10 @@ $routes->setAutoRoute(true);
 
 // Tambah User Admin
 $routes->get('/', 'Front::index');
+$routes->post('/addMessage', 'Front::message');
 $routes->get('/blogs', 'Front::blogs');
 $routes->get('/kategori/(:segment)', 'Front::detailKategori/$1');
+$routes->get('/blogs/detailBerita(:segment)/(:segment)', 'Front::detailBerita/$1/$2');
 $routes->group('', ['filter' => 'login'], function ($routes) {
     $routes->get('/', 'Users::index');
     $routes->get('/Users', 'Users::index');
@@ -49,11 +51,16 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
     $routes->get('/admin/(:num)', 'Admin::detailUser/$1', ['filter' => 'role:admin']);
     $routes->get('/admin/newUser', 'Admin::newUser', ['filter' => 'role:admin']);
     $routes->post('/admin/tambah', 'Admin::tambah', ['filter' => 'role:admin']);
+    $routes->get('/admin/updateUser/(:segment)/(:segment)', 'Admin::updateUser/$1/$2', ['filter' => 'role:admin']);
     $routes->post('/admin/DeleteUser/(:num)', 'Admin::DeleteUser/$1', ['filter' => 'role:admin']);
     $routes->get('/program', 'Admin::program', ['filter' => 'role:admin']);
     $routes->POST('/admin/newProgram', 'Admin::addNewProgram', ['filter' => 'role:admin']);
     $routes->post('/admin/statusProgram(:num)', 'Admin::statusProgram/$1', ['filter' => 'role:admin']);
     $routes->delete('/admin/deleteProgram/(:num)', 'Admin::deleteProgram/$1', ['filter' => 'role:admin ,diakonia,parataon ']);
+
+    // profile
+    $routes->get('/profile', 'Users::profile');
+    $routes->post('/user/updateProfile', 'Users::updateProfile');
 
 
     // Jemaat Diakonia
@@ -104,10 +111,10 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
     $routes->get('/users/financeParataon', 'Users::financeParataon', ['filter' => 'role:parataon,admin']);
 
     // Program Kerja ALL USER
-    $routes->get('/user/program', 'Users::programUser', ['filter' => 'role:diakonia,parahataon']);
-    $routes->POST('/user/newProgram', 'Users::addProgramUser', ['filter' => 'role:diakonia,parahataon']);
-    $routes->PUT('/UpdateProgram(:num)', 'Users::UpdateProgramUser/$1', ['filter' => 'role:diakonia,parahataon']);
-    $routes->delete('/deleteProgramUser(:num)', 'Users::deleteProgramUser/$1', ['filter' => 'role:diakonia,parahataon']);
+    $routes->get('/user/program', 'Users::programUser', ['filter' => 'role:diakonia,parataon,naposo']);
+    $routes->POST('/user/newProgram', 'Users::addProgramUser', ['filter' => 'role:diakonia,parataon,naposo']);
+    $routes->PUT('/UpdateProgram(:num)', 'Users::UpdateProgramUser/$1', ['filter' => 'role:diakonia,parataon,naposo']);
+    $routes->delete('/deleteProgramUser(:num)', 'Users::deleteProgramUser/$1', ['filter' => 'role:diakonia,parataon,naposo']);
 });
 
 

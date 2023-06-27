@@ -60,30 +60,27 @@
                         <tbody>
                             <?php $i = 1; ?>
                             <?php foreach ($users as $user) : ?>
-                            <tr>
-                                <td class="table-plus"><?= $i++; ?></td>
-                                <td><?= $user->username; ?></td>
-                                <td><?= $user->fullname ?></td>
-                                <td><?= $user->mobile; ?></td>
-                                <td><?= $user->name; ?></td>
-                                <td>
-                                    <div class="dropdown">
-                                        <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle"
-                                            href="#" role="button" data-toggle="dropdown">
-                                            <i class="dw dw-more"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                            <a class="dropdown-item"
-                                                href="<?= base_url('admin/' . $user->userid); ?>"><i
-                                                    class="dw dw-eye"></i> View</a>
-                                            <a class="dropdown-item" href="#"><i class="dw dw-edit2"></i> Edit</a>
-                                            <a class="dropdown-item"
-                                                href="<?= base_url('admin/DeleteUser/' . $user->userid); ?>"><i
-                                                    class="dw dw-delete-3"></i> Delete</a>
+                                <tr>
+                                    <td class="table-plus"><?= $i++; ?></td>
+                                    <td><?= $user->username; ?></td>
+                                    <td><?= $user->fullname ?></td>
+                                    <td><?= $user->mobile; ?></td>
+                                    <td><?= $user->name; ?></td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                                <i class="dw dw-more"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                                <a class="dropdown-item" href="<?= base_url('admin/' . $user->userid); ?>"><i class="dw dw-eye"></i> View</a>
+                                                <!-- <a class="dropdown-item"
+                                                href="<?= base_url('admin/updateUser/' . $user->salt  . $user->userid); ?>"><i
+                                                    class="dw dw-edit2"></i> Edit</a> -->
+                                                <a class="dropdown-item" href="<?= base_url('admin/DeleteUser/' . $user->userid); ?>"><i class="dw dw-delete-3"></i> Delete</a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
                             <?php endforeach; ?>
                         </tbody>
                     </table>

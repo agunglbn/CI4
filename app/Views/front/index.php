@@ -119,8 +119,8 @@
                     <h2>Tombak Perubahan Memberikan Hati Pelayanan yang terbaik !</h2>
 
                     <div class="btns">
-                        <a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>
-                        <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Book a Table</a>
+                        <!-- <a href="#menu" class="btn-menu animated fadeInUp scrollto">Our Menu</a>
+                        <a href="#book-a-table" class="btn-book animated fadeInUp scrollto">Book a Table</a> -->
                     </div>
                 </div>
                 <div class="col-lg-4 d-flex align-items-center justify-content-center position-relative"

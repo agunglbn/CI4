@@ -16,14 +16,14 @@ class Berita extends Model
     protected $protectFields    = true;
     protected $allowedFields    = [
         'username', 'role', 'judul_berita', 'isi_berita', 'slug',
-        'kategori_berita', 'status', 'created', 'modified', 'img', 'jenis_berita'
+        'kategori_berita', 'status', 'created', 'modified', 'img', 'jenis_berita', 'created_at', 'modified_at'
     ];
 
     // Dates
     protected $useTimestamps = TRUE;
     protected $dateFormat    = 'datetime';
-    protected $createdField  = 'created';
-    protected $updatedField  = 'modified';
+    protected $createdField  = 'created_at';
+    protected $updatedField  = 'modified_at';
     protected $deletedField  = '';
 
 
@@ -36,7 +36,7 @@ class Berita extends Model
     {
 
         $builder = $this->db->table('berita')->where('kategori_berita !=', 'Renungan')
-            ->where('jenis_berita !=', 0)->orderBy('kategori_berita', 'asc');
+            ->where('jenis_berita !=', 0)->where('jenis_berita !=', 3)->orderBy('kategori_berita', 'asc');
         $query = $builder->get();
         return $query->getResult();
     }

@@ -48,7 +48,7 @@
                             </div>
                         </div>
                         <h5 class="text-center h5 mb-0"><?= user()->username; ?></h5>
-                        <p class="text-center text-muted font-14">Lorem ipsum dolor sit amet</p>
+                        <p class="text-center text-muted font-14"><?= user()->fullname; ?></p>
                         <div class="profile-info">
                             <h5 class="mb-20 h5 text-blue">Contact Information</h5>
                             <ul>
@@ -58,17 +58,9 @@
                                 </li>
                                 <li>
                                     <span>Phone Number:</span>
-                                    619-229-0054
+                                    <?= user()->mobile; ?>
                                 </li>
-                                <li>
-                                    <span>Country:</span>
-                                    America
-                                </li>
-                                <li>
-                                    <span>Address:</span>
-                                    1807 Holden Street<br>
-                                    San Diego, CA 92115
-                                </li>
+
                             </ul>
                         </div>
 
@@ -80,163 +72,138 @@
                             <div class="tab height-100-p">
                                 <ul class="nav nav-tabs customtab" role="tablist">
                                     <li class="nav-item">
-                                        <a class="nav-link active" data-toggle="tab" href="#setting"
-                                            role="tab">Settings</a>
+                                        <a class="nav-link active" data-toggle="tab" href="#timeline" role="tab">Setting
+                                            Account</a>
                                     </li>
-
+                                    <!-- <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#tasks" role="tab">Change
+                                            Password</a>
+                                    </li> -->
 
                                 </ul>
                                 <div class="tab-content">
                                     <!-- Timeline Tab start -->
+                                    <div class="tab-pane fade show active" id="timeline" role="tabpanel">
+                                        <div class="pd-20">
+                                            <form action="<?= base_url('/user/updateProfile'); ?>"
+                                                enctype="multipart/form-data" method="post" class="user">
+                                                <?= csrf_field() ?>
 
+                                                <ul class="profile-edit-list row">
+                                                    <li class="weight-500 col-md-6">
+                                                        <h4 class="text-blue h5 mb-20">Edit Your Accout</h4>
+                                                        <div class="form-group">
+                                                            <label>Full Name</label>
+                                                            <input
+                                                                class="form-control <?= $validation->hasError('fullname') ? 'is-invalid' : null ?> form-control-lg"
+                                                                name="fullname" type="text"
+                                                                value="<?= user()->fullname; ?>">
+                                                            <?php if ($validation->hasError('fullname')) : ?>
+                                                            <div class="invalid-feedback">
+                                                                <?= $validation->getError('fullname'); ?>
+                                                            </div>
+                                                            <?php endif; ?>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Email</label>
+                                                            <input
+                                                                class="form-control <?= $validation->hasError('email') ? 'is-invalid' : null ?> form-control-lg"
+                                                                value="<?= user()->email; ?>" name="email" type="email">
+                                                            <?php if ($validation->hasError('email')) : ?>
+                                                            <div class="invalid-feedback">
+                                                                <?= $validation->getError('email'); ?>
+                                                            </div>
+                                                            <?php endif; ?>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <label>Username :</label>
+                                                            <input class="form-control form-control-lg"
+                                                                value="<?= user()->username; ?>" type="text" readonly
+                                                                placeholder="Your Username">
+                                                            <input class="form-control form-control-lg"
+                                                                value="<?= user()->id; ?>" type="text" hidden
+                                                                name="userid" placeholder="Your Username">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Mobile :</label>
+                                                            <input
+                                                                class="form-control form-control-lg <?= $validation->hasError('mobile') ? 'is-invalid' : null ?>"
+                                                                value="<?= user()->mobile; ?>" name="mobile"
+                                                                type="number" placeholder="Your Mobile">
+                                                            <?php if ($validation->hasError('mobile')) : ?>
+                                                            <div class="invalid-feedback">
+                                                                <?= $validation->getError('mobile'); ?>
+                                                            </div>
+                                                            <?php endif; ?>
+                                                        </div>
+
+                                                        <div class="form-group mb-0">
+                                                            <input name="profile" type="submit" class="btn btn-primary"
+                                                                value="Update Account">
+                                                        </div>
+                                                    </li>
+                                                    <li class="weight-500 col-md-6">
+                                                        <h4 class="text-blue h5 mb-20">Change Password</h4>
+
+                                                        <div class="form-group ">
+                                                            <label>Password Lama :</label>
+                                                            <input
+                                                                class="form-control <?= $validation->hasError('oldpassword') ? 'is-invalid' : null ?> form-control-lg"
+                                                                name="oldpassword" type="password">
+                                                            <!--  -->
+                                                            <input
+                                                                class="form-control <?= $validation->hasError('oldpassword') ? 'is-invalid' : null ?> form-control-lg"
+                                                                name="password_hash"
+                                                                value="<?= user()->password_hash ?>" type="hidden">
+                                                            <?php if ($validation->hasError('oldpassword')) : ?>
+                                                            <div class="invalid-feedback">
+                                                                <?= $validation->getError('oldpassword'); ?>
+                                                            </div>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Password Baru :</label>
+                                                            <input
+                                                                class="form-control <?= $validation->hasError('newpassword') ? 'is-invalid' : null ?> form-control-lg"
+                                                                name="newpassword" type="password">
+                                                            <?php if ($validation->hasError('newpassword')) : ?>
+                                                            <div class="invalid-feedback">
+                                                                <?= $validation->getError('newpassword'); ?>
+                                                            </div>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Confirm Password :</label>
+                                                            <input
+                                                                class="form-control <?= $validation->hasError('confpassword') ? 'is-invalid' : null ?> form-control-lg"
+                                                                name="confpassword" type="password">
+                                                            <?php if ($validation->hasError('confpassword')) : ?>
+                                                            <div class="invalid-feedback">
+                                                                <?= $validation->getError('confpassword'); ?>
+                                                            </div>
+                                                            <?php endif; ?>
+                                                        </div>
+
+
+
+
+                                                        <div class="form-group mb-0">
+                                                            <input name="password" type="submit" class="btn btn-primary"
+                                                                value="Update Password">
+                                                        </div>
+                                            </form>
+
+                                            </li>
+                                            </ul>
+                                        </div>
+                                    </div>
                                     <!-- Timeline Tab End -->
                                     <!-- Tasks Tab start -->
 
                                     <!-- Tasks Tab End -->
-                                    <!-- Setting Tab start -->
-                                    <div class="tab-pane fade height-100-p show active" id="setting" role="tabpanel">
-                                        <div class="profile-setting">
-                                            <form>
-                                                <ul class="profile-edit-list row">
-                                                    <li class="weight-500 col-md-6">
-                                                        <h4 class="text-blue h5 mb-20">Edit Your Personal Setting</h4>
-                                                        <div class="form-group">
-                                                            <label>Full Name</label>
-                                                            <input class="form-control form-control-lg" type="text">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Title</label>
-                                                            <input class="form-control form-control-lg" type="text">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Email</label>
-                                                            <input class="form-control form-control-lg" type="email">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Date of birth</label>
-                                                            <input class="form-control form-control-lg date-picker"
-                                                                type="text">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Gender</label>
-                                                            <div class="d-flex">
-                                                                <div class="custom-control custom-radio mb-5 mr-20">
-                                                                    <input type="radio" id="customRadio4"
-                                                                        name="customRadio" class="custom-control-input">
-                                                                    <label class="custom-control-label weight-400"
-                                                                        for="customRadio4">Male</label>
-                                                                </div>
-                                                                <div class="custom-control custom-radio mb-5">
-                                                                    <input type="radio" id="customRadio5"
-                                                                        name="customRadio" class="custom-control-input">
-                                                                    <label class="custom-control-label weight-400"
-                                                                        for="customRadio5">Female</label>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Country</label>
-                                                            <select class="selectpicker form-control form-control-lg"
-                                                                data-style="btn-outline-secondary btn-lg"
-                                                                title="Not Chosen">
-                                                                <option>United States</option>
-                                                                <option>India</option>
-                                                                <option>United Kingdom</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>State/Province/Region</label>
-                                                            <input class="form-control form-control-lg" type="text">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Postal Code</label>
-                                                            <input class="form-control form-control-lg" type="text">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Phone Number</label>
-                                                            <input class="form-control form-control-lg" type="text">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Address</label>
-                                                            <textarea class="form-control"></textarea>
-                                                        </div>
 
-                                                        <div class="form-group">
-                                                            <div class="custom-control custom-checkbox mb-5">
-                                                                <input type="checkbox" class="custom-control-input"
-                                                                    id="customCheck1-1">
-                                                                <label class="custom-control-label weight-400"
-                                                                    for="customCheck1-1">I agree to receive notification
-                                                                    emails</label>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-group mb-0">
-                                                            <input type="submit" class="btn btn-primary"
-                                                                value="Update Information">
-                                                        </div>
-                                                    </li>
-                                                    <li class="weight-500 col-md-6">
-                                                        <h4 class="text-blue h5 mb-20">Edit Social Media links</h4>
-                                                        <div class="form-group">
-                                                            <label>Facebook URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Twitter URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Linkedin URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Instagram URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Dribbble URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Dropbox URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Google-plus URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Pinterest URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Skype URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group">
-                                                            <label>Vine URL:</label>
-                                                            <input class="form-control form-control-lg" type="text"
-                                                                placeholder="Paste your link here">
-                                                        </div>
-                                                        <div class="form-group mb-0">
-                                                            <input type="submit" class="btn btn-primary"
-                                                                value="Save & Update">
-                                                        </div>
-                                                    </li>
-                                                </ul>
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <!-- Setting Tab End -->
                                 </div>
                             </div>
                         </div>

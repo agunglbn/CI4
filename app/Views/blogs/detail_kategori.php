@@ -17,16 +17,16 @@
                 </div>
                 <div class="post-entry-2 d-flex">
                     <div class="thumbnail order-md-2"
-                        style="background-image: url('<?php echo base_url(); ?>/assets/vendors/blogs/images/img_h_4.jpg')">
+                        style="background-image: url('<?php echo base_url('assets/vendors/img_berita/' . $get['img']); ?>')">
                     </div>
                     <div class="contents order-md-1 pl-0">
                         <h2><a href="blog-single.html"><?php echo $get['judul_berita'] ?></a></h2>
-                        <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi temporibus
-                            praesentium neque, voluptatum quam quibusdam.</p>
+                        <p class="mb-3"><?php echo word_limiter($get['isi_berita'], 60, ' ...'); ?>.</p>
                         <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
+                            <span class="d-block"><a href="#">Post</a> By <a href="#"><?php echo $get['role']; ?></a>
+                                (<?php echo $get['username']; ?>)</span>
+                            <span class="date-read"><?php echo $get['created'] ?> <span class="mx-1">&bullet;</span> 3
+                                min read <span class="icon-star2"></span></span>
                         </div>
                     </div>
                 </div>
@@ -34,58 +34,30 @@
                 <?php endforeach ?>
             </div>
 
+
             <div class="col-lg-3">
                 <div class="section-title">
-                    <h2>Popular Posts</h2>
+                    <h2>Stensilan Ibadah</h2>
                 </div>
-
+                <?php $i = 1; ?>
+                <?php foreach ($stensilan as $stensil) : ?>
                 <div class="trend-entry d-flex">
-                    <div class="number align-self-start">01</div>
+                    <div class="number align-self-start"><?= $i++; ?></div>
                     <div class="trend-contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
+                        <h2><a
+                                href="<?= base_url(); ?>/admin/downloadfile/<?= $stensil['id']; ?>"><?php echo $stensil['judul_berita']; ?></a>
+                        </h2>
                         <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
+                            <span class="d-block"><a href="#">Post</a> By <a
+                                    href="#"><?php echo $stensil['role']; ?></a>
+                                (<?php echo $stensil['username']; ?>)</span>
+                            <span class="date-read"><?php echo $stensil['created'] ?> <span class="mx-1">&bullet;</span>
+                                <span class="icon-star2"></span></span>
                         </div>
                     </div>
                 </div>
+                <?php endforeach ?>
 
-                <div class="trend-entry d-flex">
-                    <div class="number align-self-start">02</div>
-                    <div class="trend-contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="trend-entry d-flex">
-                    <div class="number align-self-start">03</div>
-                    <div class="trend-contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="trend-entry d-flex pl-0">
-                    <div class="number align-self-start">04</div>
-                    <div class="trend-contents">
-                        <h2><a href="blog-single.html">News Needs to Meet Its Audiences Where They Are</a></h2>
-                        <div class="post-meta">
-                            <span class="d-block"><a href="#">Dave Rogers</a> in <a href="#">News</a></span>
-                            <span class="date-read">Jun 14 <span class="mx-1">&bullet;</span> 3 min read <span
-                                    class="icon-star2"></span></span>
-                        </div>
-                    </div>
-                </div>
 
                 <p>
                     <a href="#" class="more">See All Popular <span class="icon-keyboard_arrow_right"></span></a>

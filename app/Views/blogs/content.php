@@ -54,8 +54,10 @@
                     </div>
                     <div class="contents">
                         <h2><a
-                                href="blog-single.html"><?php echo word_limiter($blogs['judul_berita'], 10, ' ...'); ?></a>
+                                href="<?php echo base_url('/blogs/detailBerita' .  $blogs['id'] . '/' . $blogs['judul_berita'] . $blogs['slug']); ?>">
+                                <?php echo word_limiter($blogs['judul_berita'], 10, ' ...'); ?></a>
                         </h2>
+
                         <p class="mb-3"><?php echo word_limiter($blogs['isi_berita'], 20, ' ...'); ?></p>
                         <div class="post-meta">
                             <span class="d-block"><a href="#">Post</a> By <a href="#"><?php echo $blogs['role']; ?></a>
@@ -63,7 +65,8 @@
                             <span class="d-block"><a href="#"><?php echo $blogs['created'] ?></a> <span
                                     class="mx-1">&bullet;</span>
                                 <a href="#"><?php echo $blogs['kategori_berita'] ?></a>
-                                <span class="icon-star2"></span></span>
+                                <span class="icon-star2"></span></button>
+                            </span>
                             <!-- <span class="date-read"><?php echo $blogs['created'] ?>
                                 <span class="mx-1">&bullet;</span>
                                 <?php echo $blogs['kategori_berita'] ?>
@@ -121,9 +124,10 @@
         <div class="container">
             <form action="#" class="row align-items-center">
                 <div class="col-md-5 mr-auto">
-                    <h2>Newsletter Subcribe</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Perferendis aspernatur ut at quae omnis
-                        pariatur obcaecati possimus nisi ea iste!</p>
+                    <h2>HKBP Beringin Indah</h2>
+                    <p>
+
+                    </p>
                 </div>
                 <div class="col-md-6 ml-auto">
                     <div class="d-flex">

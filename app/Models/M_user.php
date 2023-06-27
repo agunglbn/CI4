@@ -14,7 +14,7 @@ class M_user extends Model
     protected $useAutoIncrement = true;
     protected $allowedFields  = [
         'email', 'username', 'fullname', 'mobile', 'groups', 'password_hash', 'reset_hash', 'reset_at', 'reset_expires', 'activate_hash',
-        'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at',
+        'status', 'status_message', 'active', 'force_pass_reset', 'permissions', 'deleted_at', 'salt', 'user_img'
     ];
     protected $afterInsert        = ['addToGroup'];
     protected $useTimestamps   = true;

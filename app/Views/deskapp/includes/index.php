@@ -7,27 +7,20 @@
     <title><?= $title; ?></title>
 
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180"
-        href="<?php echo base_url(); ?>/assets/vendors/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32"
-        href="<?php echo base_url(); ?>/assets/vendors/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="<?php echo base_url(); ?>/assets/vendors/images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo base_url(); ?>/assets/vendors/images/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo base_url(); ?>/assets/vendors/images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url(); ?>/assets/vendors/images/favicon-16x16.png">
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/vendors/styles/core.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/vendors/styles/icon-font.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="<?php echo base_url(); ?>/assets/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="<?php echo base_url(); ?>/assets/src/plugins/datatables/css/responsive.bootstrap4.min.css">
-    <link rel="stylesheet" type="text/css"
-        href="<?php echo base_url(); ?>/assets/src/plugins/fancybox/dist/jquery.fancybox.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/src/plugins/datatables/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/src/plugins/datatables/css/responsive.bootstrap4.min.css">
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/src/plugins/fancybox/dist/jquery.fancybox.css">
     <link rel="stylesheet" type="text/css" href="<?php echo base_url(); ?>/assets/vendors/styles/style.css">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -35,14 +28,14 @@
     <script src="<?php echo base_url() ?>/assets/node_modules/node_modules/ckeditor4/ckeditor.js"></script>
 
     <script>
-    window.dataLayer = window.dataLayer || [];
+        window.dataLayer = window.dataLayer || [];
 
-    function gtag() {
-        dataLayer.push(arguments);
-    }
-    gtag('js', new Date());
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
 
-    gtag('config', 'UA-119386393-1');
+        gtag('config', 'UA-119386393-1');
     </script>
 </head>
 
@@ -177,20 +170,17 @@
                         <span class="user-name"></span>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                        <a class="dropdown-item" href="<?php echo base_url('Users/profile'); ?>"><i
-                                class="dw dw-user1"></i> Profile</a>
-                        <a class="dropdown-item" href="<?php echo base_url('deskapp/extrapages/profile'); ?>"><i
-                                class="dw dw-settings2"></i> Setting</a>
-                        <a class="dropdown-item" href="<?php echo base_url('deskapp/extrapages/faq'); ?>"><i
-                                class="dw dw-help"></i> Help</a>
+                        <a class="dropdown-item" href="<?php echo base_url('/profile'); ?>"><i class="dw dw-user1"></i>
+                            Profile</a>
+                        <a class="dropdown-item" href="<?php echo base_url('deskapp/extrapages/profile'); ?>"><i class="dw dw-settings2"></i> Setting</a>
+                        <a class="dropdown-item" href="<?php echo base_url('deskapp/extrapages/faq'); ?>"><i class="dw dw-help"></i> Help</a>
                         <a class="dropdown-item" href="<?php echo base_url('logout'); ?>"><i class="dw dw-logout"></i>
                             Log Out</a>
                     </div>
                 </div>
             </div>
             <div class="github-link">
-                <a href="https://github.com/dropways/deskapp" target="_blank"><img
-                        src="<?php echo base_url(); ?>/assets/vendors/images/github.svg" alt=""></a>
+                <a href="https://github.com/dropways/deskapp" target="_blank"><img src="<?php echo base_url(); ?>/assets/vendors/images/github.svg" alt=""></a>
             </div>
         </div>
     </div>
@@ -222,57 +212,43 @@
                 <h4 class="weight-600 font-18 pb-10">Menu Dropdown Icon</h4>
                 <div class="sidebar-radio-group pb-10 mb-10">
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebaricon-1" name="menu-dropdown-icon" class="custom-control-input"
-                            value="icon-style-1" checked="">
+                        <input type="radio" id="sidebaricon-1" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-1" checked="">
                         <label class="custom-control-label" for="sidebaricon-1"><i class="fa fa-angle-down"></i></label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebaricon-2" name="menu-dropdown-icon" class="custom-control-input"
-                            value="icon-style-2">
+                        <input type="radio" id="sidebaricon-2" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-2">
                         <label class="custom-control-label" for="sidebaricon-2"><i class="ion-plus-round"></i></label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebaricon-3" name="menu-dropdown-icon" class="custom-control-input"
-                            value="icon-style-3">
-                        <label class="custom-control-label" for="sidebaricon-3"><i
-                                class="fa fa-angle-double-right"></i></label>
+                        <input type="radio" id="sidebaricon-3" name="menu-dropdown-icon" class="custom-control-input" value="icon-style-3">
+                        <label class="custom-control-label" for="sidebaricon-3"><i class="fa fa-angle-double-right"></i></label>
                     </div>
                 </div>
 
                 <h4 class="weight-600 font-18 pb-10">Menu List Icon</h4>
                 <div class="sidebar-radio-group pb-30 mb-10">
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-1" name="menu-list-icon" class="custom-control-input"
-                            value="icon-list-style-1" checked="">
-                        <label class="custom-control-label" for="sidebariconlist-1"><i
-                                class="ion-minus-round"></i></label>
+                        <input type="radio" id="sidebariconlist-1" name="menu-list-icon" class="custom-control-input" value="icon-list-style-1" checked="">
+                        <label class="custom-control-label" for="sidebariconlist-1"><i class="ion-minus-round"></i></label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-2" name="menu-list-icon" class="custom-control-input"
-                            value="icon-list-style-2">
-                        <label class="custom-control-label" for="sidebariconlist-2"><i class="fa fa-circle-o"
-                                aria-hidden="true"></i></label>
+                        <input type="radio" id="sidebariconlist-2" name="menu-list-icon" class="custom-control-input" value="icon-list-style-2">
+                        <label class="custom-control-label" for="sidebariconlist-2"><i class="fa fa-circle-o" aria-hidden="true"></i></label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-3" name="menu-list-icon" class="custom-control-input"
-                            value="icon-list-style-3">
+                        <input type="radio" id="sidebariconlist-3" name="menu-list-icon" class="custom-control-input" value="icon-list-style-3">
                         <label class="custom-control-label" for="sidebariconlist-3"><i class="dw dw-check"></i></label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-4" name="menu-list-icon" class="custom-control-input"
-                            value="icon-list-style-4" checked="">
-                        <label class="custom-control-label" for="sidebariconlist-4"><i
-                                class="icon-copy dw dw-next-2"></i></label>
+                        <input type="radio" id="sidebariconlist-4" name="menu-list-icon" class="custom-control-input" value="icon-list-style-4" checked="">
+                        <label class="custom-control-label" for="sidebariconlist-4"><i class="icon-copy dw dw-next-2"></i></label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-5" name="menu-list-icon" class="custom-control-input"
-                            value="icon-list-style-5">
-                        <label class="custom-control-label" for="sidebariconlist-5"><i
-                                class="dw dw-fast-forward-1"></i></label>
+                        <input type="radio" id="sidebariconlist-5" name="menu-list-icon" class="custom-control-input" value="icon-list-style-5">
+                        <label class="custom-control-label" for="sidebariconlist-5"><i class="dw dw-fast-forward-1"></i></label>
                     </div>
                     <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="sidebariconlist-6" name="menu-list-icon" class="custom-control-input"
-                            value="icon-list-style-6">
+                        <input type="radio" id="sidebariconlist-6" name="menu-list-icon" class="custom-control-input" value="icon-list-style-6">
                         <label class="custom-control-label" for="sidebariconlist-6"><i class="dw dw-next"></i></label>
                     </div>
                 </div>

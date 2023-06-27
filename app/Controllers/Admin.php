@@ -16,6 +16,8 @@ use CodeIgniter\Session\Session;
 use Myth\Auth\Config\Auth as AuthConfig;
 use Myth\Auth\Entities\User;
 use Myth\Auth\Password;
+use CodeIgniter\Images\Handlers\GDHandler;
+use CodeIgniter\Images\Handlers\ImageMagickHandler;
 
 class Admin extends BaseController
 {
@@ -51,9 +53,10 @@ class Admin extends BaseController
         // $data['users'] = $users->findAll();
 
 
-        $this->builder->select('users.id as userid,email, username,mobile,fullname,name');
+        $this->builder->select('users.id as userid,email,salt, username,mobile,fullname,name');
         $this->builder->join('auth_groups_users', 'auth_groups_users.user_id=users.id');
         $this->builder->join('auth_groups', 'auth_groups.id=auth_groups_users.group_id');
+        $this->builder->where('group_id !=', 1);
         $query =  $this->builder->get();
         $data['users'] = $query->getResult();
         return view('Admin/data_user', $data);
@@ -112,9 +115,10 @@ class Admin extends BaseController
         // $slug = url_title($this->request->getVar('username'), '-', true);
 
         // Jika Data Valid
-
+        $salt = uniqid('', true);
         $rule_role = $this->request->getVar('role');
         $this->model->withGroup($rule_role)->insert([
+            'salt' => $salt,
             'username' => $this->request->getVar('username'),
             'email' => $this->request->getVar('email'),
             'mobile' => $this->request->getVar('mobile'),
@@ -146,6 +150,27 @@ class Admin extends BaseController
         // $this->jemaat->delete($id);
         return redirect()->back()->with('success', 'Data Success be Delete !!');
     }
+
+
+    // Update User
+    public function updateUser($id)
+
+    {
+
+        $this->builder->select('users.id as userid,email, username,user_img,mobile,fullname,name');
+        $this->builder->join('auth_groups_users', 'auth_groups_users.user_id=users.id');
+        $this->builder->join('auth_groups', 'auth_groups.id=auth_groups_users.group_id');
+        $this->builder->where('users.id', $id);
+        $query =  $this->builder->get();
+        $data = [
+            'title' => 'Update User',
+            'validation' => \Config\Services::validation(),
+            'group_role' => $this->model->groupRole(),
+            'user' => $query->getRow(),
+        ];
+        return view('Admin/update_user', $data);
+    }
+
     // Data Jemaat
 
     public function jemaat()
@@ -371,7 +396,10 @@ class Admin extends BaseController
         $data = ([
             'title' => 'Data Berita',
             'berita' => $this->berita->getBerita(),
-            'renungan' => $this->berita->where('kategori_berita', 'Renungan')->where('jenis_berita !=', 0)->orderBy('created', 'desc')->findAll(),
+            'renungan' => $this->berita->where('kategori_berita', 'Renungan')
+                ->where('jenis_berita !=', 0)->orderBy('created_at', 'desc')->findAll(),
+            'event' => $this->berita->where('jenis_berita !=', 0)->where('jenis_berita !=', 1)->where('jenis_berita !=', 2)
+                ->orderBy('created_at', 'desc')->findAll(),
 
 
         ]);
@@ -394,8 +422,7 @@ class Admin extends BaseController
         $rules = [
             'judul_berita' => 'required',
             'isi_berita' => 'required',
-            'kategori_berita' => 'required',
-            'img' => 'max_size[img,2064]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
+            'img' => 'max_size[img,20064]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
             'status' => 'required',
 
 
@@ -408,9 +435,7 @@ class Admin extends BaseController
             'isi_berita' => [
                 'required' => 'Isi Berita tidak boleh kosong !!',
             ],
-            'kategori' => [
-                'required' => 'Kategori Berita tidak boleh kosong !!',
-            ],
+
             'img' => [
                 'uploaded' => 'Gambar tidak boleh kosong !!',
                 'max_size' => 'Ukuran gambar Maximal 2 Mb !!!',
@@ -432,7 +457,7 @@ class Admin extends BaseController
 
         // Validasi Gambar diubah atau tidak
 
-        if (!empty($img)) {
+        if (!$img->isValid()) {
             $success =  $this->berita->insert([
                 'username' => $this->request->getVar('username'),
                 'slug' => $slug_username,
@@ -451,11 +476,17 @@ class Admin extends BaseController
                 return redirect()->to(base_url('/admin/berita'));
             }
         } else {
+            $image = \Config\Services::image();
             $img = $this->request->getFile('img');
             $filename = $img->getRandomName();
             $slug_username = url_title($this->request->getVar('judul_berita') . '-' . uniqid('', true), '-', true);
             ////buat salt
             // $salt = uniqid('', true);
+            $image->withFile($img)
+                ->resize(450, 500, 'center')
+                ->save(FCPATH . 'assets/vendors/img_berita/' . $filename);
+            $img->move(WRITEPATH . $filename);
+
             // Kiri Field Database Kanan Field Name Form 
             $success =  $this->berita->insert([
                 'username' => $this->request->getVar('username'),
@@ -470,7 +501,7 @@ class Admin extends BaseController
                 'img' => $filename,
             ]);
 
-            $img->move('assets/vendors/img_berita/', $filename);
+
             // $img->move('assets/vendors/img_berita/', $filename);
             // $builder = $this->db->table("berita");
             // $success = $builder->insert($data);
@@ -675,10 +706,10 @@ class Admin extends BaseController
         // Validasi 
         if (!$this->validate([
             'img' => [
-                'rules' => 'uploaded[img.0]|max_size[img,1564]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
+                'rules' => 'uploaded[img.0]|max_size[img,11564]|is_image[img]|mime_in[img,image/jpeg,image/jpg,image/png]',
                 'errors' => [
                     'uploaded' => 'Silahkan Masukkan Gambar !!',
-                    'max_size' => 'Maximal Size Gambar 1,5 Mb !!',
+                    'max_size' => 'Maximal Size Gambar 5 Mb !!',
                     'is_image' => 'Format harus jpg/jpeg/png !!',
                     'mime_in' => 'Format dalam bentuk gambar !!',
 

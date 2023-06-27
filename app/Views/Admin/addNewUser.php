@@ -107,28 +107,6 @@
                             <?php endif; ?>
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label class="col-sm-12 col-md-2 col-form-label">Divisi</label>
-                        <div class="col-sm-12 col-md-10">
-                            <select name="divisi"
-                                class="custom-select col-12 <?= $validation->hasError('divisi') ? 'is-invalid' : null ?>">
-                                <?php foreach ($divisi as $role) :  ?>
-                                <option value="" disabled selected hidden>--Choice--</option>
-                                <option value="<?php echo $role['nama_divisi']; ?>">
-                                    <?php echo $role['nama_divisi']; ?>
-                                </option>
-
-                                <?php endforeach; ?>
-
-                            </select>
-                            <?php if ($validation->hasError('role')) : ?>
-                            <div class="invalid-feedback">
-                                <?= $validation->getError('role'); ?>
-                            </div>
-                            <?php endif; ?>
-                        </div>
-
-                    </div>
 
                     <div class="form-group row">
                         <label class="col-sm-12 col-md-2 col-form-label">Telephone</label>
@@ -198,8 +176,8 @@
                         <div class="pull-right ml-lg-5 mt-30">
                             <button class="btn btn-primary  " href="#" type="submit">
                                 Submit</button>
-                            <button class="btn btn-danger " href="#" type="submit">
-                                Cancel</button>
+                            <a class="btn btn-danger " href="<?php echo base_url('/admin') ?>">
+                                Cancel</a>
                         </div>
                     </div>
 

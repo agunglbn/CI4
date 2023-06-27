@@ -20,6 +20,7 @@ use App\Models\Keuangan;
 use App\Models\Program;
 use App\Models\AuthGroups;
 use App\Models\Berita;
+use App\Models\Response;
 use Myth\Auth\Models\UserModel;
 use CodeIgniter\Session\Session;
 use Myth\Auth\Config\Auth as AuthConfig;
@@ -39,7 +40,8 @@ use Myth\Auth\Password;
  */
 abstract class BaseController extends Controller
 {
-    protected $userModel, $program, $gallery, $peminjaman, $inventory, $divisi, $keuangan, $db, $builder, $model, $jemaat, $validation, $kategori, $berita;
+    protected $userModel, $program, $gallery, $peminjaman, $inventory, $responses,
+        $divisi, $keuangan, $db, $builder, $model, $jemaat, $validation, $kategori, $berita;
 
 
 
@@ -82,6 +84,7 @@ abstract class BaseController extends Controller
         $this->program = new Program;
         $this->kategori = new Kategori;
         $this->gallery = new Gallery;
+        $this->responses = new Response;
         $this->validation = \Config\Services::validation();
         helper('url', 'text');
         // E.g.: 
