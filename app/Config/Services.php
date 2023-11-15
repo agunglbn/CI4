@@ -19,6 +19,14 @@ use CodeIgniter\Config\BaseService;
  */
 class Services extends BaseService
 {
+
+    public function SweetAlertServiceProvider()
+    {
+        $aliases = [
+            // ...
+            'Alert' => \RealRashid\SweetAlert\Facades\Alert::class,
+        ];
+    }
     /*
      * public static function example($getShared = true)
      * {

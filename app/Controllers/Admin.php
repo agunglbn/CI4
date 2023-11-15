@@ -59,6 +59,8 @@ class Admin extends BaseController
         $this->builder->where('group_id !=', 1);
         $query =  $this->builder->get();
         $data['users'] = $query->getResult();
+        $data['notifikasi'] = $this->responses->orderBy('create_at', 'desc')->limit(8)->find();
+
         return view('Admin/data_user', $data);
     }
 
@@ -79,6 +81,8 @@ class Admin extends BaseController
         $this->builder->where('users.id', $id);
         $query =  $this->builder->get();
         $data['user'] = $query->getRow();
+        $data['notifikasi'] = $this->responses->orderBy('create_at', 'desc')->limit(8)->find();
+
         return view('Admin/detailUser', $data);
     }
 
@@ -89,7 +93,9 @@ class Admin extends BaseController
             'title' => 'Add New User',
             'validation' => \Config\Services::validation(),
             'group_role' => $this->model->groupRole(),
-            'divisi' => $this->divisi->findAll()
+            'divisi' => $this->divisi->findAll(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
+
         ];
         return view('Admin/addNewUser', $data);
     }
@@ -127,6 +133,7 @@ class Admin extends BaseController
             'password_hash' => Password::hash($this->request->getVar('password_hash')),
             'active' => 1,
             'groups' => $this->request->getVar('role'),
+
         ]);
         // $data = [
         //     'username' => $this->request->getVar('username'),
@@ -167,6 +174,8 @@ class Admin extends BaseController
             'validation' => \Config\Services::validation(),
             'group_role' => $this->model->groupRole(),
             'user' => $query->getRow(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
+
         ];
         return view('Admin/update_user', $data);
     }
@@ -176,12 +185,14 @@ class Admin extends BaseController
     public function jemaat()
     {
 
+
         $data = ([
             'title' => 'Data Jemaat HKBP Beringin Indah',
             'jemaat'  => $this->jemaat->orderBy('nama_jemaat', 'asc') //ASC dan DESC   
                 ->findAll(), //     $userModel->where('status', 'active')
             // ->orderBy('last_login', 'asc')
             // ->findAll();
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
         ]);
         return view('Diakonia/data_jemaat', $data);
@@ -196,6 +207,7 @@ class Admin extends BaseController
             'validation' => \Config\Services::validation(),
             'kategori' => $this->kategori->findAll(),
             'sektor' => $query,
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
         ];
         return view('Diakonia/addNewJemaat', $data);
@@ -272,6 +284,7 @@ class Admin extends BaseController
             'jemaat'  => $this->jemaat->detailJemaat($id),
             'kategori' => $this->kategori->findAll(),
             'validation' => \Config\Services::validation(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
         ]);
         if (empty($data['jemaat'])) {
@@ -397,9 +410,10 @@ class Admin extends BaseController
             'title' => 'Data Berita',
             'berita' => $this->berita->getBerita(),
             'renungan' => $this->berita->where('kategori_berita', 'Renungan')
-                ->where('jenis_berita !=', 0)->orderBy('created_at', 'desc')->findAll(),
-            'event' => $this->berita->where('jenis_berita !=', 0)->where('jenis_berita !=', 1)->where('jenis_berita !=', 2)
+                ->where('jenis_berita !=', 0)->where('jenis_berita !=', '10')->orderBy('created_at', 'desc')->findAll(),
+            'event' => $this->berita->where('jenis_berita !=', 0)->where('jenis_berita !=', 1)->where('jenis_berita !=', 2)->where('jenis_berita !=', '10')
                 ->orderBy('created_at', 'desc')->findAll(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
 
         ]);
@@ -412,6 +426,8 @@ class Admin extends BaseController
             'title' => 'Form Tambah Berita',
             'validation' => \Config\Services::validation(),
             'kategori' => $this->kategori->findAll(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
+
         ]);
         return view('admin/AddNewBerita', $data);
     }
@@ -523,6 +539,7 @@ class Admin extends BaseController
             'berita'  => $this->berita->detailBerita($id),
             'kategori' => $this->kategori->findAll(),
             'validation' => \Config\Services::validation(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
         ]);
         if (empty($data['berita'])) {
@@ -595,6 +612,7 @@ class Admin extends BaseController
             'berita'  =>  $this->berita->detailBerita($id),
             'kategori' => $this->kategori->findAll(),
             'validation' => $this->validation,
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
         ]);
         if (empty($data['berita'])) {
@@ -697,6 +715,7 @@ class Admin extends BaseController
             'title' => 'Galerry HKBP Beringin Indah',
             'validation' => \Config\Services::validation(),
             'gallery' => $this->gallery->findAll(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
         ]);
         return view('Admin/galery', $data);
@@ -864,6 +883,8 @@ class Admin extends BaseController
             'title' => 'Stensilan HKBP Beringin Indah ',
             'validation' => \Config\Services::validation(),
             'stensilan' => $this->berita->where('jenis_berita', 0)->orderby('created', 'desc')->findAll(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
+
         ]);
         return view('admin/stensilan', $data);
     }
@@ -900,7 +921,7 @@ class Admin extends BaseController
             'username' => $this->request->getVar('username'),
             'fullname' => $this->request->getVar('fullname'),
             'role' => $this->request->getVar('user'),
-            'jenis_berita' => 2, // Untuk Jenis Berita 2 adalah jenis berita bentuk file doc,docx,pdf
+            'jenis_berita' => 7, // Untuk Jenis Berita 2 adalah jenis berita bentuk file doc,docx,pdf
             'img' => $filename, // img = field database 
             'created' => date("d F Y"),
         ]);
@@ -1000,6 +1021,7 @@ class Admin extends BaseController
             'total_kas' => $pemasukan['total'] - $pengeluaran['total'],
             'kategori' => $this->kategori->findAll(),
             'validation' => $this->validation,
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
         ]);
         return view('Admin/keuangan', $data);
@@ -1067,6 +1089,7 @@ class Admin extends BaseController
                     'total_kas' => $pemasukan['total'] - $pengeluaran['total'],
                     'kategori' => $this->kategori->findAll(),
                     'validation' => $this->validation,
+                    'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
                 ]);
 
@@ -1084,6 +1107,7 @@ class Admin extends BaseController
                     'total_kas' => $pemasukan['total'] - $pengeluaran['total'],
                     'kategori' => $this->kategori->findAll(),
                     'validation' => $this->validation,
+                    'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
                 ]);
 
@@ -1266,6 +1290,7 @@ class Admin extends BaseController
             // 'program' =>   $sql->get()->getResult(),
             'validation' => $this->validation,
             'group_role' => $this->model->groupRole(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
 
 
         ]);

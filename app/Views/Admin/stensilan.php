@@ -17,7 +17,7 @@
                                     <a href="index.html">Home</a>
                                 </li>
                                 <li class="breadcrumb-item active" aria-current="page">
-                                    Stensilan
+                                    Stensilan Dan Warta
                                 </li>
                             </ol>
                         </nav>
@@ -32,7 +32,7 @@
             <!-- Simple Datatable start -->
             <div class="card-box mb-30">
                 <div class="pd-20">
-                    <h4 class="text-blue h4">Data User</h4>
+                    <h4 class="text-blue h4">Data Stensilan</h4>
                     <p class="mb-0">
                         you can find more options
 
@@ -93,7 +93,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">
-                            Tambah Stensilan
+                            Tambah Stensilan Dan Warta
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×
@@ -157,7 +157,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <h4 class="modal-title" id="myLargeModalLabel">
-                            Update Data Stensilan
+                            Update Data Stensilan Dan Warta
                         </h4>
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
                             ×

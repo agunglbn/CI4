@@ -207,7 +207,7 @@
                 <td class="text-center" colspan="4">Total Pemasukan</td>
 
                 <td class="text-center"><b>Rp.
-                        <?php echo number_format($total_pemasukan, 0, '.', '.'); ?></b></td>
+                        <?php echo number_format((int) $total_pemasukan, 0, '.', '.'); ?></b></td>
                 <td></td>
 
 
@@ -519,9 +519,18 @@
                     </tbody>
                     <tr>
                         <td class="text-center" colspan="4">Total Pengeluaran</td>
+                        <?php
+                        $total_pengeluaran['total'] = [];
+                        if (isset($total_pengeluaran['total'])) {
 
+                        ?>
+                        <td class="text-center"><b>Rp.0
+                            </b></td>
+
+                        <?php } else { ?>
                         <td class="text-center"><b>Rp.
                                 <?php echo number_format($total_pengeluaran, 0, '.', '.'); ?></b></td>
+                        <?php  } ?>
                         <td></td>
                         <td></td>
 

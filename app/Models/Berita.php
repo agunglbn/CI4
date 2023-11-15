@@ -36,7 +36,7 @@ class Berita extends Model
     {
 
         $builder = $this->db->table('berita')->where('kategori_berita !=', 'Renungan')
-            ->where('jenis_berita !=', 0)->where('jenis_berita !=', 3)->orderBy('kategori_berita', 'asc');
+            ->where('jenis_berita !=', 0)->where('jenis_berita !=', '10')->where('jenis_berita !=', 3)->orderBy('kategori_berita', 'asc');
         $query = $builder->get();
         return $query->getResult();
     }
@@ -64,6 +64,18 @@ class Berita extends Model
              berita.kategori_berita,berita.username,berita.slug,berita.role,berita.img,berita.modified,kategori.nama_kategori')
             ->join('kategori', 'kategori.nama_kategori = berita.kategori_berita')
             ->where('kategori.nama_kategori', $kategori)->paginate(2, 'berita');
+    }
+    public function getWarta()
+    {
+        // return $this->select('berita.id as judul_berita,nama_kategori,username,role,isi_berita,kategori_berita,
+        // created,modified,img')
+        //     ->join('kategori', 'kategori.nama_kategori = berita.kategori_berita')
+        //     ->where('kategori.nama_kategori')
+        //     ->findAll();
+
+        return $this->select('berita.id, berita.judul_berita,berita.isi_berita,berita.created,
+             berita.kategori_berita,berita.username,berita.slug,berita.role,berita.img,berita.modified')
+            ->where('jenis_berita', 0)->orderBy('created', 'desc')->limit(5)->paginate(2, 'berita');
     }
     // public function getBeritaKategori($kategori)
     // {

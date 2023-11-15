@@ -9,8 +9,8 @@
                         <p>
                             Jl. Palaraya No.5, Sidomulyo Tim.,<br> Kec. Marpoyan Damai, Kota Pekanbaru,<br> Riau 28289
                             <br><br>
-                            <strong>Phone:</strong> +1 5589 55488 55<br>
-                            <strong>Email:</strong> info@example.com<br>
+                            <strong>Phone:</strong> 0761-7415905 <br>
+                            <strong>Email:</strong> hkbpberinginindah@gmail.com<br>
                         </p>
                         <div class="social-links mt-3">
                             <a href="https://www.youtube.com/@hkbpberinginindah8221" class="youtube"><i
@@ -52,7 +52,7 @@
                     <p>Hii All, please subscribe to support the channel HKBP Beringin Indah</p>
                     <form action="" method="post">
                         <input type="email" name="email"> <a
-                            href="https://www.youtube.com/channel/UC2b23-B4u1HWjdanRQZ91cQ?sub_confirmation=1">
+                            href="https://www.youtube.com/channel/UCk9sspQKQt-PP73_czMmryA?sub_confirmation=1">
                             Subscribe
                         </a>
                     </form>

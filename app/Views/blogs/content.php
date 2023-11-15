@@ -16,7 +16,8 @@
                     </div>
                     <div class="contents">
                         <span class="caption"><?php echo $top['kategori_berita']; ?></span>
-                        <h2><a href="blog-single.html"><?php echo word_limiter($top['judul_berita'], 10, ' ...'); ?></a>
+                        <h2><a
+                                href="<?php echo base_url('/blogs/detailBerita' .  $top['id'] . '/' . $top['judul_berita'] . $top['slug']); ?>"><?php echo word_limiter($top['judul_berita'], 10, ' ...'); ?></a>
                         </h2>
                         <p class="mb-3"><?php echo word_limiter($top['isi_berita'], 60, ' ...'); ?></p>
 
@@ -62,7 +63,7 @@
                         <div class="post-meta">
                             <span class="d-block"><a href="#">Post</a> By <a href="#"><?php echo $blogs['role']; ?></a>
                                 (<?php echo $blogs['username']; ?>)</span>
-                            <span class="d-block"><a href="#"><?php echo $blogs['created'] ?></a> <span
+                            <span class="d-block"><a><?php echo $blogs['created'] ?></a> <span
                                     class="mx-1">&bullet;</span>
                                 <a href="#"><?php echo $blogs['kategori_berita'] ?></a>
                                 <span class="icon-star2"></span></button>
@@ -79,7 +80,7 @@
 
             <div class="col-lg-6">
                 <div class="section-title">
-                    <h2>Stensilan Ibadah</h2>
+                    <h2>Stensilan dan Warta Ibadah</h2>
                 </div>
                 <?php $i = 1; ?>
                 <?php foreach ($stensilan as $stensil) : ?>
@@ -87,7 +88,7 @@
                     <div class="number align-self-start"><?= $i++; ?></div>
                     <div class="trend-contents">
                         <h2><a
-                                href="<?= base_url(); ?>/admin/downloadfile/<?= $stensil['id']; ?>"><?php echo $stensil['judul_berita']; ?></a>
+                                href="<?= base_url(); ?>/front/downloadwarta/<?= $stensil['id']; ?>"><?php echo $stensil['judul_berita']; ?></a>
                         </h2>
                         <div class="post-meta">
                             <span class="d-block"><a href="#">Post</a> By <a

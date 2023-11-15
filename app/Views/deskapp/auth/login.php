@@ -7,12 +7,9 @@
     <title>Login Beringin Indah </title>
 
     <!-- Site favicon -->
-    <link rel="apple-touch-icon" sizes="180x180"
-        href="<?php echo base_url(); ?>/assets/vendors/images/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32"
-        href="<?php echo base_url(); ?>/assets/vendors/images/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16"
-        href="<?php echo base_url(); ?>/assets/vendors/images/favicon-16x16.png">
+    <!-- Favicons -->
+    <link href="<?php echo base_url(); ?>/assets/vendors/front/assets/img/hkbp.png" rel="icon">
+    <link href="<?php echo base_url(); ?>/assets/vendors/front/assets/img/hkbp.png" rel="apple-touch-icon">
 
     <!-- Mobile Specific Metas -->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -44,14 +41,14 @@
         <div class="container-fluid d-flex justify-content-between align-items-center">
             <div class="brand-logo">
                 <a href="login">
-                    <img src="<?php echo base_url(); ?>/assets/vendors/images/deskapp-logo.svg" alt="">
+                    <img src="<?php echo base_url(); ?>/assets/vendors/images/h1.png" alt="">
                 </a>
             </div>
-            <div class="login-menu">
+            <!-- <div class="login-menu">
                 <ul>
                     <li><a href="<?= url_to('register') ?>">Register</a></li>
                 </ul>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="login-wrap d-flex align-items-center flex-wrap justify-content-center">
@@ -153,15 +150,14 @@
 
                                         <!-- <a class="btn btn-primary btn-lg btn-block" href="index">Sign In</a> -->
                                     </div>
-                                    <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR
-                                    </div>
-                                    <?php if ($config->allowRegistration) : ?>
-                                    <div class="input-group mb-0">
-                                        <a class="btn btn-outline-primary btn-lg btn-block"
-                                            href="<?= url_to('register') ?>">Register To Create
-                                            Account</a>
-                                    </div>
-                                    <?php endif; ?>
+                                    <!-- <div class="font-16 weight-600 pt-10 pb-10 text-center" data-color="#707373">OR
+                                    </div> -->
+                                    <!-- <?php if ($config->allowRegistration) : ?>
+                                        <div class="input-group mb-0">
+                                            <a class="btn btn-outline-primary btn-lg btn-block" href="<?= url_to('register') ?>">Register To Create
+                                                Account</a>
+                                        </div>
+                                    <?php endif; ?> -->
                                 </div>
                             </div>
                         </form>

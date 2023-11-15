@@ -14,18 +14,16 @@
                     </div>
                 </div>
                 <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content">
-                    <h3>HKBP Beringin Indah.</h3>
+                    <h3> <a
+                            href="<?php echo base_url('/blogs/detailBerita' .  $gereja[0]['id'] . '/' . $gereja[0]['judul_berita'] . $gereja[0]['slug']); ?>">
+                            HKBP BERINGIN INDAH</a></h3>
                     <p class="fst-italic">
 
+                        <?php echo word_limiter($gereja[0]['judul_berita'], 60, ' ...'); ?>
                     </p>
                     <ul>
-                        <!-- <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                        </li>
-                        <li><i class="bi bi-check-circle"></i> Duis aute irure dolor in reprehenderit in voluptate
-                            velit.</li>
-                        <li><i class="bi bi-check-circle"></i> Ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                            Duis aute irure dolor in reprehenderit in voluptate trideta storacalaperda mastiro dolore eu
-                            fugiat nulla pariatur.</li> -->
+                        <?php echo word_limiter($gereja[0]['isi_berita'], 125, ' ...') ?>
+
                     </ul>
                     <p>
 
@@ -52,7 +50,7 @@
                         <span>01</span>
                         <h4>Morning Worship </h4>
                         <small>
-                            <h6>Monday, 07.00 AM - 09.00 AM </h6>
+                            <h6>Monday, 06.00 AM - 07.00 AM </h6>
                         </small>
                         <!-- <p>Ulamco laboris nisi ut aliquip ex ea commodo consequat. Et consectetur ducimus vero placeat -->
                         </p>
@@ -62,6 +60,17 @@
                 <div class="col-lg-4 mt-4 mt-lg-0 mb-3">
                     <div class="box" data-aos="zoom-in" data-aos-delay="200">
                         <span>02</span>
+                        <h5>Sunday School Children's Worship </h5>
+                        <small>
+                            <h6>Sunday, 07.00 - 08.30 AM </h6>
+                        </small>
+                        <!-- <p>Dolorem est fugiat occaecati voluptate velit esse. Dicta veritatis dolor quod et vel dire
+                            leno para dest</p> -->
+                    </div>
+                </div>
+                <div class="col-lg-4 mt-4 mt-lg-0 mb-3">
+                    <div class="box" data-aos="zoom-in" data-aos-delay="200">
+                        <span>03</span>
                         <h4>Morning Worship </h4>
                         <small>
                             <h6>Sunday, 09.00 - 10.30 AM </h6>
@@ -71,21 +80,22 @@
                     </div>
                 </div>
 
+
+                <hr>
                 <div class="col-lg-4 mt-4 mt-lg-0 mb-3">
                     <div class="box" data-aos="zoom-in" data-aos-delay="300">
-                        <span>03</span>
+                        <span>04</span>
                         <h4> Afternoon Worship </h4>
                         <small>
-                            <h6>Sunday, 11.00 AM - 01.00 PM </h6>
+                            <h6>Sunday, 11.00 AM - 12.30 PM </h6>
                         </small>
                         <!-- <p>Molestiae officiis omnis illo asperiores. Aut doloribus vitae sunt debitis quo vel nam quis
                         </p> -->
                     </div>
-                </div><br>
-                <hr>
+                </div>
                 <div class="col-lg-4 mt-4 mt-lg-0 mb-3">
                     <div class="box" data-aos="zoom-in" data-aos-delay="300">
-                        <span>03</span>
+                        <span>05</span>
                         <h4> Evening Worship </h4>
                         <small>
                             <h6>Sunday, 05.00 PM - 06.00 PM </h6>
@@ -275,7 +285,9 @@
             <div class="events-slider swiper" data-aos="fade-up" data-aos-delay="100">
 
                 <div class="swiper-wrapper">
-                    <?php foreach ($berita as $news) { ?>
+                    <?php foreach ($berita as $news) {
+
+                    ?>
                     <div class="swiper-slide">
 
                         <div class="row event-item">
@@ -590,13 +602,13 @@
                         <div class="email">
                             <i class="bi bi-envelope"></i>
                             <h4>Email:</h4>
-                            <p>nhkbpberinginindah@gmail.com</p>
+                            <p>hkbpberinginindah@gmail.com</p>
                         </div>
 
                         <div class="phone">
                             <i class="bi bi-phone"></i>
                             <h4>Call:</h4>
-                            <p>+1 5589 55488 55s</p>
+                            <p>0761-7415905</p>
                         </div>
 
                     </div>

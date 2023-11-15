@@ -14,7 +14,7 @@ class Response extends Model
     protected $returnType       = 'array';
     protected $useSoftDeletes   = false;
     protected $protectFields    = true;
-    protected $allowedFields    = ['nama', 'salt', 'email', 'subject', 'message', 'create_at'];
+    protected $allowedFields    = ['nama', 'salt', 'email', 'subject', 'message', 'create_at', 'ip_address', 'tanggal'];
 
     // Dates
     protected $useTimestamps = true;

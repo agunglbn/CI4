@@ -20,6 +20,8 @@ class Users extends BaseController
     {
         if (in_groups('user')) {
             $data['title'] = 'Dashboard User';
+            $data['notifikasi'] = $this->responses->orderBy('create_at', 'desc')->limit(8)->find();
+
             return view('User/dashboard', $data);
         } elseif (in_groups('admin')) {
             $db  = \Config\Database::connect();
@@ -35,26 +37,61 @@ class Users extends BaseController
 
                 'title' => 'Dashboard Admin',
                 'progres' => $query,
+                'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
+            ]);
+            return view('Admin/dashboard', $data);
+        } elseif (in_groups('superadmin')) {
+            $db  = \Config\Database::connect();
+            $sql = $db->table('program');
+
+            $query = $sql->select(
+                'program.id,program.nama_program,program.divisi,program.progres'
+            )
+                ->distinct('divisi')->groupBy('divisi')->select('SUM(progres) / COUNT(divisi) as nilai')->where('status', 1)->get()->getResult();
+
+
+            $data = ([
+
+                'title' => 'Dashboard Admin',
+                'progres' => $query,
+                'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
             ]);
             return view('Admin/dashboard', $data);
         } elseif (in_groups('parataon')) {
             $data['title'] = 'Dashboard Parataon';
+            $data['notifikasi'] = $this->responses->orderBy('create_at', 'desc')->limit(8)->find();
+
             return view('User/dashboard', $data);
         } elseif (in_groups('diakonia')) {
             $data['title'] = 'Dashboard Diakonia';
+            $data['notifikasi'] = $this->responses->orderBy('create_at', 'desc')->limit(8)->find();
+
             return view('User/dashboard', $data);
         } else {
             $data['title'] = 'Dashboard  User';
+            $data['notifikasi'] = $this->responses->orderBy('create_at', 'desc')->limit(8)->find();
             return view('User/dashboard', $data);
         }
     }
 
+    // Notifikasi
+    public function deletenotification()
+    {
+
+        $success = $this->db->query("TRUNCATE response");
+        if ($success) {
+            session()->setFlashdata('success', 'Notifikasi berhasil dibersihkan!');
+            return redirect()->to(base_url('users/index'));
+        }
+    }
 
     public function profile()
     {
         $data = ([
             'title' => 'Profile Account',
             'validation' => \Config\Services::validation(),
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
+
 
         ]);
         return view('profile', $data);
@@ -182,6 +219,8 @@ class Users extends BaseController
                 ->findAll(),
             'kategori' => $this->kategori->findAll(),
             'validation' => $this->validation,
+            'notifikasi' => $this->responses->orderBy('create_at', 'desc')->limit(8)->find()
+
 
         ]);
         return view('Diakonia/finance_diakon', $data);
@@ -196,6 +235,7 @@ class Users extends BaseController
                 ->findAll(),
             'peminjaman' => $this->peminjaman->orderBy('created', 'asc')->findAll(),
             'validation' => $this->validation,
+
 
         ]);
         return view('Parataon/inventory', $data);

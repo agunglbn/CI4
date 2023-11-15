@@ -53,7 +53,7 @@
         <div class="container d-flex justify-content-center justify-content-md-between">
 
             <div class="contact-info d-flex align-items-center">
-                <i class="bi bi-phone d-flex align-items-center"><span>+1 5589 55488 55</span></i>
+                <i class="bi bi-phone d-flex align-items-center"><span> 0761-7415905 </span></i>
                 <i class="bi bi-clock d-flex align-items-center ms-4"><span> Mon-Sat: 11AM - 23PM</span></i>
             </div>
 
@@ -105,7 +105,6 @@
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
             <!-- <a href="#book-a-table" class="book-a-table-btn scrollto d-none d-lg-flex">Book a table</a> -->
-            <a href="<?php echo base_url('login'); ?>" class="book-a-table-btn scrollto d-none d-lg-flex">Login</a>
         </div>
     </header><!-- End Header -->
 

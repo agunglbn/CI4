@@ -17,8 +17,9 @@ class Front extends BaseController
     public function index()
     {
         $data = ([
+            'gereja' => $this->berita->where('status', '1')->where('jenis_berita =', 10)->find(),
             'berita' =>  $this->berita->where('status', '1')
-                ->where('kategori_berita !=', 'Renungan')->where('jenis_berita !=', 0)
+                ->where('kategori_berita !=', 'Renungan')->where('jenis_berita !=', 0)->where('jenis_berita !=', '10')
                 ->where('jenis_berita !=', 3)
                 ->orderBy('created', 'desc')->limit(5) //ASC dan DESC   
                 ->find(),
@@ -26,7 +27,7 @@ class Front extends BaseController
                 ->findAll(),
             'kategori' =>  $this->kategori->findAll(),
             'events' => $this->berita->where('jenis_berita', '3')->where('status', '1')
-                ->orderBy('created', 'desc')->limit(5)->find(),
+                ->orderBy('created', 'desc')->limit(5)->findall(),
             'validation' => \Config\Services::validation(),
 
 
@@ -44,14 +45,15 @@ class Front extends BaseController
         $data = ([
             'slider' => $this->berita->where('jenis_berita', '1')->where('status', 1)->orderBy('created', 'desc')->limit(3)->find(),
             'kategori' =>  $this->kategori->findAll(),
-            'stensilan' => $this->berita->where('jenis_berita', '0')->where('status', 1)->orderBy('created', 'desc')->limit(5)->find(),
-            'berita' => $this->berita->where('jenis_berita !=', '0')->where('status', 1)->orderBy('created', 'desc')->paginate(5, 'recent'),
+            'stensilan' => $this->berita->where('jenis_berita', '0')->where('status', 1)->orderBy('created_at', 'desc')->limit(5)->find(),
+            'berita' => $this->berita->where('jenis_berita !=', '0')->where('jenis_berita !=', '10')->where('status', 1)->orderBy('created', 'desc')->paginate(5, 'recent'),
             'pager' => $this->berita->pager,
 
 
         ]);
         return view('blogs/content', $data);
     }
+
 
     public function detailKategori($kategori = null)
     {
@@ -72,14 +74,33 @@ class Front extends BaseController
         ]);
         return view('blogs/detail_kategori', $data);
     }
+    public function warta()
+    {
 
+        $data = ([
+            // 'slider' => $this->berita->where('jenis_berita', '1')->orderBy('created', 'desc')->limit(3)->find(),
+            'stensilan' => $this->berita->getWarta(),
+            'pager' => $this->berita->pager,
+            'kategori' =>  $this->kategori->findAll(),
+            // 'stensilan' => $this->berita->where('jenis_berita', '0')->where('status', 1)->orderBy('created', 'desc')->limit(5)->find(),
+            'lastnews' => $this->berita->where('jenis_berita !=0')->where('kategori_berita !=', 'Renungan')->where('jenis_berita !=', '10')
+                ->orderBy('created_at', 'desc')->limit(5)->find(),
+            // 'getkategori' =>  $query->getRow(),
+        ]);
+        return view('blogs/warta', $data);
+    }
+    public function downloadwarta($id)
+    {
+        $data = $this->berita->find($id);
+        return $this->response->download('assets/vendors/img_berita/stensilan/' . $data['img'], null);
+    }
     public function detailBerita($id = null)
     {
         $data = ([
             'kategori' =>  $this->kategori->findAll(),
-            'stensilan' => $this->berita->where('jenis_berita', '0')->where('status', 1)->orderBy('created', 'desc')->limit(5)->find(),
+            'stensilan' => $this->berita->where('jenis_berita', '0')->where('status', 1)->orderBy('created_at', 'desc')->limit(5)->find(),
             'berita' => $this->berita->detailBerita($id),
-            'lastnews' => $this->berita->where('jenis_berita !=0')->where('kategori_berita !=', 'Renungan')
+            'lastnews' => $this->berita->where('jenis_berita !=0')->where('kategori_berita !=', 'Renungan')->where('jenis_berita !=', '10')
                 ->orderBy('created_at', 'desc')->limit(5)->find(),
 
         ]);
@@ -89,6 +110,8 @@ class Front extends BaseController
     public function message()
     {
 
+        // Mendapatkan alamat IP pengguna saat ini
+        $ipAddress = $_SERVER['REMOTE_ADDR'];
         // Validasi Form Kritik
         if (!$this->validate(
             [
@@ -108,11 +131,29 @@ class Front extends BaseController
                         'valid_email' => 'Email yang dimasukkan tidak valid !'
 
                     ]
-                ]
+                ],
+                'message' => [
+                    'rules' => 'required|alpha_numeric_space|max_length[100]',
+                    'errors' => [
+                        'required' => 'Pesan tidak boleh kosong !',
+                        'alpha_numeric_space' => 'Gunakan karakter tampa tanda spesial !',
+                        'max_length' => 'Penggunaan karakter nama terlalu panjang Max 100 !',
+                    ]
+                ],
             ]
         )) {
             session()->setFlashdata('error', 'Silahkan isi dengan benar !');
             return redirect()->back()->withInput();
+        }
+        // Memeriksa apakah pengguna sudah mengisi form pada hari ini
+        $today = date('Y-m-d');
+        $previousSubmission = $this->responses->where('ip_address', $ipAddress)
+            ->where('tanggal', $today)
+            ->first();
+
+        if ($previousSubmission) {
+            // Jika pengguna telah mengisi form hari ini, tampilkan pesan error atau arahkan ke halaman lain
+            return redirect()->back()->with('error', 'Anda telah mengisi form hari ini.');
         }
         $salt = uniqid('', true);
         $succes = $this->responses->insert([
@@ -120,7 +161,9 @@ class Front extends BaseController
             'nama' => $this->request->getVar('name'),
             'email' => $this->request->getVar('email'),
             'subject' => $this->request->getVar('subject'),
-            'message' => $this->request->getVar('message'),
+            'message' => htmlspecialchars($this->request->getVar('message')),
+            'ip_address' => $ipAddress,
+            'tanggal' => $today,
         ]);
 
         if ($succes) {

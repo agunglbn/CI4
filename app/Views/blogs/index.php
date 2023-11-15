@@ -65,9 +65,12 @@
                     </div>
                     <div class="col-12 col-lg-6 ml-auto d-flex">
                         <div class="ml-md-auto top-social d-none d-lg-inline-block">
-                            <a href="#" class="d-inline-block p-3"><span class="icon-facebook"></span></a>
-                            <a href="#" class="d-inline-block p-3"><span class="icon-twitter"></span></a>
-                            <a href="#" class="d-inline-block p-3"><span class="icon-instagram"></span></a>
+                            <a href="https://www.facebook.com/beringin.indah.543" class="d-inline-block p-3"><span
+                                    class="icon-facebook"></span></a>
+                            <a href="https://www.instagram.com/nhkbpberinginindah/" class="d-inline-block p-3"><span
+                                    class="icon-youtube"></span></a>
+                            <a href="https://www.youtube.com/@hkbpberinginindah8221" class="d-inline-block p-3"><span
+                                    class="icon-instagram"></span></a>
                         </div>
                         <form action="#" class="search-form d-inline-block">
 
@@ -111,7 +114,10 @@
                                             <?php echo $kat['nama_kategori'] ?></a>
                                     </li>
                                     <?php } ?>
-
+                                    <li class="active">
+                                        <a href="<?php echo base_url('/warta')  ?>" class="nav-link text-left">Stensilan
+                                            & Warta</a>
+                                    </li>
                                 </ul>
                             </nav>
 

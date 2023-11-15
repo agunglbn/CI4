@@ -18,39 +18,39 @@
                     </a>
                 </li>
                 <?php if (in_groups('parataon')) : ?>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-package"></span><span class="mtext">Parataon</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?php echo base_url('/inventory'); ?>">Data Parataon</a></li>
-                        <li><a href="<?php echo base_url('/users/financeParataon'); ?>">Finance</a></li>
-                        <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon icon-copy ti-package"></span><span class="mtext">Parataon</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="<?php echo base_url('/inventory'); ?>">Data Parataon</a></li>
+                            <li><a href="<?php echo base_url('/users/financeParataon'); ?>">Finance</a></li>
+                            <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
 
-                    </ul>
-                </li>
+                        </ul>
+                    </li>
                 <?php endif; ?>
                 <?php if (in_groups('diakonia')) : ?>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-server"></span><span class="mtext">Diakonia</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?php echo base_url('/admin/jemaat'); ?>">Data Jemaat</a></li>
-                        <li><a href="<?php echo base_url('/financeDiakon'); ?>">Administrasi</a></li>
-                        <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
-                    </ul>
-                </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon icon-copy ti-server"></span><span class="mtext">Diakonia</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="<?php echo base_url('/admin/jemaat'); ?>">Data Jemaat</a></li>
+                            <li><a href="<?php echo base_url('/financeDiakon'); ?>">Administrasi</a></li>
+                            <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
+                        </ul>
+                    </li>
                 <?php endif; ?>
                 <?php if (in_groups('naposo')) : ?>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-server"></span><span class="mtext">Naposo</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
-                    </ul>
-                </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon icon-copy ti-server"></span><span class="mtext">Naposo</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="<?php echo base_url('/user/program'); ?>">Program Kerja</a></li>
+                        </ul>
+                    </li>
                 <?php endif; ?>
                 <!-- <li class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle">
@@ -72,47 +72,92 @@
                 </li> -->
 
                 <?php if (in_groups('admin')) : ?>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon icon-copy ti-server"></span><span class="mtext">Diakonia</span>
-                    </a>
-                    <ul class="submenu">
-                        <li><a href="<?php echo base_url('/admin/jemaat'); ?>">Data Jemaat</a></li>
-                        <li><a href="<?php echo base_url('/admin/kas'); ?>">Administrasi</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="javascript:;" class="dropdown-toggle">
-                        <span class="micon dw dw-book1"></span><span class="mtext">Informasi</span>
-                    </a>
-                    <ul class="submenu">
-                        <li> <a href="<?php echo base_url('admin/berita'); ?>" class="dropdown-toggle no-arrow">
-                                Berita
-                            </a></li>
-                        <li><a href="<?php echo base_url('admin/gallery'); ?>">Galerry</a></li>
-                        <li><a href="<?php echo base_url('admin/stensilan'); ?>">Stensilan</a></li>
-                    </ul>
-                </li>
-                <!-- <li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon icon-copy ti-server"></span><span class="mtext">Diakonia</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="<?php echo base_url('/admin/jemaat'); ?>">Data Jemaat</a></li>
+                            <li><a href="<?php echo base_url('/admin/kas'); ?>">Administrasi</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-book1"></span><span class="mtext">Informasi</span>
+                        </a>
+                        <ul class="submenu">
+                            <li> <a href="<?php echo base_url('admin/berita'); ?>" class="dropdown-toggle no-arrow">
+                                    Berita
+                                </a></li>
+                            <li><a href="<?php echo base_url('admin/gallery'); ?>">Galerry</a></li>
+                            <li><a href="<?php echo base_url('admin/stensilan'); ?>">Stensilan</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li>
                     <a href="<?php echo base_url('admin/berita'); ?>" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-book1"></span><span class="mtext">Berita</span>
                     </a>
                 </li> -->
-                <li>
-                    <a href="<?php echo base_url('program'); ?>" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-notepad"></span><span class="mtext">Program Kerja</span></a>
-                </li>
-                <li>
-                    <a href="<?php echo base_url('Kas'); ?>" class="dropdown-toggle no-arrow">
-                        <span class="micon dw dw-money-1"></span><span class="mtext">Keuangan</span> </a>
-                </li>
+                    <li>
+                        <a href="<?php echo base_url('program'); ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-notepad"></span><span class="mtext">Program Kerja</span></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('Kas'); ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-money-1"></span><span class="mtext">Keuangan</span> </a>
+                    </li>
 
 
-                <li>
+                    <!-- <li>
                     <a href="<?php echo base_url('admin'); ?>" class="dropdown-toggle no-arrow">
                         <span class="micon dw dw-add-user"></span><span class="mtext">User Management</span>
                     </a>
-                </li>
+                </li> -->
+
+                <?php endif; ?>
+
+                <?php if (in_groups('superadmin')) : ?>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon icon-copy ti-server"></span><span class="mtext">Diakonia</span>
+                        </a>
+                        <ul class="submenu">
+                            <li><a href="<?php echo base_url('/admin/jemaat'); ?>">Data Jemaat</a></li>
+                            <li><a href="<?php echo base_url('/admin/kas'); ?>">Administrasi</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="javascript:;" class="dropdown-toggle">
+                            <span class="micon dw dw-book1"></span><span class="mtext">Informasi</span>
+                        </a>
+                        <ul class="submenu">
+                            <li> <a href="<?php echo base_url('admin/berita'); ?>" class="dropdown-toggle no-arrow">
+                                    Berita
+                                </a></li>
+                            <li><a href="<?php echo base_url('admin/gallery'); ?>">Galerry</a></li>
+                            <li><a href="<?php echo base_url('admin/stensilan'); ?>">Stensilan</a></li>
+                        </ul>
+                    </li>
+                    <!-- <li>
+                    <a href="<?php echo base_url('admin/berita'); ?>" class="dropdown-toggle no-arrow">
+                        <span class="micon dw dw-book1"></span><span class="mtext">Berita</span>
+                    </a>
+                </li> -->
+                    <li>
+                        <a href="<?php echo base_url('program'); ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-notepad"></span><span class="mtext">Program Kerja</span></a>
+                    </li>
+                    <li>
+                        <a href="<?php echo base_url('Kas'); ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-money-1"></span><span class="mtext">Keuangan</span> </a>
+                    </li>
+
+
+                    <li>
+                        <a href="<?php echo base_url('admin'); ?>" class="dropdown-toggle no-arrow">
+                            <span class="micon dw dw-add-user"></span><span class="mtext">User Management</span>
+                        </a>
+                    </li>
 
                 <?php endif; ?>
                 <!-- <li class="dropdown">

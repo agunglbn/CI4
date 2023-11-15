@@ -46,6 +46,7 @@ class Autoload extends AutoloadConfig
         'Config'      => APPPATH . 'Config',
         'App'         => APPPATH,
         'Myth\Auth'   => APPPATH . 'ThirdParty/myth-auth/src',
+        'RealRashid\\SweetAlert' => ROOTPATH . 'vendor/realrashid/sweet-alert/src',
     ];
 
     /**

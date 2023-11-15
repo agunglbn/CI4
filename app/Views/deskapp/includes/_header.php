@@ -135,7 +135,7 @@
                                 <li>
                                     <a href="#">
                                         <img src="<?php echo base_url(); ?>/assets/vendors/images/img.jpg" alt="">
-                                        <h3>John Doe</h3>
+                                        <h3>John Doee</h3>
                                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed...</p>
                                     </a>
                                 </li>

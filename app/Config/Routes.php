@@ -20,7 +20,9 @@ $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Front');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
-$routes->set404Override();
+$routes->set404Override(function () {
+    echo view('deskapp/error-pages/404.php');
+});
 $routes->setAutoRoute(true);
 // The Auto Routing (Legacy) is very dangerous. It is easy to create vulnerable apps
 // where controller filters or CSRF protection are bypassed.
@@ -41,21 +43,25 @@ $routes->setAutoRoute(true);
 $routes->get('/', 'Front::index');
 $routes->post('/addMessage', 'Front::message');
 $routes->get('/blogs', 'Front::blogs');
+$routes->get('/warta', 'Front::warta');
 $routes->get('/kategori/(:segment)', 'Front::detailKategori/$1');
 $routes->get('/blogs/detailBerita(:segment)/(:segment)', 'Front::detailBerita/$1/$2');
+$routes->get('/front/downloadwarta/(:segment)', 'Front::downloadwarta/$1');
+
 $routes->group('', ['filter' => 'login'], function ($routes) {
     $routes->get('/', 'Users::index');
     $routes->get('/Users', 'Users::index');
-    $routes->get('/admin', 'Admin::index', ['filter' => 'role:admin']);
-    $routes->get('/admin/index', 'Admin::index', ['filter' => 'role:admin']);
-    $routes->get('/admin/(:num)', 'Admin::detailUser/$1', ['filter' => 'role:admin']);
-    $routes->get('/admin/newUser', 'Admin::newUser', ['filter' => 'role:admin']);
-    $routes->post('/admin/tambah', 'Admin::tambah', ['filter' => 'role:admin']);
-    $routes->get('/admin/updateUser/(:segment)/(:segment)', 'Admin::updateUser/$1/$2', ['filter' => 'role:admin']);
-    $routes->post('/admin/DeleteUser/(:num)', 'Admin::DeleteUser/$1', ['filter' => 'role:admin']);
-    $routes->get('/program', 'Admin::program', ['filter' => 'role:admin']);
-    $routes->POST('/admin/newProgram', 'Admin::addNewProgram', ['filter' => 'role:admin']);
-    $routes->post('/admin/statusProgram(:num)', 'Admin::statusProgram/$1', ['filter' => 'role:admin']);
+    $routes->post('/Users/deletenotif', 'Users::deletenotification', ['filter' => 'role:admin,superadmin']);
+    $routes->get('/admin', 'Admin::index', ['filter' => 'role:superadmin']);
+    $routes->get('/admin/index', 'Admin::index', ['filter' => 'role:superadmin']);
+    $routes->get('/admin/(:num)', 'Admin::detailUser/$1', ['filter' => 'role:superadmin']);
+    $routes->get('/admin/newUser', 'Admin::newUser', ['filter' => 'role:superadmin']);
+    $routes->post('/admin/tambah', 'Admin::tambah', ['filter' => 'role:superadmin']);
+    $routes->get('/admin/updateUser/(:segment)/(:segment)', 'Admin::updateUser/$1/$2', ['filter' => 'role:superadmin']);
+    $routes->post('/admin/DeleteUser/(:num)', 'Admin::DeleteUser/$1', ['filter' => 'role:superadmin']);
+    $routes->get('/program', 'Admin::program', ['filter' => 'role:admin,superadmin']);
+    $routes->POST('/admin/newProgram', 'Admin::addNewProgram', ['filter' => 'role:admin,superadmin']);
+    $routes->post('/admin/statusProgram(:num)', 'Admin::statusProgram/$1', ['filter' => 'role:admin,superadmin']);
     $routes->delete('/admin/deleteProgram/(:num)', 'Admin::deleteProgram/$1', ['filter' => 'role:admin ,diakonia,parataon ']);
 
     // profile
@@ -64,57 +70,57 @@ $routes->group('', ['filter' => 'login'], function ($routes) {
 
 
     // Jemaat Diakonia
-    $routes->get('/admin/jemaat', 'Admin::jemaat', ['filter' => 'role:admin,diakonia']);
-    $routes->get('/admin/newJemaat', 'Admin::newJemaat', ['filter' => 'role:admin,diakonia']);
-    $routes->post('/admin/addNewJemaat', 'Admin::addNewJemaat', ['filter' => 'role:admin,diakonia']);
-    $routes->get('/admin/(:num)', 'Admin::detailJemaat/$1', ['filter' => 'role:admin,diakonia']);
-    $routes->post('/admin/(:num)', 'Admin::updateJemaat/$1', ['filter' => 'role:admin,diakonia']);
-    $routes->delete('/admin/(:num)', 'Admin::deleteJemaat/$1', ['filter' => 'role:admin,diakonia']);
-    $routes->get('/financeDiakon', 'Users::financeDiakon', ['filter' => 'role:admin,diakonia']);
+    $routes->get('/admin/jemaat', 'Admin::jemaat', ['filter' => 'role:admin,diakonia,superadmin']);
+    $routes->get('/admin/newJemaat', 'Admin::newJemaat', ['filter' => 'role:admin,diakonia,superadmin']);
+    $routes->post('/admin/addNewJemaat', 'Admin::addNewJemaat', ['filter' => 'role:admin,diakonia,superadmin']);
+    $routes->get('/admin/(:num)', 'Admin::detailJemaat/$1', ['filter' => 'role:admin,diakonia,superadmin']);
+    $routes->post('/admin/(:num)', 'Admin::updateJemaat/$1', ['filter' => 'role:admin,diakonia,superadmin']);
+    $routes->delete('/admin/(:num)', 'Admin::deleteJemaat/$1', ['filter' => 'role:admin,diakonia,superadmin']);
+    $routes->get('/financeDiakon', 'Users::financeDiakon', ['filter' => 'role:admin,diakonia,superadmin']);
     // Berita Admin
-    $routes->get('/admin/berita', 'Admin::berita', ['filter' => 'role:admin']);
-    $routes->get('/admin/formBerita', 'Admin::formBerita', ['filter' => 'role:admin']);
-    $routes->post('/admin/TambahBerita', 'Admin::TambahBerita', ['filter' => 'role:admin']);
-    $routes->get('/detailBerita/(:segment)/(:segment)', 'Admin::detailBerita/$1/$2', ['filter' => 'role:admin']);
-    $routes->delete('/admin/deleteBerita/(:segment)/(:segment)', 'Admin::deleteBerita/$1/$2', ['filter' => 'role:admin']);
-    $routes->post('/admin/updateStatusBerita(:num)', 'Admin::updateStatusBerita/$1', ['filter' => 'role:admin']);
-    $routes->get('/formUpdateBerita/(:segment)/(:segment)', 'Admin::formUpdateBerita/$1/$2', ['filter' => 'role:admin']);
-    $routes->post('/admin/updateBerita(:segment)', 'Admin::updateBerita/$1', ['filter' => 'role:admin']);
+    $routes->get('/admin/berita', 'Admin::berita', ['filter' => 'role:admin,superadmin']);
+    $routes->get('/admin/formBerita', 'Admin::formBerita', ['filter' => 'role:admin,superadmin']);
+    $routes->post('/admin/TambahBerita', 'Admin::TambahBerita', ['filter' => 'role:admin,superadmin']);
+    $routes->get('/detailBerita/(:segment)/(:segment)', 'Admin::detailBerita/$1/$2', ['filter' => 'role:admin,superadmin']);
+    $routes->delete('/admin/deleteBerita/(:segment)/(:segment)', 'Admin::deleteBerita/$1/$2', ['filter' => 'role:admin,superadmin']);
+    $routes->post('/admin/updateStatusBerita(:num)', 'Admin::updateStatusBerita/$1', ['filter' => 'role:admin,superadmin']);
+    $routes->get('/formUpdateBerita/(:segment)/(:segment)', 'Admin::formUpdateBerita/$1/$2', ['filter' => 'role:admin,superadmin']);
+    $routes->post('/admin/updateBerita(:segment)', 'Admin::updateBerita/$1', ['filter' => 'role:admin,superadmin']);
     // Gallery
-    $routes->get('/admin/gallery', 'Admin::gallery', ['filter' => 'role:admin']);
-    $routes->post('/admin/TambahGallery', 'Admin::TambahGallery', ['filter' => 'role:admin']);
-    $routes->delete('/admin/deleteGallery/(:segment)/(:segment)', 'Admin::deleteGallery/$1/$2', ['filter' => 'role:admin']);
-    $routes->PUT('/admin/updateGallery(:segment)/(:segment)', 'Admin::updateGallery/$1/$2', ['filter' => 'role:admin']);
-    $routes->post('/admin/statusGallery(:num)', 'Admin::statusGallery/$1', ['filter' => 'role:admin']);
+    $routes->get('/admin/gallery', 'Admin::gallery', ['filter' => 'role:admin,superadmin']);
+    $routes->post('/admin/TambahGallery', 'Admin::TambahGallery', ['filter' => 'role:admin,superadmin']);
+    $routes->delete('/admin/deleteGallery/(:segment)/(:segment)', 'Admin::deleteGallery/$1/$2', ['filter' => 'role:admin,superadmin']);
+    $routes->PUT('/admin/updateGallery(:segment)/(:segment)', 'Admin::updateGallery/$1/$2', ['filter' => 'role:admin,superadmin']);
+    $routes->post('/admin/statusGallery(:num)', 'Admin::statusGallery/$1', ['filter' => 'role:admin,superadmin']);
 
     // Stensilan
-    $routes->post('/admin/addStensilan', 'Admin::addStensilan', ['filter' => 'role:admin']);
+    $routes->post('/admin/addStensilan', 'Admin::addStensilan', ['filter' => 'role:admin,superadmin']);
     $routes->get('/admin/downloadfile/(:segment)', 'Admin::downloadfile/$1');
 
 
     // Keuangan Admin,Diakon,Parataon
-    $routes->get('/admin/Kas', 'Admin::kas', ['filter' => 'role:admin']);
-    $routes->get('/Kas', 'Admin::kas', ['filter' => 'role:admin']);
-    $routes->get('/filter', 'Admin::filter', ['filter' => 'role:admin']);
-    $routes->post('/admin/TambahKhas', 'Admin::TambahKhas', ['filter' => 'role:admin ,diakonia,parataon']);
-    $routes->get('/detailKas/(:num)', 'Admin::detailKas/$1', ['filter' => 'role:admin ,diakonia,parataon']);
-    $routes->post('/admin/UpdateKas(:segment)', 'Admin::UpdateKas/$1', ['filter' => 'role:admin ,diakonia,parataon']);
-    $routes->delete('/admin/deleteKas/(:num)', 'Admin::deleteKas/$1', ['filter' => 'role:admin ,diakonia,parataon ']);
-    $routes->post('/admin/updateStatusKas(:num)', 'Admin::updateStatusKas/$1', ['filter' => 'role:admin']);
+    $routes->get('/admin/Kas', 'Admin::kas', ['filter' => 'role:admin,superadmin']);
+    $routes->get('/Kas', 'Admin::kas', ['filter' => 'role:admin,superadmin']);
+    $routes->get('/filter', 'Admin::filter', ['filter' => 'role:admin,superadmin']);
+    $routes->post('/admin/TambahKhas', 'Admin::TambahKhas', ['filter' => 'role:admin ,diakonia,parataon,superadmin']);
+    $routes->get('/detailKas/(:num)', 'Admin::detailKas/$1', ['filter' => 'role:admin ,diakonia,parataon,superadmin']);
+    $routes->post('/admin/UpdateKas(:segment)', 'Admin::UpdateKas/$1', ['filter' => 'role:admin ,diakonia,parataon,superadmin']);
+    $routes->delete('/admin/deleteKas/(:num)', 'Admin::deleteKas/$1', ['filter' => 'role:admin ,diakonia,parataon,superadmin ']);
+    $routes->post('/admin/updateStatusKas(:num)', 'Admin::updateStatusKas/$1', ['filter' => 'role:admin,superadmin']);
 
     // Parhataon
-    $routes->get('/inventory', 'Users::inventory', ['filter' => 'role:parataon,admin']);
-    $routes->post('/users/addInventory', 'Users::addInventory', ['filter' => 'role:admin,parataon']);
-    $routes->PUT('/users/updateInventory(:segment)/(:segment)', 'Users::updateInventory/$1/$2', ['filter' => 'role:admin,diakonia']);
-    $routes->post('/users/deleteInventory/(:num)', 'users::deleteInventory/$1', ['filter' => 'role:admin,parataon ']);
-    $routes->post('/users/updateStatusPeminjaman(:num)', 'Users::updateStatusPeminjaman/$1', ['filter' => 'role:admin,parataon']);
-    $routes->get('/users/financeParataon', 'Users::financeParataon', ['filter' => 'role:parataon,admin']);
+    $routes->get('/inventory', 'Users::inventory', ['filter' => 'role:parataon,admin,superadmin']);
+    $routes->post('/users/addInventory', 'Users::addInventory', ['filter' => 'role:admin,parataon,superadmin']);
+    $routes->PUT('/users/updateInventory(:segment)/(:segment)', 'Users::updateInventory/$1/$2', ['filter' => 'role:admin,diakonia,superadmin']);
+    $routes->post('/users/deleteInventory/(:num)', 'users::deleteInventory/$1', ['filter' => 'role:admin,parataon ,superadmin']);
+    $routes->post('/users/updateStatusPeminjaman(:num)', 'Users::updateStatusPeminjaman/$1', ['filter' => 'role:admin,parataon,superadmin']);
+    $routes->get('/users/financeParataon', 'Users::financeParataon', ['filter' => 'role:parataon,admin,superadmin']);
 
     // Program Kerja ALL USER
-    $routes->get('/user/program', 'Users::programUser', ['filter' => 'role:diakonia,parataon,naposo']);
-    $routes->POST('/user/newProgram', 'Users::addProgramUser', ['filter' => 'role:diakonia,parataon,naposo']);
-    $routes->PUT('/UpdateProgram(:num)', 'Users::UpdateProgramUser/$1', ['filter' => 'role:diakonia,parataon,naposo']);
-    $routes->delete('/deleteProgramUser(:num)', 'Users::deleteProgramUser/$1', ['filter' => 'role:diakonia,parataon,naposo']);
+    $routes->get('/user/program', 'Users::programUser', ['filter' => 'role:diakonia,parataon,naposo,superadmin']);
+    $routes->POST('/user/newProgram', 'Users::addProgramUser', ['filter' => 'role:diakonia,parataon,naposo,superadmin']);
+    $routes->PUT('/UpdateProgram(:num)', 'Users::UpdateProgramUser/$1', ['filter' => 'role:diakonia,parataon,naposo,superadmin']);
+    $routes->delete('/deleteProgramUser(:num)', 'Users::deleteProgramUser/$1', ['filter' => 'role:diakonia,parataon,naposo,superadmin']);
 });
 
 
